@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ECDLP on Slightwind</title>
+    <link>https://blog.slightwind.cn/tags/ecdlp/</link>
+    <description>Recent content in ECDLP on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://blog.slightwind.cn/papermod-cover.png</url>
+      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 29 Oct 2021 10:46:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/ecdlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ByteCTF 2021 Crypto</title>
+      <link>https://blog.slightwind.cn/posts/ctf/bytectf2021/</link>
+      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
+      
+      <guid>https://blog.slightwind.cn/posts/ctf/bytectf2021/</guid>
+      <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
+encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
+首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
+读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。
+现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。
+from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&amp;lt;129) and (i&amp;gt;31)) for i in s]) c = &amp;quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&amp;quot; c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt += 1 try: print(m1.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Affine on Slightwind</title>
+    <link>https://blog.slightwind.cn/tags/affine/</link>
+    <description>Recent content in Affine on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://blog.slightwind.cn/papermod-cover.png</url>
+      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 20 Jan 2020 03:38:02 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/affine/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HGAME 2020 week1 writeup</title>
+      <link>https://blog.slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</link>
+      <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
+      
+      <guid>https://blog.slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</guid>
+      <description>HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}
+Crypto InfantRSA 题目：
+p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：
+p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g !</description>
+    </item>
+    
+  </channel>
+</rss>

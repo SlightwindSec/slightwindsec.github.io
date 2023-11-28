@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML | Slightwind</title>
+<meta name="keywords" content="Notes, Kaggle, ML">
+<meta name="description" content="Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
+Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
+给了一个简单使用pandas的例子：
+# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
+有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
+Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。">
+<meta name="author" content="Slightwind">
+<link rel="canonical" href="https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c7114bf2e60e294d9801cc3e33241fb43d14d31c3f547fb2668595a22e5fb442.css" integrity="sha256-xxFL8uYOKU2YAcw&#43;MyQftD0U0xw/VH&#43;yZoWVoi5ftEI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.slightwind.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.slightwind.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.slightwind.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.slightwind.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.slightwind.cn/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: #282c34;
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{aligned}", right: "\\end{aligned}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta property="og:title" content="Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML" />
+<meta property="og:description" content="Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
+Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
+给了一个简单使用pandas的例子：
+# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
+有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
+Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/" /><meta property="og:image" content="https://blog.slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-10T16:23:00+00:00" />
+<meta property="article:modified_time" content="2022-03-10T16:23:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+
+<meta name="twitter:title" content="Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML"/>
+<meta name="twitter:description" content="Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
+Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
+给了一个简单使用pandas的例子：
+# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
+有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
+Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://blog.slightwind.cn/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Notes: Kaggle Courses - Intro to ML \u0026 Intermediate ML",
+      "item": "https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Notes: Kaggle Courses - Intro to ML \u0026 Intermediate ML",
+  "name": "Notes: Kaggle Courses - Intro to ML \u0026 Intermediate ML",
+  "description": "Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。\n从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。\nBasic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。\n给了一个简单使用pandas的例子：\n# save filepath to variable for easier access melbourne_file_path = '../input/melbourne-housing-snapshot/melb_data.csv' # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。\n有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。\nYour First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。",
+  "keywords": [
+    "Notes", "Kaggle", "ML"
+  ],
+  "articleBody": "Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。\n从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。\nBasic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。\n给了一个简单使用pandas的例子：\n# save filepath to variable for easier access melbourne_file_path = '../input/melbourne-housing-snapshot/melb_data.csv' # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。\n有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。\nYour First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。\nimport pandas as pd melbourne_file_path = '../input/melbourne-housing-snapshot/melb_data.csv' melbourne_data = pd.read_csv(melbourne_file_path) melbourne_data.columns ''' Index(['Suburb', 'Address', 'Rooms', 'Type', 'Price', 'Method', 'SellerG', 'Date', 'Distance', 'Postcode', 'Bedroom2', 'Bathroom', 'Car', 'Landsize', 'BuildingArea', 'YearBuilt', 'CouncilArea', 'Lattitude', 'Longtitude', 'Regionname', 'Propertycount'], dtype='object') ''' 关于axis参数，推荐阅读 https://railsware.com/blog/python-for-machine-learning-pandas-axis-explained/ 来详细了解，简单来说，axis是用来选择行/列的。\n可以使用dropna()把包含缺失值的行/列直接删除，首先创建一个在3行b列出现了缺失值的DataFrame，可以通过改变axis的值，选择删除3行，或者删除整个b列。\n\u003e\u003e\u003e import pandas as pd \u003e\u003e\u003e import numpy as np \u003e\u003e\u003e srs_a = pd.Series([10,30,60,80,90]) \u003e\u003e\u003e srs_b = pd.Series([22, 44, 55, np.nan, 101]) \u003e\u003e\u003e df = pd.DataFrame({'a': srs_a, 'b': srs_b}) \u003e\u003e\u003e df a b 0 10 22.0 1 30 44.0 2 60 55.0 3 80 NaN 4 90 101.0 \u003e\u003e\u003e df.dropna(axis=0) # 删除`3`行 a b 0 10 22.0 1 30 44.0 2 60 55.0 4 90 101.0 \u003e\u003e\u003e df.dropna(axis=1) # 删除`b`列 a 0 10 1 30 2 60 3 80 4 90 其实也可以使用 pd.np 来访问到numpy，但是会提示将来的版本会不再支持这样导入，所以为了代码在将来的版本可以运行，更推荐单独导入numpy\nSelecting The Prediction Target 我们将使用点符号来选择我们想要预测的列，这称为预测目标。按照惯例，预测目标称为 y。所以我们需要保存墨尔本数据中房价的代码是\ny = melbourne_data.Price Choosing “Features” 输入到我们模型中的列称为“特征”，在我们的例子中，这些将是用于确定房价的列。有些时候会使用除目标之外的所有列作为特征。也有些时候使用更少的特征训练效果会更好。\n按照惯例，训练数据称为 X。\nmelbourne_features = ['Rooms', 'Bathroom', 'Landsize', 'Lattitude', 'Longtitude'] X = melbourne_data[melbourne_features] 可以再使用 X.describe() 来大概看一下数据的数量、平均值等信息，以及使用X.head()来查看表的最前面几行。\nBuilding Your Model 下面使用scikit-learn来创建和训练模型，在代码中使用它的简称sklearn，sklearn可以直接处理存储在DataFrame中的数据。\n构建和使用模型的步骤是：\nDefine：它将是什么类型的模型？以及指定模型类型的一些参数。 Fit：从提供的数据中获取模式。这是建模的核心部分。 Predict：通过未知的X预测出对应的y Evaluate：确定模型的预测有多准确。 这是一个使用 scikit-learn 定义决策树模型并将其与特征和目标变量拟合的示例。\nfrom sklearn.tree import DecisionTreeRegressor # Define model. Specify a number for random_state to ensure same results each run melbourne_model = DecisionTreeRegressor(random_state=1) melbourne_model.fit(X, y) # Fit model print(\"Making predictions for the following 5 houses:\") print(X.head()) print(\"The predictions are\") print(melbourne_model.predict(X.head())) Many machine learning models allow some randomness in model training. Specifying a number for random_state ensures you get the same results in each run. This is considered a good practice. You use any number, and model quality won’t depend meaningfully on exactly what value you choose.\nModel Validation What is Model Validation 常常需要评估自己构建的模型，来验证自己的模型在预测时的准确性，不应该使用训练数据进行预测，这样会得到较准确的预测结果，但是很可能在预测新数据的时候有很大的偏离，一般来说常用的方法是按照一定比例分离自己拥有的数据，一部分用于训练，一部分用来验证，训练过程不应该让模型接触到验证数据。\n总结模型质量的指标有很多，但我们从一个称为平均绝对误差（也称为 MAE）的指标开始。让我们从最后一个词 error 开始分解这个指标。每栋房屋的预测误差为： error=actual−predicted\n使用 MAE 度量，取每个error的绝对值，然后我们计算这些绝对误差的平均值。\nfrom sklearn.metrics import mean_absolute_error predicted_home_prices = melbourne_model.predict(X) mean_absolute_error(y, predicted_home_prices) 这里有个 The Problem with “In-Sample” Scores，也是在说明不应该使用训练数据去验证模型的效果\nCoding It scikit-learn 库有一个函数 train_test_split 将数据分成两部分。 我们将使用其中一些数据作为训练数据来拟合模型，使用其他数据作为验证数据来计算 mean_absolute_error。\nfrom sklearn.model_selection import train_test_split train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0) # Define model melbourne_model = DecisionTreeRegressor() # Fit model melbourne_model.fit(train_X, train_y) # get predicted prices on validation data val_predictions = melbourne_model.predict(val_X) print(mean_absolute_error(val_y, val_predictions)) # 258930.03550677857 Underfitting and Overfitting 这一部分讲模型的欠拟合和过拟合，尽量避免这两种情况可以优化模型的性能。\nExperimenting With Different Models 有了前面衡量模型准确性的指标（MAE），就可以通过选择不同的模型，或者使用不同的参数，来训练出更好的模型。\n比如scikit-learn的决策树模型，我们可以更改树的深度，树的深度是衡量它在进行预测之前进行了多少次分割的量度。比如分割1次，就是分割成了2种情况，分割2次就是4种情况，10次即1024种。。。也就是一棵二叉树叶子节点的数量。比如通过房屋的各种特征来分割，分的种类越多，平均下来每个种类的房屋的数量就越少，如果本就不多的训练数据被分成了1024类，模型几乎完美地匹配训练数据，对于新数据很可能做出不准确的预测，这就是过度拟合（Overfitting）的现象，\n如果一棵决策树只将房屋分成2种或4种情况，每组中会有各种各样的房屋，模型不能详细的体现数据中的重要区别和模式，在用验证数据或训练数据评估时都会发现效果不佳，这称为欠拟合（Underfitting）。\n由于我们希望可以准确地预测新数据，我们希望找到欠拟合和过拟合之间的最佳点，也就是下图中（红色）验证曲线的低点。\nExample 也有方法可以让树的某些路径的深度大于另一些路径的深度，max_leaf_nodes提供了一种非常明智的方法来控制欠拟合和过拟合，我们允许模型生长出的叶子数量越多，从上图中的欠拟合区域移动到过拟合区域的距离就越多。这样就可以通过调节max_leaf_nodes，来获取最佳MAE分数。\nfrom sklearn.metrics import mean_absolute_error from sklearn.tree import DecisionTreeRegressor def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y): model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0) model.fit(train_X, train_y) preds_val = model.predict(val_X) mae = mean_absolute_error(val_y, preds_val) return(mae) for max_leaf_nodes in [5, 50, 500, 5000]: my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y) print(\"Max leaf nodes: %d \\t\\t Mean Absolute Error: %d\" %(max_leaf_nodes, my_mae)) 从下面的输出结果可以看出，在这些选择中，500是最好的选择。\nMax leaf nodes: 5 Mean Absolute Error: 347380 Max leaf nodes: 50 Mean Absolute Error: 258171 Max leaf nodes: 500 Mean Absolute Error: 243495 Max leaf nodes: 5000 Mean Absolute Error: 254983 Conclusion Overfitting: capturing spurious patterns that won’t recur in the future, leading to less accurate predictions, or Underfitting: failing to capture relevant patterns, again leading to less accurate predictions. 可以用验证数据，去评估模型的性能，为模型选择尽可能适合的参数。\nRandom Forests Introduction 随机森林使用多个树，它通过平均每个树的预测来进行预测。 通常比单个决策树具有更好的预测精度，并且可以很好地使用默认参数。\nfrom sklearn.ensemble import RandomForestRegressor from sklearn.metrics import mean_absolute_error forest_model = RandomForestRegressor(random_state=1) forest_model.fit(train_X, train_y) melb_preds = forest_model.predict(val_X) print(mean_absolute_error(val_y, melb_preds)) # 191669.7536453626 把之前的决策树类DecisionTreeRegressor替换成随机森林类RandomForestRegressor，可以发现即使是直接使用默认参数，也可以得到优于之前（MAE=258930.03550677857）的结果（MAE=191669.7536453626）。\nMachine Learning Competitions 这里就是一个讲在kaggle上如何参加比赛的教程，跟着做一遍就会在kaggle的服务器上训练模型并得到最后的结果，然后可以提交结果看到排名。\nIntermediate Machine Learning Introduction 解决现实世界数据集中经常出现的数据类型（缺失值、分类变量）， 设计pipelines以提高机器学习代码的质量， 使用先进的模型验证技术（cross-validation，交叉验证）， 构建广泛用于赢得Kaggle竞赛的最先进模型（XGBoost）， 避免常见和重要的数据科学错误（leakage）。 Missing Values 这节教程会介绍3种处理缺失值的方法，在现实世界的数据中，很多情况会存在缺失值：\n一套两卧室的房子，不会包含第三个卧室的大小数据 调查对象可以选择不提供自己的收入 Three Approaches 1) A Simple Option: Drop Columns with Missing Values 直接把含有缺失值的列（特征）删除，这个方法很简单，但是可能会直接导致重要的特征丢失。\n2) A Better Option: Imputation Imputation指用一些数字填充缺失的值。例如，我们可以在NaN处填写每列的平均值。\n3) An Extension To Imputation 在方法2的基础上，再插入一列，用True/False来表示存在缺失值这一列对应的数据是否缺失，这个方法有时候表现良好，也有时候不好。\n我在其他地方还看到一种方法感觉比较好，可以称为方法4，把存在缺失值的这一列，作为target，其他不存在缺失值的列，作为特征，以存在缺失值这一列的其他不缺失的数据作为训练集和验证集，把缺失的行作为test集来为其预测并填充，这样可以得到尽可能准确的填充。\n当然最好是具体问题具体分析，比如某个存在缺失值的数据与预测目标相关性不大，或者缺失值太多，并且类型不方便预测，比如是姓名，就可以直接将这一列删除。如果是第3个卧室的问题（房型只有两个卧室），可以把它的面积置为0，来表示它不存在，如果把它设置为第3个卧室的平均大小，对其他房间小的数据来说太不公平。。。如果某列特征方差比较小，也可以直接取平均值填充来使模型正常运行。\n测试了3种填充方法，在同一模型下预测的结果，可以看出来方法3比方法2稍差，但是差距并不大。\nMAE from Approach 1 (Drop columns with missing values): 183550.22137772635 MAE from Approach 2 (Imputation): 178166.46269899711 MAE from Approach 3 (An Extension to Imputation): 178927.503183954 Categorical Variables 我们会遇到很多非数值型数据，这些数据我们也可以将它们应用到机器学习中，在这节教程里会介绍处理分类变量的三种方法。\n分类变量只接受有限数量的值，比如询问早餐的频率“从不”、“很少”、“大多数”或“每天”，或者对车的品牌进行调查，得到的回答是各个品牌。\nThree Approaches 1) Drop Categorical Variables 删掉分类变量。。。。\n2) Ordinal Encoding 顺序编码将每个唯一值分配给不同的整数。\n这种方法假定类别的排序：“从不”（0）\u003c“很少”（1）\u003c“大多数天”（2）\u003c“每天”（3）。对这样的分类进行排名是没有争议的，我们可以把描述频率的词汇对应到数值上，模型也将会很好的处理这些数据。\n3) One-Hot Encoding One-Hot编码的方法是创建一些新的列来代替原来的列，这些新的列名为具体的分类，值为存在/不存在，比如下面这个图示：\n所以对于没有顺序的分类，可以使用One-Hot编码这种方式来对分类进行数值化。但是它的缺点也很明显，如果分类很多，那么进行One-Hot编码后会出现很多新的列，这些列组成的矩阵将是个很稀疏的矩阵，这个时候可能模型会表现的不好。\nMAE from Approach 1 (Drop categorical variables): 175703.48185157913 MAE from Approach 2 (Ordinal Encoding): 165936.40548390493 MAE from Approach 3 (One-Hot Encoding): 166089.4893009678 方法2和方法3在这里的数据中并没有出现明显的差距，但是很明显都优于直接删除。\nPipelines Pipelines是一个可以把数据预处理和创建模型组装到一起的工具，可以：使代码更整洁，更少的bug，更容易部署，更多验证模型的选择。\n第一步，定义数据预处理的过程\nfrom sklearn.compose import ColumnTransformer from sklearn.pipeline import Pipeline from sklearn.impute import SimpleImputer from sklearn.preprocessing import OneHotEncoder # Preprocessing for numerical data numerical_transformer = SimpleImputer(strategy='constant') # Preprocessing for categorical data categorical_transformer = Pipeline(steps=[ ('imputer', SimpleImputer(strategy='most_frequent')), ('onehot', OneHotEncoder(handle_unknown='ignore')) ]) # Bundle preprocessing for numerical and categorical data preprocessor = ColumnTransformer( transformers=[ ('num', numerical_transformer, numerical_cols), ('cat', categorical_transformer, categorical_cols) ]) 第二步，定义模型\nfrom sklearn.ensemble import RandomForestRegressor model = RandomForestRegressor(n_estimators=100, random_state=0) 第三步，创建并评估Pipeline\nfrom sklearn.metrics import mean_absolute_error # Bundle preprocessing and modeling code in a pipeline my_pipeline = Pipeline(steps=[('preprocessor', preprocessor), ('model', model) ]) # Preprocessing of training data, fit model my_pipeline.fit(X_train, y_train) # Preprocessing of validation data, get predictions preds = my_pipeline.predict(X_valid) # Evaluate the model score = mean_absolute_error(y_valid, preds) print('MAE:', score) Cross-Validation 如果碰巧抽出的部分验证集数据有些特殊，而我们对于模型和参数的选择是基于验证集的，可能会干扰我们的决策。\nWhat is cross-validation? 在交叉验证中，我们在不同的数据子集上运行建模过程，以获得模型质量的多个度量。例如，我们可以首先将数据分成5个部分，每个部分占整个数据集的20%。在这种情况下，我们说我们已经将数据分成5个“折叠”。\n在Experiment 1中，我们用1st fold，作为验证集，其他80%作为训练集对模型进行训练，并用验证集评估。 在Experiment 2中，我们用2nd fold，作为验证集，其他80%作为训练集对模型进行训练，并用验证集评估。 重复这个过程，就可以得到不同的5个验证集上的结果，用这个结果来评估当前的模型（参数）会更加合理。 When should you use cross-validation? 对于比较小的数据集，折叠多次 也就是训练多次不会对计算造成太大负担，可以使用交叉验证。 对于比较大的数据集，多次折叠会导致耗费大量的时间，并且既然数据集很大，分割出来的这部分验证集应该会具有不错的随机性，所以只用验证一次即可。 使用Pipelines可以很方便的进行交叉验证，不使用Pipelines的交叉验证代码会比较复杂。\nfrom sklearn.ensemble import RandomForestRegressor from sklearn.pipeline import Pipeline from sklearn.impute import SimpleImputer my_pipeline = Pipeline(steps=[('preprocessor', SimpleImputer()), ('model', RandomForestRegressor(n_estimators=50, random_state=0)) ]) 我们使用sklearn中的cross_val_score()函数获得交叉验证分数，使用cv参数设置折叠的数量。\nfrom sklearn.model_selection import cross_val_score # Multiply by -1 since sklearn calculates *negative* MAE scores = -1 * cross_val_score(my_pipeline, X, y, cv=5, scoring='neg_mean_absolute_error') print(\"MAE scores:\\n\", scores) MAE scores: [301628.7893587 303164.4782723 287298.331666 236061.84754543 260383.45111427] scoring参数可以选择评估的标准，参考sklearn的文档可以了解支持的其他选择。这里我们指定的是negative mean absolute error (MAE)。\nsklearn 约定评估分数的时候，数值越大越好，MAE属于是越小越好的标准，所以sklearn选择只提供negative MAE，来保持自己的约定，我们在使用的时候，取 neg_mean_absolute_error 然后乘 -1 即可。\n通常需要单一指标来评估模型，所以可以取它们的平均值：\nprint(\"Average MAE score (across experiments):\") print(scores.mean()) XGBoost 我们之前在很多练习中应用了随机森林模型，这种方法被称为“集成方法”（ensemble method），根据定义，集成方法集成了多个模型的预测。随机森林就是集成了多个决策树的预测，接下来，将学习另一种称为梯度增强（gradient boosting）的集成方法。\nGradient Boosting 梯度增强是一种通过循环将模型迭代地添加到集合中的方法。\n它会被初始化为只有一个模型的集合，它的预测十分不准确，但是后续对这个集合的添加会解决这个问题。\n接下来开始循环：\n首先，我们用集合内的每个模型为数据集生成预测，并把这些预测相加。这些预测用于计算损失函数（例如，均方误差）。 然后，我们使用损失函数来拟合一个新模型，并把该模型添加到集合中。具体来说，我们确定模型参数并将新模型添加到集合中来减少损失。（注：“梯度增强”中的“梯度”指的是我们将使用损失函数的梯度下降来确定这个新模型中的参数。） 最后，我们将新模型添加到集合中… …重复 XGBoost 意为 extreme gradient boosting，它是gradient boosting的一种实现，具有一些专注于性能和速度的附加功能，sklearn有其他版本的gradient boosting，但XGBoost有一些技术优势。\nExample from xgboost import XGBRegressor my_model = XGBRegressor() my_model.fit(X_train, y_train) 对模型进行预测和评估：\nfrom sklearn.metrics import mean_absolute_error predictions = my_model.predict(X_valid) print(\"Mean Absolute Error: \" + str(mean_absolute_error(predictions, y_valid))) Mean Absolute Error: 239435.01260125183 Parameter Tuning XGBoost有几个参数可以显著影响准确性和训练速度：\nn_estimators n_estimators指定了上述过程的周期数，同时它也是集合中模型的数量。\n太低会导致欠拟合，对训练数据和测试数据的预测不准确。 太高会导致过拟合，对训练数据的预测很准确，但是对测试数据的预测比较差。 它的范围在100-1000，但是它的大小 很大程度上也取决于后面要讲的learning_rate参数。 my_model = XGBRegressor(n_estimators=500) # 设置周期数为 500 my_model.fit(X_train, y_train) early_stopping_rounds early_stopping_rounds提供了自动找到理想的n_estimators的方法，当验证分数停止改善时，会提前停止迭代，所以我们可以设置一个比较大n_estimators，然后模型很可能会在这之前自动停止训练。由于训练过程具有一定的随机性，所以有时可能会某一轮没有提升，所以一般会设置early_stopping_rounds=5，即连续5轮验证分数都没有改善那么就停止训练。\n在使用early_stopping_rounds的时候，要留出一部分数据来计算验证分数，这是由eval_set参数来完成的。\n将上面提到的参数应用到模型中，来使模型提前停止：\nmy_model = XGBRegressor(n_estimators=500) my_model.fit(X_train, y_train, early_stopping_rounds=5, eval_set=[(X_valid, y_valid)], verbose=False) learning_rate 我们可以将每个模型的预测乘以一个较小的数字（learning rate）然后再把它们相加。如果学习率比较小，会导致每个模型的预测对我们的帮助都比较小，所以我们应该在不会使它过拟合的前提下 设置尽可能高的学习率。\n一般来说，较小的学习率和较大的模型集合将产生更精确的XGBoost模型，但这样会有较大的计算成本，更多的迭代，每次迭代耗费更长的时间，默认情况XGBoost会设置learning_rate=0.1。\nmy_model = XGBRegressor(n_estimators=1000, learning_rate=0.05) my_model.fit(X_train, y_train, early_stopping_rounds=5, eval_set=[(X_valid, y_valid)], verbose=False) n_jobs 在需要考虑运行时间的大型数据集上，可以将n_jobs设置为核心的数量，使用并行运算更快的构建模型。但是在较小的数据集上这样做不会有帮助。\nmy_model = XGBRegressor(n_estimators=1000, learning_rate=0.05, n_jobs=4) my_model.fit(X_train, y_train, early_stopping_rounds=5, eval_set=[(X_valid, y_valid)], verbose=False) Data Leakage 这节教程会介绍数据泄露，以及如何防止数据泄露，如果不知道如何预防，那么数据泄露就会频繁出现，以微妙而危险的方式破坏模型。\n当训练数据中包含有关target的信息时，会发生数据泄露，但当模型用于预测时，类似的数据将不可用。这将导致模型在训练集（甚至可能在验证集）上性能很高，但是在生产中性能较差。\n泄漏主要有两种类型：target leakage 和 train-test contamination\nTarget leakage 当训练的数据集中存在“在实际使用模型时不存在”的信息，并且这个信息对target有很强的相关性，这样会导致在训练集和测试集上效果都很好，但是在实际使用的时候，模型效果很差，比如下面这个例子：\n假设要通过一些受访者的信息来判断他是否患有肺炎，下图是收集到的部分数据：\ngot_pneumonia age weight male took_antibiotic_medicine … False 65 100 False False … False 72 130 True False … True 58 100 False True … 其中took_antibiotic_medicine列和目标值got_pneumonia关系很强，因为如果得了肺炎那么他极大可能会吃药，训练过程就会根据吃药的行为判断他得了肺炎，这在实际应用模型时会发生判断不准确的现象，所以在使用数据训练模型的时候，要注意这些数据产生的时间需要是在“生产环境中使用模型进行预测的阶段”之前。\nTrain-Test Contamination 如果在数据预处理的时候，如果验证集也以某种方式参与了进来，比如在train_test_split()之前使用全部数据对空值插补，那么最后的模型很可能在训练集和验证集上表现良好，但在生产环境中表现较差。\n后面的练习部分是给了一些这两种泄露的例子。\n",
+  "wordCount" : "1028",
+  "inLanguage": "en",
+  "datePublished": "2022-03-10T16:23:00Z",
+  "dateModified": "2022-03-10T16:23:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Slightwind"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Slightwind",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.slightwind.cn/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.slightwind.cn/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://blog.slightwind.cn/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML
+    </h1>
+    <div class="post-meta"><span title='2022-03-10 16:23:00 +0000 UTC'>March 10, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Slightwind
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#intro-to-machine-learning" aria-label="Intro to Machine Learning">Intro to Machine Learning</a><ul>
+                        
+                <li>
+                    <a href="#how-models-work" aria-label="How Models Work">How Models Work</a></li>
+                <li>
+                    <a href="#basic-data-exploration" aria-label="Basic Data Exploration">Basic Data Exploration</a><ul>
+                        
+                <li>
+                    <a href="#using-pandas-to-get-familiar-with-your-data" aria-label="Using Pandas to Get Familiar With Your Data">Using Pandas to Get Familiar With Your Data</a></li>
+                <li>
+                    <a href="#interpreting-data-description" aria-label="Interpreting Data Description">Interpreting Data Description</a></li></ul>
+                </li>
+                <li>
+                    <a href="#your-first-machine-learning-model" aria-label="Your First Machine Learning Model">Your First Machine Learning Model</a><ul>
+                        
+                <li>
+                    <a href="#selecting-data-for-modeling" aria-label="Selecting Data for Modeling">Selecting Data for Modeling</a></li>
+                <li>
+                    <a href="#selecting-the-prediction-target" aria-label="Selecting The Prediction Target">Selecting The Prediction Target</a></li>
+                <li>
+                    <a href="#choosing-features" aria-label="Choosing &amp;ldquo;Features&amp;rdquo;">Choosing &ldquo;Features&rdquo;</a></li>
+                <li>
+                    <a href="#building-your-model" aria-label="Building Your Model">Building Your Model</a></li></ul>
+                </li>
+                <li>
+                    <a href="#model-validation" aria-label="Model Validation">Model Validation</a><ul>
+                        
+                <li>
+                    <a href="#what-is-model-validation" aria-label="What is Model Validation">What is Model Validation</a></li>
+                <li>
+                    <a href="#coding-it" aria-label="Coding It">Coding It</a></li></ul>
+                </li>
+                <li>
+                    <a href="#underfitting-and-overfitting" aria-label="Underfitting and Overfitting">Underfitting and Overfitting</a><ul>
+                        
+                <li>
+                    <a href="#experimenting-with-different-models" aria-label="Experimenting With Different Models">Experimenting With Different Models</a></li>
+                <li>
+                    <a href="#example" aria-label="Example">Example</a></li>
+                <li>
+                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a></li></ul>
+                </li>
+                <li>
+                    <a href="#random-forests" aria-label="Random Forests">Random Forests</a><ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li></ul>
+                </li>
+                <li>
+                    <a href="#machine-learning-competitions" aria-label="Machine Learning Competitions">Machine Learning Competitions</a></li></ul>
+                </li>
+                <li>
+                    <a href="#intermediate-machine-learning" aria-label="Intermediate Machine Learning">Intermediate Machine Learning</a><ul>
+                        
+                <li>
+                    <a href="#introduction-1" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#missing-values" aria-label="Missing Values">Missing Values</a><ul>
+                        
+                <li>
+                    <a href="#three-approaches" aria-label="Three Approaches">Three Approaches</a><ul>
+                        
+                <li>
+                    <a href="#1-a-simple-option-drop-columns-with-missing-values" aria-label="1) A Simple Option: Drop Columns with Missing Values">1) A Simple Option: Drop Columns with Missing Values</a></li>
+                <li>
+                    <a href="#2-a-better-option-imputation" aria-label="2) A Better Option: Imputation">2) A Better Option: Imputation</a></li>
+                <li>
+                    <a href="#3-an-extension-to-imputation" aria-label="3) An Extension To Imputation">3) An Extension To Imputation</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#categorical-variables" aria-label="Categorical Variables">Categorical Variables</a><ul>
+                        
+                <li>
+                    <a href="#three-approaches-1" aria-label="Three Approaches">Three Approaches</a><ul>
+                        
+                <li>
+                    <a href="#1-drop-categorical-variables" aria-label="1) Drop Categorical Variables">1) Drop Categorical Variables</a></li>
+                <li>
+                    <a href="#2-ordinal-encoding" aria-label="2) Ordinal Encoding">2) Ordinal Encoding</a></li>
+                <li>
+                    <a href="#3-one-hot-encoding" aria-label="3) One-Hot Encoding">3) One-Hot Encoding</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#pipelines" aria-label="Pipelines">Pipelines</a></li>
+                <li>
+                    <a href="#cross-validation" aria-label="Cross-Validation">Cross-Validation</a><ul>
+                        
+                <li>
+                    <a href="#what-is-cross-validation" aria-label="What is cross-validation?">What is cross-validation?</a></li>
+                <li>
+                    <a href="#when-should-you-use-cross-validation" aria-label="When should you use cross-validation?">When should you use cross-validation?</a></li></ul>
+                </li>
+                <li>
+                    <a href="#xgboost" aria-label="XGBoost">XGBoost</a><ul>
+                        
+                <li>
+                    <a href="#gradient-boosting" aria-label="Gradient Boosting">Gradient Boosting</a></li>
+                <li>
+                    <a href="#example-1" aria-label="Example">Example</a></li>
+                <li>
+                    <a href="#parameter-tuning" aria-label="Parameter Tuning">Parameter Tuning</a></li></ul>
+                </li>
+                <li>
+                    <a href="#data-leakage" aria-label="Data Leakage">Data Leakage</a><ul>
+                        
+                <li>
+                    <a href="#target-leakage" aria-label="Target leakage">Target leakage</a></li>
+                <li>
+                    <a href="#train-test-contamination" aria-label="Train-Test Contamination">Train-Test Contamination</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="intro-to-machine-learning">Intro to Machine Learning<a hidden class="anchor" aria-hidden="true" href="#intro-to-machine-learning">#</a></h1>
+<h2 id="how-models-work">How Models Work<a hidden class="anchor" aria-hidden="true" href="#how-models-work">#</a></h2>
+<p>介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。</p>
+<p>从数据中提取模式的过程这一步骤称为<strong>拟合</strong>(fitting)或<strong>训练</strong>(training)模型，用于拟合模型的数据称为训练数据(training data)。</p>
+<h2 id="basic-data-exploration">Basic Data Exploration<a hidden class="anchor" aria-hidden="true" href="#basic-data-exploration">#</a></h2>
+<h3 id="using-pandas-to-get-familiar-with-your-data">Using Pandas to Get Familiar With Your Data<a hidden class="anchor" aria-hidden="true" href="#using-pandas-to-get-familiar-with-your-data">#</a></h3>
+<p>这里开始讲pandas，一般会把它缩写为<code>pd</code>，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。</p>
+<p>给了一个简单使用pandas的例子：</p>
+<pre><code class="language-python"># save filepath to variable for easier access
+melbourne_file_path = '../input/melbourne-housing-snapshot/melb_data.csv'
+# read the data and store data in DataFrame titled melbourne_data
+melbourne_data = pd.read_csv(melbourne_file_path) 
+# print a summary of the data in Melbourne data
+melbourne_data.describe()
+</code></pre>
+<h3 id="interpreting-data-description">Interpreting Data Description<a hidden class="anchor" aria-hidden="true" href="#interpreting-data-description">#</a></h3>
+<p>这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。</p>
+<p>有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。</p>
+<h2 id="your-first-machine-learning-model">Your First Machine Learning Model<a hidden class="anchor" aria-hidden="true" href="#your-first-machine-learning-model">#</a></h2>
+<h3 id="selecting-data-for-modeling">Selecting Data for Modeling<a hidden class="anchor" aria-hidden="true" href="#selecting-data-for-modeling">#</a></h3>
+<p>有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。</p>
+<pre><code class="language-python">import pandas as pd
+
+melbourne_file_path = '../input/melbourne-housing-snapshot/melb_data.csv'
+melbourne_data = pd.read_csv(melbourne_file_path) 
+melbourne_data.columns
+'''
+Index(['Suburb', 'Address', 'Rooms', 'Type', 'Price', 'Method', 'SellerG',
+       'Date', 'Distance', 'Postcode', 'Bedroom2', 'Bathroom', 'Car',
+       'Landsize', 'BuildingArea', 'YearBuilt', 'CouncilArea', 'Lattitude',
+       'Longtitude', 'Regionname', 'Propertycount'],
+      dtype='object')
+'''
+</code></pre>
+<p>关于axis参数，推荐阅读 <a href="https://railsware.com/blog/python-for-machine-learning-pandas-axis-explained/">https://railsware.com/blog/python-for-machine-learning-pandas-axis-explained/</a> 来详细了解，简单来说，axis是用来选择<strong>行/列</strong>的。</p>
+<p>可以使用<code>dropna()</code>把包含缺失值的<strong>行/列</strong>直接删除，首先创建一个在<code>3</code>行<code>b</code>列出现了缺失值的DataFrame，可以通过改变axis的值，选择删除<code>3</code>行，或者删除整个<code>b</code>列。</p>
+<pre><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; srs_a = pd.Series([10,30,60,80,90])
+&gt;&gt;&gt; srs_b = pd.Series([22, 44, 55, np.nan, 101])
+&gt;&gt;&gt; df = pd.DataFrame({'a': srs_a, 'b': srs_b})
+&gt;&gt;&gt; df
+    a      b
+0  10   22.0
+1  30   44.0
+2  60   55.0
+3  80    NaN
+4  90  101.0
+&gt;&gt;&gt; df.dropna(axis=0) # 删除`3`行
+    a      b
+0  10   22.0
+1  30   44.0
+2  60   55.0
+4  90  101.0
+&gt;&gt;&gt; df.dropna(axis=1) # 删除`b`列
+    a
+0  10
+1  30
+2  60
+3  80
+4  90
+</code></pre>
+<blockquote>
+<p>其实也可以使用 <code>pd.np</code> 来访问到numpy，但是会提示将来的版本会不再支持这样导入，所以为了代码在将来的版本可以运行，更推荐单独导入numpy</p>
+</blockquote>
+<h3 id="selecting-the-prediction-target">Selecting The Prediction Target<a hidden class="anchor" aria-hidden="true" href="#selecting-the-prediction-target">#</a></h3>
+<p>我们将使用点符号来选择我们想要预测的列，这称为<strong>预测目标</strong>。按照惯例，预测目标称为 <strong>y</strong>。所以我们需要保存墨尔本数据中房价的代码是</p>
+<pre><code class="language-python">y = melbourne_data.Price 
+</code></pre>
+<h3 id="choosing-features">Choosing &ldquo;Features&rdquo;<a hidden class="anchor" aria-hidden="true" href="#choosing-features">#</a></h3>
+<p>输入到我们模型中的列称为“特征”，在我们的例子中，这些将是用于确定房价的列。有些时候会使用除目标之外的所有列作为特征。也有些时候使用更少的特征训练效果会更好。</p>
+<p>按照惯例，训练数据称为 <strong>X</strong>。</p>
+<pre><code class="language-python">melbourne_features = ['Rooms', 'Bathroom', 'Landsize', 'Lattitude', 'Longtitude']
+X = melbourne_data[melbourne_features]
+</code></pre>
+<p>可以再使用 <code>X.describe()</code> 来大概看一下数据的数量、平均值等信息，以及使用<code>X.head()</code>来查看表的最前面几行。</p>
+<h3 id="building-your-model">Building Your Model<a hidden class="anchor" aria-hidden="true" href="#building-your-model">#</a></h3>
+<p>下面使用scikit-learn来创建和训练模型，在代码中使用它的简称<code>sklearn</code>，sklearn可以直接处理存储在DataFrame中的数据。</p>
+<p>构建和使用模型的步骤是：</p>
+<ul>
+<li><strong>Define</strong>：它将是什么类型的模型？以及指定模型类型的一些参数。</li>
+<li><strong>Fit</strong>：从提供的数据中获取模式。这是建模的核心部分。</li>
+<li><strong>Predict</strong>：通过未知的X预测出对应的y</li>
+<li><strong>Evaluate</strong>：确定模型的预测有多准确。</li>
+</ul>
+<p>这是一个使用 scikit-learn 定义决策树模型并将其与特征和目标变量拟合的示例。</p>
+<pre><code class="language-python">from sklearn.tree import DecisionTreeRegressor
+
+# Define model. Specify a number for random_state to ensure same results each run
+melbourne_model = DecisionTreeRegressor(random_state=1)
+melbourne_model.fit(X, y) # Fit model
+print(&quot;Making predictions for the following 5 houses:&quot;)
+print(X.head())
+print(&quot;The predictions are&quot;)
+print(melbourne_model.predict(X.head()))
+</code></pre>
+<blockquote>
+<p>Many machine learning models allow some randomness in model training. Specifying a number for random_state ensures you get the same results in each run. This is considered a good practice. You use any number, and model quality won&rsquo;t depend meaningfully on exactly what value you choose.</p>
+</blockquote>
+<h2 id="model-validation">Model Validation<a hidden class="anchor" aria-hidden="true" href="#model-validation">#</a></h2>
+<h3 id="what-is-model-validation">What is Model Validation<a hidden class="anchor" aria-hidden="true" href="#what-is-model-validation">#</a></h3>
+<p>常常需要评估自己构建的模型，来验证自己的模型在预测时的准确性，不应该使用训练数据进行预测，这样会得到较准确的预测结果，但是很可能在预测新数据的时候有很大的偏离，一般来说常用的方法是按照一定比例分离自己拥有的数据，一部分用于训练，一部分用来验证，训练过程不应该让模型接触到验证数据。</p>
+<p>总结模型质量的指标有很多，但我们从一个称为<strong>平均绝对误差</strong>（也称为 <strong>MAE</strong>）的指标开始。让我们从最后一个词 error 开始分解这个指标。每栋房屋的预测误差为： error=actual−predicted</p>
+<p>使用 MAE 度量，取每个error的绝对值，然后我们计算这些绝对误差的平均值。</p>
+<pre><code class="language-python">from sklearn.metrics import mean_absolute_error
+
+predicted_home_prices = melbourne_model.predict(X)
+mean_absolute_error(y, predicted_home_prices)
+</code></pre>
+<blockquote>
+<p>这里有个 The Problem with &ldquo;In-Sample&rdquo; Scores，也是在说明不应该使用训练数据去验证模型的效果</p>
+</blockquote>
+<h3 id="coding-it">Coding It<a hidden class="anchor" aria-hidden="true" href="#coding-it">#</a></h3>
+<p>scikit-learn 库有一个函数 <code>train_test_split</code> 将数据分成两部分。 我们将使用其中一些数据作为训练数据来拟合模型，使用其他数据作为验证数据来计算 <code>mean_absolute_error</code>。</p>
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0)
+# Define model
+melbourne_model = DecisionTreeRegressor()
+# Fit model
+melbourne_model.fit(train_X, train_y)
+
+# get predicted prices on validation data
+val_predictions = melbourne_model.predict(val_X)
+print(mean_absolute_error(val_y, val_predictions)) # 258930.03550677857
+</code></pre>
+<h2 id="underfitting-and-overfitting">Underfitting and Overfitting<a hidden class="anchor" aria-hidden="true" href="#underfitting-and-overfitting">#</a></h2>
+<p>这一部分讲模型的欠拟合和过拟合，尽量避免这两种情况可以优化模型的性能。</p>
+<h3 id="experimenting-with-different-models">Experimenting With Different Models<a hidden class="anchor" aria-hidden="true" href="#experimenting-with-different-models">#</a></h3>
+<p>有了前面衡量模型准确性的指标（MAE），就可以通过选择不同的模型，或者使用不同的参数，来训练出更好的模型。</p>
+<p>比如scikit-learn的决策树模型，我们可以更改树的深度，树的深度是衡量它在进行预测之前进行了多少次分割的量度。比如分割1次，就是分割成了2种情况，分割2次就是4种情况，10次即1024种。。。也就是一棵二叉树叶子节点的数量。比如通过房屋的各种特征来分割，分的种类越多，平均下来每个种类的房屋的数量就越少，如果本就不多的训练数据被分成了1024类，<strong>模型几乎完美地匹配训练数据</strong>，对于新数据很可能做出不准确的预测，这就是<strong>过度拟合</strong>（Overfitting）的现象，</p>
+<p>如果一棵决策树只将房屋分成2种或4种情况，每组中会有各种各样的房屋，模型不能详细的体现数据中的重要区别和模式，在用验证数据或训练数据评估时都会发现效果不佳，这称为<strong>欠拟合</strong>（Underfitting）。</p>
+<p>由于我们希望可以准确地预测新数据，我们希望找到欠拟合和过拟合之间的最佳点，也就是下图中（红色）验证曲线的低点。</p>
+<p>
+<img loading="lazy" src="https://s1.ax1x.com/2022/03/26/qUYgW6.png" alt=""   /></p>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<p>也有方法可以让树的某些路径的深度大于另一些路径的深度，<code>max_leaf_nodes</code>提供了一种非常明智的方法来控制欠拟合和过拟合，我们允许模型生长出的叶子数量越多，从上图中的<strong>欠拟合区域</strong>移动到<strong>过拟合区域</strong>的距离就越多。这样就可以通过调节<code>max_leaf_nodes</code>，来获取最佳MAE分数。</p>
+<pre><code class="language-python">from sklearn.metrics import mean_absolute_error
+from sklearn.tree import DecisionTreeRegressor
+
+def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
+    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
+    model.fit(train_X, train_y)
+    preds_val = model.predict(val_X)
+    mae = mean_absolute_error(val_y, preds_val)
+    return(mae)
+for max_leaf_nodes in [5, 50, 500, 5000]:
+    my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
+    print(&quot;Max leaf nodes: %d  \t\t Mean Absolute Error:  %d&quot; %(max_leaf_nodes, my_mae))
+</code></pre>
+<p>从下面的输出结果可以看出，在这些选择中，500是最好的选择。</p>
+<pre><code>Max leaf nodes: 5  		 Mean Absolute Error:  347380
+Max leaf nodes: 50  		 Mean Absolute Error:  258171
+Max leaf nodes: 500  		 Mean Absolute Error:  243495
+Max leaf nodes: 5000  		 Mean Absolute Error:  254983
+</code></pre>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
+<ul>
+<li><strong>Overfitting</strong>: capturing spurious patterns that won&rsquo;t recur in the future, leading to less accurate predictions, or</li>
+<li><strong>Underfitting</strong>: failing to capture relevant patterns, again leading to less accurate predictions.</li>
+</ul>
+<p>可以用验证数据，去评估模型的性能，为模型选择尽可能适合的参数。</p>
+<h2 id="random-forests">Random Forests<a hidden class="anchor" aria-hidden="true" href="#random-forests">#</a></h2>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>随机森林使用多个树，它通过平均每个树的预测来进行预测。 通常比单个决策树具有更好的预测精度，并且可以很好地使用默认参数。</p>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+
+forest_model = RandomForestRegressor(random_state=1)
+forest_model.fit(train_X, train_y)
+melb_preds = forest_model.predict(val_X)
+print(mean_absolute_error(val_y, melb_preds))
+
+# 191669.7536453626
+</code></pre>
+<p>把之前的决策树类<code>DecisionTreeRegressor</code>替换成随机森林类<code>RandomForestRegressor</code>，可以发现即使是直接使用默认参数，也可以得到优于之前（MAE=258930.03550677857）的结果（MAE=191669.7536453626）。</p>
+<h2 id="machine-learning-competitions">Machine Learning Competitions<a hidden class="anchor" aria-hidden="true" href="#machine-learning-competitions">#</a></h2>
+<p>这里就是一个讲在kaggle上如何参加比赛的教程，跟着做一遍就会在kaggle的服务器上训练模型并得到最后的结果，然后可以提交结果看到排名。</p>
+<h1 id="intermediate-machine-learning">Intermediate Machine Learning<a hidden class="anchor" aria-hidden="true" href="#intermediate-machine-learning">#</a></h1>
+<h2 id="introduction-1">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction-1">#</a></h2>
+<ul>
+<li>解决现实世界数据集中经常出现的数据类型（缺失值、分类变量），</li>
+<li>设计<strong>pipelines</strong>以提高机器学习代码的质量，</li>
+<li>使用先进的模型验证技术（cross-validation，交叉验证），</li>
+<li>构建广泛用于赢得Kaggle竞赛的最先进模型（XGBoost），</li>
+<li>避免常见和重要的数据科学错误（leakage）。</li>
+</ul>
+<h2 id="missing-values">Missing Values<a hidden class="anchor" aria-hidden="true" href="#missing-values">#</a></h2>
+<p>这节教程会介绍3种处理缺失值的方法，在现实世界的数据中，很多情况会存在缺失值：</p>
+<ul>
+<li>一套两卧室的房子，不会包含第三个卧室的大小数据</li>
+<li>调查对象可以选择不提供自己的收入</li>
+</ul>
+<h3 id="three-approaches">Three Approaches<a hidden class="anchor" aria-hidden="true" href="#three-approaches">#</a></h3>
+<h4 id="1-a-simple-option-drop-columns-with-missing-values">1) A Simple Option: Drop Columns with Missing Values<a hidden class="anchor" aria-hidden="true" href="#1-a-simple-option-drop-columns-with-missing-values">#</a></h4>
+<p>直接把含有缺失值的列（特征）删除，这个方法很简单，但是可能会直接导致重要的特征丢失。</p>
+<h4 id="2-a-better-option-imputation">2) A Better Option: Imputation<a hidden class="anchor" aria-hidden="true" href="#2-a-better-option-imputation">#</a></h4>
+<p>Imputation指用一些数字填充缺失的值。例如，我们可以在NaN处填写每列的平均值。</p>
+<h4 id="3-an-extension-to-imputation">3) An Extension To Imputation<a hidden class="anchor" aria-hidden="true" href="#3-an-extension-to-imputation">#</a></h4>
+<p>在方法2的基础上，再插入一列，用True/False来表示存在缺失值这一列对应的数据是否缺失，这个方法有时候表现良好，也有时候不好。</p>
+<p>我在其他地方还看到一种方法感觉比较好，可以称为方法4，把存在缺失值的这一列，作为target，其他不存在缺失值的列，作为特征，以存在缺失值这一列的其他不缺失的数据作为训练集和验证集，把缺失的行作为test集来为其预测并填充，这样可以得到尽可能准确的填充。</p>
+<p>当然最好是具体问题具体分析，比如某个存在缺失值的数据与预测目标相关性不大，或者缺失值太多，并且类型不方便预测，比如是姓名，就可以直接将这一列删除。如果是第3个卧室的问题（房型只有两个卧室），可以把它的面积置为0，来表示它不存在，如果把它设置为第3个卧室的平均大小，对其他房间小的数据来说太不公平。。。如果某列特征方差比较小，也可以直接取平均值填充来使模型正常运行。</p>
+<p>测试了3种填充方法，在同一模型下预测的结果，可以看出来方法3比方法2稍差，但是差距并不大。</p>
+<pre><code>MAE from Approach 1 (Drop columns with missing values):
+183550.22137772635
+
+MAE from Approach 2 (Imputation):
+178166.46269899711
+
+MAE from Approach 3 (An Extension to Imputation):
+178927.503183954
+</code></pre>
+<h2 id="categorical-variables">Categorical Variables<a hidden class="anchor" aria-hidden="true" href="#categorical-variables">#</a></h2>
+<p>我们会遇到很多非数值型数据，这些数据我们也可以将它们应用到机器学习中，在这节教程里会介绍处理分类变量的三种方法。</p>
+<p>分类变量只接受有限数量的值，比如询问早餐的频率“从不”、“很少”、“大多数”或“每天”，或者对车的品牌进行调查，得到的回答是各个品牌。</p>
+<h3 id="three-approaches-1">Three Approaches<a hidden class="anchor" aria-hidden="true" href="#three-approaches-1">#</a></h3>
+<h4 id="1-drop-categorical-variables">1) Drop Categorical Variables<a hidden class="anchor" aria-hidden="true" href="#1-drop-categorical-variables">#</a></h4>
+<p>删掉分类变量。。。。</p>
+<h4 id="2-ordinal-encoding">2) Ordinal Encoding<a hidden class="anchor" aria-hidden="true" href="#2-ordinal-encoding">#</a></h4>
+<p>顺序编码将每个唯一值分配给不同的整数。</p>
+<img src="https://s1.ax1x.com/2022/03/26/qUYjOg.png">
+<p>这种方法假定类别的排序：“从不”（0）&lt;“很少”（1）&lt;“大多数天”（2）&lt;“每天”（3）。对这样的分类进行排名是没有争议的，我们可以把描述频率的词汇对应到数值上，模型也将会很好的处理这些数据。</p>
+<h4 id="3-one-hot-encoding">3) One-Hot Encoding<a hidden class="anchor" aria-hidden="true" href="#3-one-hot-encoding">#</a></h4>
+<p>One-Hot编码的方法是创建一些新的列来代替原来的列，这些新的列名为具体的分类，值为存在/不存在，比如下面这个图示：</p>
+<img src="https://s1.ax1x.com/2022/03/26/qUYzwj.png">
+<p>所以对于没有顺序的分类，可以使用One-Hot编码这种方式来对分类进行数值化。但是它的缺点也很明显，如果分类很多，那么进行One-Hot编码后会出现很多新的列，这些列组成的矩阵将是个很稀疏的矩阵，这个时候可能模型会表现的不好。</p>
+<pre><code>MAE from Approach 1 (Drop categorical variables):
+175703.48185157913
+
+MAE from Approach 2 (Ordinal Encoding):
+165936.40548390493
+
+MAE from Approach 3 (One-Hot Encoding):
+166089.4893009678
+</code></pre>
+<p>方法2和方法3在这里的数据中并没有出现明显的差距，但是很明显都优于直接删除。</p>
+<h2 id="pipelines">Pipelines<a hidden class="anchor" aria-hidden="true" href="#pipelines">#</a></h2>
+<p>Pipelines是一个可以把数据预处理和创建模型组装到一起的工具，可以：使代码更整洁，更少的bug，更容易部署，更多验证模型的选择。</p>
+<p>第一步，定义数据预处理的过程</p>
+<pre><code class="language-python">from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+
+# Preprocessing for numerical data
+numerical_transformer = SimpleImputer(strategy='constant')
+
+# Preprocessing for categorical data
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+# Bundle preprocessing for numerical and categorical data
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numerical_transformer, numerical_cols),
+        ('cat', categorical_transformer, categorical_cols)
+    ])
+</code></pre>
+<p>第二步，定义模型</p>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor(n_estimators=100, random_state=0)
+</code></pre>
+<p>第三步，创建并评估Pipeline</p>
+<pre><code class="language-python">from sklearn.metrics import mean_absolute_error
+
+# Bundle preprocessing and modeling code in a pipeline
+my_pipeline = Pipeline(steps=[('preprocessor', preprocessor),
+                              ('model', model)
+                             ])
+
+# Preprocessing of training data, fit model 
+my_pipeline.fit(X_train, y_train)
+
+# Preprocessing of validation data, get predictions
+preds = my_pipeline.predict(X_valid)
+
+# Evaluate the model
+score = mean_absolute_error(y_valid, preds)
+print('MAE:', score)
+</code></pre>
+<h2 id="cross-validation">Cross-Validation<a hidden class="anchor" aria-hidden="true" href="#cross-validation">#</a></h2>
+<p>如果碰巧抽出的部分验证集数据有些特殊，而我们对于模型和参数的选择是基于验证集的，可能会干扰我们的决策。</p>
+<h3 id="what-is-cross-validation">What is cross-validation?<a hidden class="anchor" aria-hidden="true" href="#what-is-cross-validation">#</a></h3>
+<p>在交叉验证中，我们在不同的数据子集上运行建模过程，以获得模型质量的多个度量。例如，我们可以首先将数据分成5个部分，每个部分占整个数据集的20%。在这种情况下，我们说我们已经将数据分成5个“折叠”。</p>
+<img src="https://s1.ax1x.com/2022/03/26/qUYrw9.png">
+<ol>
+<li>在<code>Experiment 1</code>中，我们用<code>1st fold</code>，作为验证集，其他80%作为训练集对模型进行训练，并用验证集评估。</li>
+<li>在<code>Experiment 2</code>中，我们用<code>2nd fold</code>，作为验证集，其他80%作为训练集对模型进行训练，并用验证集评估。</li>
+<li>重复这个过程，就可以得到不同的5个验证集上的结果，用这个结果来评估当前的模型（参数）会更加合理。</li>
+</ol>
+<h3 id="when-should-you-use-cross-validation">When should you use cross-validation?<a hidden class="anchor" aria-hidden="true" href="#when-should-you-use-cross-validation">#</a></h3>
+<ul>
+<li>对于比较小的数据集，折叠多次 也就是训练多次不会对计算造成太大负担，可以使用交叉验证。</li>
+<li>对于比较大的数据集，多次折叠会导致耗费大量的时间，并且既然数据集很大，分割出来的这部分验证集应该会具有不错的随机性，所以只用验证一次即可。</li>
+</ul>
+<p>使用Pipelines可以很方便的进行交叉验证，不使用Pipelines的交叉验证代码会比较复杂。</p>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+
+my_pipeline = Pipeline(steps=[('preprocessor', SimpleImputer()),
+                              ('model', RandomForestRegressor(n_estimators=50,
+                                                              random_state=0))
+                             ])
+</code></pre>
+<p>我们使用sklearn中的cross_val_score()函数获得交叉验证分数，使用cv参数设置折叠的数量。</p>
+<pre><code class="language-python">from sklearn.model_selection import cross_val_score
+
+# Multiply by -1 since sklearn calculates *negative* MAE
+scores = -1 * cross_val_score(my_pipeline, X, y,
+                              cv=5,
+                              scoring='neg_mean_absolute_error')
+
+print(&quot;MAE scores:\n&quot;, scores)
+</code></pre>
+<pre><code>MAE scores:
+ [301628.7893587  303164.4782723  287298.331666   236061.84754543
+ 260383.45111427]
+</code></pre>
+<p><code>scoring</code>参数可以选择评估的标准，参考<a href="http://scikit-learn.org/stable/modules/model_evaluation.html">sklearn的文档</a>可以了解支持的其他选择。这里我们指定的是<strong>negative mean absolute error (MAE)</strong>。</p>
+<blockquote>
+<p>sklearn 约定评估分数的时候，数值越大越好，MAE属于是越小越好的标准，所以sklearn选择只提供<code>negative MAE</code>，来保持自己的约定，我们在使用的时候，取 neg_mean_absolute_error 然后乘 -1 即可。</p>
+</blockquote>
+<p>通常需要单一指标来评估模型，所以可以取它们的平均值：</p>
+<pre><code class="language-python">print(&quot;Average MAE score (across experiments):&quot;)
+print(scores.mean())
+</code></pre>
+<h2 id="xgboost">XGBoost<a hidden class="anchor" aria-hidden="true" href="#xgboost">#</a></h2>
+<p>我们之前在很多练习中应用了随机森林模型，这种方法被称为“集成方法”（<strong>ensemble method</strong>），根据定义，集成方法集成了多个模型的预测。随机森林就是集成了多个决策树的预测，接下来，将学习另一种称为梯度增强（<strong>gradient boosting</strong>）的集成方法。</p>
+<h3 id="gradient-boosting">Gradient Boosting<a hidden class="anchor" aria-hidden="true" href="#gradient-boosting">#</a></h3>
+<p>梯度增强是一种通过循环将模型迭代地添加到集合中的方法。</p>
+<p>它会被初始化为只有一个模型的集合，它的预测十分不准确，但是后续对这个集合的添加会解决这个问题。</p>
+<p>接下来开始循环：</p>
+<ul>
+<li>首先，我们用集合内的每个模型为数据集生成预测，并把这些预测相加。这些预测用于计算损失函数（例如，均方误差）。</li>
+<li>然后，我们使用损失函数来拟合一个新模型，并把该模型添加到集合中。具体来说，我们确定模型参数并将新模型添加到集合中来减少损失。（注：“梯度增强”中的“梯度”指的是我们将使用损失函数的梯度下降来确定这个新模型中的参数。）</li>
+<li>最后，我们将新模型添加到集合中&hellip;</li>
+<li>&hellip;重复</li>
+</ul>
+<img src="https://s1.ax1x.com/2022/03/26/qUYLSf.png">
+<p>XGBoost 意为 extreme gradient boosting，它是gradient boosting的一种实现，具有一些专注于性能和速度的附加功能，sklearn有其他版本的gradient boosting，但XGBoost有一些技术优势。</p>
+<h3 id="example-1">Example<a hidden class="anchor" aria-hidden="true" href="#example-1">#</a></h3>
+<pre><code class="language-python">from xgboost import XGBRegressor
+
+my_model = XGBRegressor()
+my_model.fit(X_train, y_train)
+</code></pre>
+<p>对模型进行预测和评估：</p>
+<pre><code class="language-python">from sklearn.metrics import mean_absolute_error
+
+predictions = my_model.predict(X_valid)
+print(&quot;Mean Absolute Error: &quot; + str(mean_absolute_error(predictions, y_valid)))
+</code></pre>
+<pre><code>Mean Absolute Error: 239435.01260125183
+</code></pre>
+<h3 id="parameter-tuning">Parameter Tuning<a hidden class="anchor" aria-hidden="true" href="#parameter-tuning">#</a></h3>
+<p>XGBoost有几个参数可以显著影响准确性和训练速度：</p>
+<p><strong>n_estimators</strong>
+<code>n_estimators</code>指定了上述过程的周期数，同时它也是集合中模型的数量。</p>
+<ul>
+<li>太低会导致欠拟合，对训练数据和测试数据的预测不准确。</li>
+<li>太高会导致过拟合，对训练数据的预测很准确，但是对测试数据的预测比较差。
+它的范围在100-1000，但是它的大小 很大程度上也取决于后面要讲的<code>learning_rate</code>参数。</li>
+</ul>
+<pre><code class="language-python">my_model = XGBRegressor(n_estimators=500) # 设置周期数为 500
+my_model.fit(X_train, y_train)
+</code></pre>
+<p><strong>early_stopping_rounds</strong>
+<code>early_stopping_rounds</code>提供了自动找到理想的<code>n_estimators</code>的方法，当验证分数停止改善时，会提前停止迭代，所以我们可以设置一个比较大<code>n_estimators</code>，然后模型很可能会在这之前自动停止训练。由于训练过程具有一定的随机性，所以有时可能会某一轮没有提升，所以一般会设置<code>early_stopping_rounds=5</code>，即连续5轮验证分数都没有改善那么就停止训练。</p>
+<p>在使用<code>early_stopping_rounds</code>的时候，要留出一部分数据来计算验证分数，这是由<code>eval_set</code>参数来完成的。</p>
+<p>将上面提到的参数应用到模型中，来使模型提前停止：</p>
+<pre><code class="language-python">my_model = XGBRegressor(n_estimators=500)
+my_model.fit(X_train, y_train, 
+             early_stopping_rounds=5, 
+             eval_set=[(X_valid, y_valid)],
+             verbose=False)
+</code></pre>
+<p><strong>learning_rate</strong>
+我们可以将每个模型的预测乘以一个较小的数字（<strong>learning rate</strong>）然后再把它们相加。如果学习率比较小，会导致每个模型的预测对我们的帮助都比较小，所以我们应该在不会使它过拟合的前提下 设置尽可能高的学习率。</p>
+<p>一般来说，较小的学习率和较大的模型集合将产生更精确的XGBoost模型，但这样会有较大的计算成本，更多的迭代，每次迭代耗费更长的时间，默认情况XGBoost会设置<code>learning_rate=0.1</code>。</p>
+<pre><code class="language-python">my_model = XGBRegressor(n_estimators=1000, learning_rate=0.05)
+my_model.fit(X_train, y_train, 
+             early_stopping_rounds=5, 
+             eval_set=[(X_valid, y_valid)], 
+             verbose=False)
+</code></pre>
+<p><strong>n_jobs</strong>
+在需要考虑运行时间的大型数据集上，可以将<code>n_jobs</code>设置为核心的数量，使用并行运算更快的构建模型。但是在较小的数据集上这样做不会有帮助。</p>
+<pre><code class="language-python">my_model = XGBRegressor(n_estimators=1000, learning_rate=0.05, n_jobs=4)
+my_model.fit(X_train, y_train, 
+             early_stopping_rounds=5, 
+             eval_set=[(X_valid, y_valid)], 
+             verbose=False)
+</code></pre>
+<h2 id="data-leakage">Data Leakage<a hidden class="anchor" aria-hidden="true" href="#data-leakage">#</a></h2>
+<p>这节教程会介绍数据泄露，以及如何防止数据泄露，如果不知道如何预防，那么数据泄露就会频繁出现，以微妙而危险的方式破坏模型。</p>
+<p>当训练数据中包含有关target的信息时，会发生数据泄露，但当模型用于预测时，类似的数据将不可用。这将导致模型在训练集（甚至可能在验证集）上性能很高，但是在生产中性能较差。</p>
+<p>泄漏主要有两种类型：<strong>target leakage</strong> 和 <strong>train-test contamination</strong></p>
+<h3 id="target-leakage">Target leakage<a hidden class="anchor" aria-hidden="true" href="#target-leakage">#</a></h3>
+<p>当训练的数据集中存在“在实际使用模型时不存在”的信息，并且这个信息对target有很强的相关性，这样会导致在训练集和测试集上效果都很好，但是在实际使用的时候，模型效果很差，比如下面这个例子：</p>
+<p>假设要通过一些受访者的信息来判断他是否患有肺炎，下图是收集到的部分数据：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">got_pneumonia</th>
+<th style="text-align:center">age</th>
+<th style="text-align:center">weight</th>
+<th style="text-align:center">male</th>
+<th style="text-align:center">took_antibiotic_medicine</th>
+<th style="text-align:center">&hellip;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">False</td>
+<td style="text-align:center">65</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">False</td>
+<td style="text-align:center">False</td>
+<td style="text-align:center">&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">False</td>
+<td style="text-align:center">72</td>
+<td style="text-align:center">130</td>
+<td style="text-align:center">True</td>
+<td style="text-align:center">False</td>
+<td style="text-align:center">&hellip;</td>
+</tr>
+<tr>
+<td style="text-align:center">True</td>
+<td style="text-align:center">58</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">False</td>
+<td style="text-align:center">True</td>
+<td style="text-align:center">&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>took_antibiotic_medicine</code>列和目标值<code>got_pneumonia</code>关系很强，因为如果得了肺炎那么他极大可能会吃药，训练过程就会根据吃药的行为判断他得了肺炎，这在实际应用模型时会发生判断不准确的现象，所以在使用数据训练模型的时候，要注意这些数据产生的时间需要是在“生产环境中使用模型进行预测的阶段”之前。</p>
+<img src="https://s1.ax1x.com/2022/03/26/qUtA6U.png">
+<h3 id="train-test-contamination">Train-Test Contamination<a hidden class="anchor" aria-hidden="true" href="#train-test-contamination">#</a></h3>
+<p>如果在数据预处理的时候，如果验证集也以某种方式参与了进来，比如在<code>train_test_split()</code>之前使用全部数据对空值插补，那么最后的模型很可能在训练集和验证集上表现良好，但在生产环境中表现较差。</p>
+<p>后面的练习部分是给了一些这两种泄露的例子。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.slightwind.cn/tags/notes/">Notes</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/kaggle/">Kaggle</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/ml/">ML</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Notes: Kaggle Courses - Intro to DL &amp; Computer Vision</span>
+  </a>
+  <a class="next" href="https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Notes: Kaggle Courses - Pandas</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on x"
+        href="https://x.com/intent/tweet/?text=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f&amp;hashtags=Notes%2cKaggle%2cML">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z"/>
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f&amp;title=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML&amp;summary=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML&amp;source=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f&title=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on whatsapp"
+        href="https://api.whatsapp.com/send?text=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML%20-%20https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on telegram"
+        href="https://telegram.me/share/url?text=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML on ycombinator"
+        href="https://news.ycombinator.com/submitlink?t=Notes%3a%20Kaggle%20Courses%20-%20Intro%20to%20ML%20%26%20Intermediate%20ML&u=https%3a%2f%2fblog.slightwind.cn%2fposts%2ftutorial%2fnotes-kaggle-courses-intro-to-ml%2f">
+        <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+            <path
+                d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://blog.slightwind.cn/">Slightwind</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

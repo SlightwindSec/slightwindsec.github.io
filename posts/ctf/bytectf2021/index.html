@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>ByteCTF 2021 Crypto | Slightwind</title>
+<meta name="keywords" content="Crypto, XOR, CBC, OFB, Protocol, ECC, ECDLP, Coppersmith">
+<meta name="description" content="easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
+encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
+首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
+读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。
+现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。
+from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&lt;129) and (i&gt;31)) for i in s]) c = &quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&quot; c_list = [int(c[i*16:i*16&#43;16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt &#43;= 1 try: print(m1.">
+<meta name="author" content="Slightwind">
+<link rel="canonical" href="https://blog.slightwind.cn/posts/ctf/bytectf2021/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c7114bf2e60e294d9801cc3e33241fb43d14d31c3f547fb2668595a22e5fb442.css" integrity="sha256-xxFL8uYOKU2YAcw&#43;MyQftD0U0xw/VH&#43;yZoWVoi5ftEI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.slightwind.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.slightwind.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.slightwind.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.slightwind.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.slightwind.cn/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: #282c34;
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{aligned}", right: "\\end{aligned}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta property="og:title" content="ByteCTF 2021 Crypto" />
+<meta property="og:description" content="easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
+encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
+首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
+读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。
+现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。
+from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&lt;129) and (i&gt;31)) for i in s]) c = &quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&quot; c_list = [int(c[i*16:i*16&#43;16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt &#43;= 1 try: print(m1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.slightwind.cn/posts/ctf/bytectf2021/" /><meta property="og:image" content="https://blog.slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-29T10:46:00+00:00" />
+<meta property="article:modified_time" content="2021-10-29T10:46:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+
+<meta name="twitter:title" content="ByteCTF 2021 Crypto"/>
+<meta name="twitter:description" content="easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
+encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
+首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
+读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。
+现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。
+from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&lt;129) and (i&gt;31)) for i in s]) c = &quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&quot; c_list = [int(c[i*16:i*16&#43;16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt &#43;= 1 try: print(m1."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://blog.slightwind.cn/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "ByteCTF 2021 Crypto",
+      "item": "https://blog.slightwind.cn/posts/ctf/bytectf2021/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ByteCTF 2021 Crypto",
+  "name": "ByteCTF 2021 Crypto",
+  "description": "easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。\nencrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。\n首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。\n读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。\n现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。\nfrom itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i\u0026lt;129) and (i\u0026gt;31)) for i in s]) c = \u0026quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912\u0026quot; c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b'ByteCTF{') range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt += 1 try: print(m1.",
+  "keywords": [
+    "Crypto", "XOR", "CBC", "OFB", "Protocol", "ECC", "ECDLP", "Coppersmith"
+  ],
+  "articleBody": "easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。\nencrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。\n首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。\n读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。\n现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。\nfrom itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i\u003c129) and (i\u003e31)) for i in s]) c = \"89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912\" c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b'ByteCTF{') range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt += 1 try: print(m1.decode() + m2.decode(), k) except: print(\"error\") print(k_cnt) # keys = [-12, 26, -3, -31] # ByteCTF{5831a241s-f30980 现在已经得到了keys和前三块的明文，可以接着解后三块明文了。\nfrom Crypto.Util.number import bytes_to_long, long_to_bytes k = [-12, 26, -3, -31] c = \"89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912\" cl = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] cur_c = bytes_to_long(b'ByteCTF{') ^ cl[0] def shift(m, k, c): if k \u003c 0: return m ^ m \u003e\u003e (-k) \u0026 c return m ^ m \u003c\u003c k \u0026 c def convert(m, key): c_list = [0x37386180af9ae39e, 0xaf754e29895ee11a, 0x85e1a429a2b7030c, 0x964c5a89f6d3ae8c] for t in range(4): m = shift(m, key[t], c_list[t]) return m def unshift_right(value, key, mask=None, nbits=32): if not mask: mask = (1 \u003c\u003c (nbits + 1)) - 1 i = 0 while i * key \u003c nbits: part_mask = ((((1 \u003c\u003c nbits)-1) \u003c\u003c (nbits - key)) \u0026 ((1 \u003c\u003c nbits)-1)) \u003e\u003e (i * key) part = value \u0026 part_mask value ^= (part \u003e\u003e key) \u0026 mask i += 1 return value def unshift_left(value, key, mask=None, nbits=32): if not mask: mask = (1 \u003c\u003c (nbits + 1)) - 1 i = 0 while i * key \u003c nbits: part_mask = ((((1 \u003c\u003c nbits)-1) \u003e\u003e (nbits - key)) \u0026 ((1 \u003c\u003c nbits)-1)) \u003c\u003c (i * key) part = value \u0026 part_mask value ^= (part \u003c\u003c key) \u0026 mask i += 1 return value def my_unshift(m, k, c): if k \u003c 0: tmp = unshift_right(m, -k, c, 64) return tmp tmp = unshift_left(m, k, c, 64) return tmp def re_convert(m, key): c_list = [0x37386180af9ae39e, 0xaf754e29895ee11a, 0x85e1a429a2b7030c, 0x964c5a89f6d3ae8c] for t in range(3, -1, -1): m = my_unshift(m, key[t], c_list[t]) return m IV = re_convert(cur_c, k) assert IV.bit_length() == 64 last = IV cur = re_convert(cl[3], k) m3 = long_to_bytes(cur ^ last) print(m3) last = cl[3] cur = re_convert(cl[4], k) m4 = long_to_bytes(cur ^ last) print(m4) last = cl[4] cur = re_convert(cl[5], k) m5 = long_to_bytes(cur ^ last) print(m5) print(m3 + m4 + m5) # q535af-2156547475u2t}$$$ 拼接起来得到完整flag: ByteCTF{5831a241s-f30980q535af-2156547475u2t}$$$\nabusedkey 首先把用到的数据放在了task_data.py，方便些其他脚本时直接导入：\nURL = \"http://39.105.181.182:30000\" msg11 = URL+\"/abusedkey/server/msg11\" msg13 = URL+\"/abusedkey/server/msg13\" msg21 = URL+\"/abusedkey/server/msg21\" msg23 = URL+\"/abusedkey/ttp/msg23\" msg25 = URL+\"/abusedkey/server/msg25\" # -------------------------------- Secp256k1 -------------------------------- p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F a, b = 0, 7 G = (0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798, 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8) # ------------------ https://en.bitcoin.it/wiki/Secp256k1 ------------------- Pc = (0xb5b1b07d251b299844d968be56284ef32dffd0baa6a0353baf10c90298dfd117, 0xea62978d102a76c3d6747e283091ac5f2b4c3ba5fc7a906fe023ee3bc61b50fe) 协议2的部分，想要拿到hint很简单，只要按照描述实现出来，就拿到了hint，hint.sage:\nimport requests, os, random from Crypto.Cipher import AES from Crypto.Util.number import long_to_bytes from task_data import p, a, b, G, msg21, msg23, msg25 from hashlib import sha256 E = EllipticCurve(IntegerModRing(p), [a, b]) G = E(G) # sid2 = hex(random.getrandbits(256))[2:] sid2 = \"8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56\" msg22 = requests.get(msg21, data=sid2).text Qs_hex = msg22 rc = 1 # random.randint(1, p) Rc = rc*G Pic = long_to_bytes(int('FFFF', 16)) hc = int(sha256(Pic).hexdigest(), 16) Qc = hc*Rc Qc_hex = hex(Qc[0])[2:].rjust(64) + hex(Qc[1])[2:].rjust(64) assert len(Qc_hex) == 128 msg24 = requests.get(msg23, data=Qc_hex+Qs_hex).text assert len(msg24) == 256 Yc_hex, Ys_hex = msg24[:128], msg24[128:] msg26 = requests.get(msg25, data=sid2+Yc_hex).text Ys = E((int(Ys_hex[:64], 16), int(Ys_hex[64:], 16))) Zcs = rc*Ys Zcsx = long_to_bytes(int(Zcs[0])) sk2 = sha256(Zcsx).digest() msg26 = bytes.fromhex(msg26) iv, ciphertext, mac = msg26[:12], msg26[12:-16], msg26[-16:] cipher = AES.new(sk2, mode=AES.MODE_GCM, nonce=iv) try: m = cipher.decrypt_and_verify(ciphertext, mac) print(m.decode()) except ValueError: print(\"MAC check failed\") # off-line guessing on protocol_II, and key compromise impersonation on protocol_I Hint: off-line guessing on protocol_II, and key compromise impersonation on protocol_I\nhint和题目描述都在说明，两个协议共用一个Server端的key，那么大概思路就是通过协议2拿到key，再将这个key用于解协议1的flag，可以先简单分析一下：\n已知 rc-(随机), hc-H(c口令) 未知 rs-(随机), hs-H(s口令) Qc = rc * hc * G --- 已知 Qs = rs * hs * G --- 已知 Yc = rc * rt * G --- 已知 Ys = rs * rt * G --- 已知 Zcs = rc * rs * rt * G --- 已知 公共密钥 这里面的rc是我们可以控制的，所以可以令rc=1让问题看起来简单一点。\nrc = 1 时： Qc = hc * G --- 已知 Qs = rs * hs * G --- 已知 Yc = rt * G --- 已知 Ys = rs * rt * G --- 已知 Zcs = rs * rt * G --- 已知 公共密钥 $hs$是两个字节的sha256结果，显然是让我们爆破的，也就是说我们需要得到一组形式为$hs\\cdot Point$和$Point$的数据，这样去爆两个字节就可以了，为了得到这样的数据，我们需要构造一下发送的数据。\n发送假的 Qc = hc * rs * hs * G = hc * Qs 得到 Yc = hs * rs * rt * G 发送 Qs = rs * hs * G 得到 Ys = rs * rt * G 这样以来，$Ys$和$Yc$刚好是我们需要的一组数据，$Yc=hs\\cdot Ys$，然后爆破一下两个字节的哈希，如果某两个字节的sha256乘$Ys$等于$Yc$，那么这个sha256的值就是$hs$：\nimport requests, os, random, tqdm from Crypto.Cipher import AES from Crypto.Util.number import long_to_bytes from task_data import p, a, b, G, msg21, msg23, msg25 from hashlib import sha256 E = EllipticCurve(IntegerModRing(p), [a, b]) G = E(G) sid2 = \"8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56\" msg22 = requests.get(msg21, data=sid2).text Qs = E((int(msg22[:64], 16), int(msg22[64:], 16))) rc = 1 # random.randint(1, p) Rc = rc*G Pic = long_to_bytes(int('FFFF', 16)) hc = int(sha256(Pic).hexdigest(), 16) fake_Qc = hc * Qs # hc * rs * hs * G fake_Qc_hex = hex(fake_Qc[0])[2:].rjust(64) + hex(fake_Qc[1])[2:].rjust(64) msg24 = requests.get(msg23, data=fake_Qc_hex+msg22).text assert len(msg24) == 256 Yc_hex, Ys_hex = msg24[:128], msg24[128:] # hs * rs * rt * G Yc = E((int(Yc_hex[:64], 16), int(Yc_hex[64:], 16))) # rs * rt * G Ys = E((int(Ys_hex[:64], 16), int(Ys_hex[64:], 16))) for pis in tqdm.tqdm(range(0xff, 0xffff+1)): hs = int(sha256(long_to_bytes(pis)).hexdigest(), 16) if ((hs*Ys) == Yc): print(f'pis = {pis}\\nhs = {hs}') break ''' pis = 36727 hs = 67294392667457530634966084521984708026794776225602296684920633502274376489620 ''' 协议2搞到了$hs$，也就是协议1中的服务端私钥ds，所以服务端的公钥也很容易得到，这样就有了$(d_S,P_S)$，还有题目给我们的$P_C$，一旦计算出$K_{CS}$就可以解出flag了，那么问题是看起来我们必须知道$t_S$和$d_C$中的一个，所以需要想办法把它消掉，在要求上传$T_C$的时候，上传$-T_C$就可以了。\nimport requests, random from Crypto.Util.number import * from Crypto.Cipher import AES from task_data import p, a, b, G, msg11, msg13, Pc from hashlib import sha256 E = EllipticCurve(IntegerModRing(p), [a, b]) G = E(G) sid1 = \"8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56\" msg12 = requests.get(msg11, data=sid1).text ds = 67294392667457530634966084521984708026794776225602296684920633502274376489620 Ps = ds*G Pc = E(Pc) invPc = -1*Pc print(invPc) invPc_hex = hex(invPc[0])[2:].rjust(64) + hex(invPc[1])[2:].rjust(64) msg14 = requests.get(msg13, data=sid1+invPc_hex).text Kcs = ds*invPc sk1 = sha256(long_to_bytes(int(Kcs[0]))).digest() msg26 = bytes.fromhex(msg14) iv, ciphertext, mac = msg26[:12], msg26[12:-16], msg26[-16:] cipher = AES.new(sk1, mode=AES.MODE_GCM, nonce=iv) try: m = cipher.decrypt_and_verify(ciphertext, mac) print(m.decode()) except ValueError: print(\"MAC check failed\") JustDecrypt 和美团CTF决赛的secret_decryption_system几乎一样的题，不同的地方是给的交互次数不够，最后unpad不一定会被截断到什么地方，所以用一样的脚本跑出结果的概率是1/256\nfrom Crypto.Util.number import * from pwn import * from tqdm import tqdm def main(): r = remote('39.105.181.182', '30001') plaintext = b\"Hello, I'm a Bytedancer. Please give me the flag!\"+b\"\\x0f\"*15 def my_XOR(a, b): assert len(a) == len(b) return b''.join([long_to_bytes(a[i]^b[i]) for i in range(len(a))]) def proof_of_work(): rev = r.recvuntil(b\"sha256(XXXX+\") suffix = r.recv(28).decode() rev = r.recvuntil(b\" == \") tar = r.recv(64).decode() def f(x): hashresult = hashlib.sha256(x.encode()+suffix.encode()).hexdigest() return hashresult == tar prefix = util.iters.mbruteforce(f, string.digits + string.ascii_letters, 4, 'upto') r.recvuntil(b'Give me XXXX \u003e ') r.sendline(prefix.encode()) def decrypt(msg): newmsg = msg + b'\\x00'*(256+64-len(msg)) r.recvuntil(b'Please enter your cipher in hex \u003e ') r.sendline(newmsg.hex().encode()) r.recvline() result = r.recvline().decode().strip() return bytes.fromhex(result) def decrypt_(msg): newmsg = msg + b'\\x00'*(256-len(msg)) r.recvuntil(b'Please enter your cipher in hex \u003e ') r.sendline(newmsg.hex().encode()) r.recvline() result = r.recvline().decode().strip() return bytes.fromhex(result) proof_of_work() msg = b'\\x00'*16 decrypt(msg) c = b\"\" for i in range(50): t = decrypt(c)[i] c += long_to_bytes(t^plaintext[i]) decc = decrypt_(c) print(decc) res = r.recvline()+r.recvline() if b\"Here is your flag\" in res: print(r.recvline()) print(r.recvline()) r.close() return (True, len(decc)) r.close() return (False, len(decc)) ll = [] while True: ss = main() ll.append(ss[1]) if ss[0]: break print(len(ll), ll) Overheard 相当于一个Oracle，给返回pow(msg, b, p)的高位，可以想办法利用coppersmith定理。先后发送Alice和pow(Alice, 2, p)的值，然后得到x1，x2，那么在模p的多项式$f(x) = (x1 + a)^2 - x2 - b$ 的值为0，所以解这个方程的small roots就可以得到被舍弃的值（小于64bit）。\nfrom pwn import remote from Crypto.Util.number import * import itertools r = remote('39.105.38.192', 30000) p = 62606792596600834911820789765744078048692259104005438531455193685836606544743 g = 5 r.sendlineafter(b\"$ \", b\"1\") Alice = int(r.recvline().decode().strip()) r.sendlineafter(b\"$ \", b\"2\") Bob = int(r.recvline().decode().strip()) r.sendlineafter(b\"$ \", b\"3\") r.sendlineafter(b\"To Bob: \", str(Alice).encode()) x1 = int(r.recvline().decode().strip()) r.sendlineafter(b\"$ \", b\"3\") r.sendlineafter(b\"To Bob: \", str(pow(Alice, 2, p)).encode()) x2 = int(r.recvline().decode().strip()) def small_roots(f, bounds, m=1, d=None): if not d: d = f.degree() R = f.base_ring() N = R.cardinality() f /= f.coefficients().pop(0) f = f.change_ring(ZZ) G = Sequence([], f.parent()) for i in range(m+1): base = N^(m-i) * f^i for shifts in itertools.product(range(d), repeat=f.nvariables()): g = base * prod(map(power, f.variables(), shifts)) G.append(g) B, monomials = G.coefficient_matrix() monomials = vector(monomials) factors = [monomial(*bounds) for monomial in monomials] for i, factor in enumerate(factors): B.rescale_col(i, factor) B = B.dense_matrix().LLL() B = B.change_ring(QQ) for i, factor in enumerate(factors): B.rescale_col(i, 1/factor) H = Sequence([], f.parent().change_ring(QQ)) for h in filter(None, B*monomials): H.append(h) I = H.ideal() if I.dimension() == -1: H.pop() elif I.dimension() == 0: roots = [] for root in I.variety(ring=ZZ): root = tuple(R(root[var]) for var in f.variables()) roots.append(root) return roots return [] PR. = PolynomialRing(Zmod(p)) f = (x1 + a)**2 - x2 - b ans = small_roots(f, (2**64, 2**64), m=8) print(\"ans =\", ans) r.sendlineafter(b'$ ', b'4') r.sendlineafter(b'secret: ', str(x1 + ans[0][0]).encode()) print(r.recvline().decode().strip()) r.close() ''' ans = [(275016199582168079, 3988784878785365375)] b'ByteCTF{0fcca5ab-c7dc-4b9a-83f0-b24d4d004c19}' ''' ",
+  "wordCount" : "1422",
+  "inLanguage": "en",
+  "datePublished": "2021-10-29T10:46:00Z",
+  "dateModified": "2021-10-29T10:46:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Slightwind"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.slightwind.cn/posts/ctf/bytectf2021/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Slightwind",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.slightwind.cn/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.slightwind.cn/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://blog.slightwind.cn/posts/">Posts</a></div>
+    <h1 class="post-title">
+      ByteCTF 2021 Crypto
+    </h1>
+    <div class="post-meta"><span title='2021-10-29 10:46:00 +0000 UTC'>October 29, 2021</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Slightwind
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#easyxor" aria-label="easyxor">easyxor</a></li>
+                <li>
+                    <a href="#abusedkey" aria-label="abusedkey">abusedkey</a></li>
+                <li>
+                    <a href="#justdecrypt" aria-label="JustDecrypt">JustDecrypt</a></li>
+                <li>
+                    <a href="#overheard" aria-label="Overheard">Overheard</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="easyxor">easyxor<a hidden class="anchor" aria-hidden="true" href="#easyxor">#</a></h2>
+<p><code>shift</code>函数是个常见的移位异或操作，<code>convert</code>是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。</p>
+<p><code>encrypt</code>函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的<code>convert</code>函数。</p>
+<p>首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。</p>
+<p>读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式<code>ByteCTF{</code>，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是<code>cur_c = convert(last, k)</code>的<code>cur_c</code>，这样就可以得到第二块的last。</p>
+<p>现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。</p>
+<pre><code class="language-python">from itertools import product
+from tqdm import tqdm
+from Crypto.Util.number import bytes_to_long, long_to_bytes
+def check(s):
+    return min([((i&lt;129) and (i&gt;31)) for i in s])
+
+c = &quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&quot;
+c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)]
+known_m = bytes_to_long(b'ByteCTF{')
+range64 = list(range(-32, 33))
+cur_c = known_m^c_list[0]
+print(cur_c)
+k_cnt = 0
+for a,b,c,d in tqdm(product(range64, range64, range64, range64)):
+    last = cur_c
+    k = [a, b, c, d]
+    try_cur_c = convert(last, k)
+    m1 = long_to_bytes(try_cur_c ^ c_list[1])
+    if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮
+        last = try_cur_c
+        try_cur_c = convert(last, k)
+        m2 = long_to_bytes(try_cur_c ^ c_list[2])
+        if check(m2):
+            k_cnt += 1
+            try:
+                print(m1.decode() + m2.decode(), k)
+            except:
+                print(&quot;error&quot;)
+print(k_cnt)
+# keys = [-12, 26, -3, -31]
+# ByteCTF{5831a241s-f30980
+</code></pre>
+<p>现在已经得到了keys和前三块的明文，可以接着解后三块明文了。</p>
+<pre><code class="language-python">from Crypto.Util.number import bytes_to_long, long_to_bytes
+
+k = [-12, 26, -3, -31]
+c = &quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&quot;
+cl = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)]
+cur_c = bytes_to_long(b'ByteCTF{') ^ cl[0]
+
+def shift(m, k, c):
+    if k &lt; 0:
+        return m ^ m &gt;&gt; (-k) &amp; c
+    return m ^ m &lt;&lt; k &amp; c
+
+def convert(m, key):
+    c_list = [0x37386180af9ae39e, 0xaf754e29895ee11a, 0x85e1a429a2b7030c, 0x964c5a89f6d3ae8c]
+    for t in range(4):
+        m = shift(m, key[t], c_list[t])
+    return m
+
+def unshift_right(value, key, mask=None, nbits=32):
+    if not mask: mask = (1 &lt;&lt; (nbits + 1)) - 1
+    i = 0
+    while i * key &lt; nbits:
+        part_mask = ((((1 &lt;&lt; nbits)-1) &lt;&lt; (nbits - key)) &amp; ((1 &lt;&lt; nbits)-1)) &gt;&gt; (i * key)
+        part = value &amp; part_mask
+        value ^= (part &gt;&gt; key) &amp; mask
+        i += 1
+    return value
+
+def unshift_left(value, key, mask=None, nbits=32):
+    if not mask: mask = (1 &lt;&lt; (nbits + 1)) - 1
+    i = 0
+    while i * key &lt; nbits:
+        part_mask = ((((1 &lt;&lt; nbits)-1) &gt;&gt; (nbits - key)) &amp; ((1 &lt;&lt; nbits)-1)) &lt;&lt; (i * key)
+        part = value &amp; part_mask
+        value ^= (part &lt;&lt; key) &amp; mask
+        i += 1
+    return value
+
+def my_unshift(m, k, c):
+    if k &lt; 0:
+        tmp = unshift_right(m, -k, c, 64)
+        return tmp
+    tmp = unshift_left(m, k, c, 64)
+    return tmp
+
+def re_convert(m, key):
+    c_list = [0x37386180af9ae39e, 0xaf754e29895ee11a, 0x85e1a429a2b7030c, 0x964c5a89f6d3ae8c]
+    for t in range(3, -1, -1):
+        m = my_unshift(m, key[t], c_list[t])
+    return m
+
+IV = re_convert(cur_c, k)
+assert IV.bit_length() == 64
+
+last = IV
+cur = re_convert(cl[3], k)
+m3 = long_to_bytes(cur ^ last)
+print(m3)
+
+last = cl[3]
+cur = re_convert(cl[4], k)
+m4 = long_to_bytes(cur ^ last)
+print(m4)
+
+last = cl[4]
+cur = re_convert(cl[5], k)
+m5 = long_to_bytes(cur ^ last)
+print(m5)
+print(m3 + m4 + m5)
+# q535af-2156547475u2t}$$$
+</code></pre>
+<p>拼接起来得到完整flag: ByteCTF{5831a241s-f30980q535af-2156547475u2t}$$$</p>
+<h2 id="abusedkey">abusedkey<a hidden class="anchor" aria-hidden="true" href="#abusedkey">#</a></h2>
+<p>首先把用到的数据放在了<code>task_data.py</code>，方便些其他脚本时直接导入：</p>
+<pre><code class="language-python">URL = &quot;http://39.105.181.182:30000&quot;
+msg11 = URL+&quot;/abusedkey/server/msg11&quot;
+msg13 = URL+&quot;/abusedkey/server/msg13&quot;
+msg21 = URL+&quot;/abusedkey/server/msg21&quot;
+msg23 = URL+&quot;/abusedkey/ttp/msg23&quot;
+msg25 = URL+&quot;/abusedkey/server/msg25&quot;
+
+# -------------------------------- Secp256k1 --------------------------------
+p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
+a, b = 0, 7
+G = (0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798,
+     0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8)
+# ------------------ https://en.bitcoin.it/wiki/Secp256k1 -------------------
+
+Pc = (0xb5b1b07d251b299844d968be56284ef32dffd0baa6a0353baf10c90298dfd117,
+      0xea62978d102a76c3d6747e283091ac5f2b4c3ba5fc7a906fe023ee3bc61b50fe)
+</code></pre>
+<p>协议2的部分，想要拿到hint很简单，只要按照描述实现出来，就拿到了hint，<code>hint.sage</code>:</p>
+<pre><code class="language-python">import requests, os, random
+from Crypto.Cipher import AES
+from Crypto.Util.number import long_to_bytes
+from task_data import p, a, b, G, msg21, msg23, msg25
+from hashlib import sha256
+
+E = EllipticCurve(IntegerModRing(p), [a, b])
+G = E(G)
+
+# sid2 = hex(random.getrandbits(256))[2:]
+sid2 = &quot;8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56&quot;
+msg22 = requests.get(msg21, data=sid2).text
+Qs_hex = msg22
+
+rc = 1 # random.randint(1, p)
+Rc = rc*G
+
+Pic = long_to_bytes(int('FFFF', 16))
+hc = int(sha256(Pic).hexdigest(), 16)
+Qc = hc*Rc
+Qc_hex = hex(Qc[0])[2:].rjust(64) + hex(Qc[1])[2:].rjust(64)
+assert len(Qc_hex) == 128
+
+msg24 = requests.get(msg23, data=Qc_hex+Qs_hex).text
+assert len(msg24) == 256
+Yc_hex, Ys_hex = msg24[:128], msg24[128:]
+
+msg26 = requests.get(msg25, data=sid2+Yc_hex).text
+
+Ys = E((int(Ys_hex[:64], 16), int(Ys_hex[64:], 16)))
+Zcs = rc*Ys
+Zcsx = long_to_bytes(int(Zcs[0]))
+sk2 = sha256(Zcsx).digest()
+
+msg26 = bytes.fromhex(msg26)
+iv, ciphertext, mac = msg26[:12], msg26[12:-16], msg26[-16:]
+cipher = AES.new(sk2, mode=AES.MODE_GCM, nonce=iv)
+try:
+    m = cipher.decrypt_and_verify(ciphertext, mac)
+    print(m.decode())
+except ValueError:
+    print(&quot;MAC check failed&quot;)
+# off-line guessing on protocol_II, and key compromise impersonation on protocol_I
+</code></pre>
+<blockquote>
+<p>Hint: off-line guessing on protocol_II, and key compromise impersonation on protocol_I</p>
+</blockquote>
+<p>hint和题目描述都在说明，两个协议共用一个Server端的key，那么大概思路就是通过协议2拿到key，再将这个key用于解协议1的flag，可以先简单分析一下：</p>
+<pre><code class="language-python">已知 rc-(随机), hc-H(c口令)
+未知 rs-(随机), hs-H(s口令)
+Qc = rc * hc * G --- 已知
+Qs = rs * hs * G --- 已知
+
+Yc = rc * rt * G --- 已知
+Ys = rs * rt * G --- 已知
+
+Zcs = rc * rs * rt * G --- 已知 公共密钥
+</code></pre>
+<p>这里面的rc是我们可以控制的，所以可以令rc=1让问题看起来简单一点。</p>
+<pre><code class="language-python">rc = 1 时：
+
+Qc = hc * G --- 已知
+Qs = rs * hs * G --- 已知
+
+Yc  =      rt * G --- 已知
+Ys  = rs * rt * G --- 已知
+Zcs = rs * rt * G --- 已知 公共密钥
+</code></pre>
+<p>$hs$是两个字节的sha256结果，显然是让我们爆破的，也就是说我们需要得到一组形式为$hs\cdot Point$和$Point$的数据，这样去爆两个字节就可以了，为了得到这样的数据，我们需要构造一下发送的数据。</p>
+<pre><code class="language-python">发送假的 Qc = hc * rs * hs * G = hc * Qs
+得到    Yc = hs * rs * rt * G
+
+发送 Qs = rs * hs * G
+得到 Ys = rs * rt * G
+</code></pre>
+<p>这样以来，$Ys$和$Yc$刚好是我们需要的一组数据，$Yc=hs\cdot Ys$，然后爆破一下两个字节的哈希，如果某两个字节的sha256乘$Ys$等于$Yc$，那么这个sha256的值就是$hs$：</p>
+<pre><code class="language-python">import requests, os, random, tqdm
+from Crypto.Cipher import AES
+from Crypto.Util.number import long_to_bytes
+from task_data import p, a, b, G, msg21, msg23, msg25
+from hashlib import sha256
+
+E = EllipticCurve(IntegerModRing(p), [a, b])
+G = E(G)
+
+sid2 = &quot;8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56&quot;
+msg22 = requests.get(msg21, data=sid2).text
+Qs = E((int(msg22[:64], 16), int(msg22[64:], 16)))
+
+
+rc = 1 # random.randint(1, p)
+Rc = rc*G
+
+Pic = long_to_bytes(int('FFFF', 16))
+hc = int(sha256(Pic).hexdigest(), 16)
+fake_Qc = hc * Qs # hc * rs * hs * G
+fake_Qc_hex = hex(fake_Qc[0])[2:].rjust(64) + hex(fake_Qc[1])[2:].rjust(64)
+
+msg24 = requests.get(msg23, data=fake_Qc_hex+msg22).text
+assert len(msg24) == 256
+Yc_hex, Ys_hex = msg24[:128], msg24[128:]
+
+# hs * rs * rt * G
+Yc = E((int(Yc_hex[:64], 16), int(Yc_hex[64:], 16)))
+#      rs * rt * G
+Ys = E((int(Ys_hex[:64], 16), int(Ys_hex[64:], 16)))
+
+for pis in tqdm.tqdm(range(0xff, 0xffff+1)):
+    hs = int(sha256(long_to_bytes(pis)).hexdigest(), 16)
+    if ((hs*Ys) == Yc):
+        print(f'pis = {pis}\nhs = {hs}')
+        break
+
+'''
+pis = 36727
+hs = 67294392667457530634966084521984708026794776225602296684920633502274376489620
+'''
+</code></pre>
+<p>协议2搞到了$hs$，也就是协议1中的服务端私钥ds，所以服务端的公钥也很容易得到，这样就有了$(d_S,P_S)$，还有题目给我们的$P_C$，一旦计算出$K_{CS}$就可以解出flag了，那么问题是看起来我们必须知道$t_S$和$d_C$中的一个，所以需要想办法把它消掉，在要求上传$T_C$的时候，上传$-T_C$就可以了。</p>
+<pre><code class="language-python">import requests, random
+from Crypto.Util.number import *
+from Crypto.Cipher import AES
+from task_data import p, a, b, G, msg11, msg13, Pc
+from hashlib import sha256
+
+
+E = EllipticCurve(IntegerModRing(p), [a, b])
+G = E(G)
+sid1 = &quot;8d1a95ce724141a0ea7c8ffa7eddc48605b3117c8aa886bcc2aff3b0c2175b56&quot;
+
+msg12 = requests.get(msg11, data=sid1).text
+ds = 67294392667457530634966084521984708026794776225602296684920633502274376489620
+Ps = ds*G
+Pc = E(Pc)
+invPc = -1*Pc
+print(invPc)
+invPc_hex = hex(invPc[0])[2:].rjust(64) + hex(invPc[1])[2:].rjust(64)
+msg14 = requests.get(msg13, data=sid1+invPc_hex).text
+
+Kcs = ds*invPc
+sk1 = sha256(long_to_bytes(int(Kcs[0]))).digest()
+
+msg26 = bytes.fromhex(msg14)
+iv, ciphertext, mac = msg26[:12], msg26[12:-16], msg26[-16:]
+cipher = AES.new(sk1, mode=AES.MODE_GCM, nonce=iv)
+try:
+    m = cipher.decrypt_and_verify(ciphertext, mac)
+    print(m.decode())
+except ValueError:
+    print(&quot;MAC check failed&quot;)
+</code></pre>
+<h2 id="justdecrypt">JustDecrypt<a hidden class="anchor" aria-hidden="true" href="#justdecrypt">#</a></h2>
+<p>和美团CTF决赛的secret_decryption_system几乎一样的题，不同的地方是给的交互次数不够，最后unpad不一定会被截断到什么地方，所以用一样的脚本跑出结果的概率是<code>1/256</code></p>
+<pre><code class="language-python">from Crypto.Util.number import *
+from pwn import *
+from tqdm import tqdm
+def main():
+    r = remote('39.105.181.182', '30001')
+    plaintext = b&quot;Hello, I'm a Bytedancer. Please give me the flag!&quot;+b&quot;\x0f&quot;*15
+
+    def my_XOR(a, b):
+        assert len(a) == len(b)
+        return b''.join([long_to_bytes(a[i]^b[i]) for i in range(len(a))])
+
+    def proof_of_work():
+        rev = r.recvuntil(b&quot;sha256(XXXX+&quot;)
+        suffix = r.recv(28).decode()
+        rev = r.recvuntil(b&quot; == &quot;)
+        tar = r.recv(64).decode()
+
+        def f(x):
+            hashresult = hashlib.sha256(x.encode()+suffix.encode()).hexdigest()
+            return hashresult == tar
+
+        prefix = util.iters.mbruteforce(f, string.digits + string.ascii_letters, 4, 'upto')
+        r.recvuntil(b'Give me XXXX &gt; ')
+        r.sendline(prefix.encode())
+
+    def decrypt(msg):
+        newmsg = msg + b'\x00'*(256+64-len(msg))
+        r.recvuntil(b'Please enter your cipher in hex &gt; ')
+        r.sendline(newmsg.hex().encode())
+        r.recvline()
+        result = r.recvline().decode().strip()
+        return bytes.fromhex(result)
+
+    def decrypt_(msg):
+        newmsg = msg + b'\x00'*(256-len(msg))
+        r.recvuntil(b'Please enter your cipher in hex &gt; ')
+        r.sendline(newmsg.hex().encode())
+        r.recvline()
+        result = r.recvline().decode().strip()
+        return bytes.fromhex(result)
+    
+    proof_of_work()
+    msg = b'\x00'*16
+    decrypt(msg)
+    c = b&quot;&quot;
+    for i in range(50):
+        t = decrypt(c)[i]
+        c += long_to_bytes(t^plaintext[i])
+
+    decc = decrypt_(c)
+    print(decc)
+    res = r.recvline()+r.recvline()
+    if b&quot;Here is your flag&quot; in res:
+        print(r.recvline())
+        print(r.recvline())
+        r.close()
+        return (True, len(decc))
+    r.close()
+    return (False, len(decc))
+
+ll = []
+while True:
+    ss = main()
+    ll.append(ss[1])
+    if ss[0]: break
+    print(len(ll), ll)
+
+
+</code></pre>
+<h2 id="overheard">Overheard<a hidden class="anchor" aria-hidden="true" href="#overheard">#</a></h2>
+<p>相当于一个Oracle，给返回pow(msg, b, p)的高位，可以想办法利用coppersmith定理。先后发送Alice和pow(Alice, 2, p)的值，然后得到x1，x2，那么在模p的多项式$f(x) = (x1 + a)^2 - x2 - b$ 的值为0，所以解这个方程的small roots就可以得到被舍弃的值（小于64bit）。</p>
+<pre><code class="language-python">from pwn import remote
+from Crypto.Util.number import *
+import itertools
+
+r = remote('39.105.38.192', 30000)
+p = 62606792596600834911820789765744078048692259104005438531455193685836606544743
+g = 5
+
+r.sendlineafter(b&quot;$ &quot;, b&quot;1&quot;)
+Alice = int(r.recvline().decode().strip()) 
+
+r.sendlineafter(b&quot;$ &quot;, b&quot;2&quot;)
+Bob = int(r.recvline().decode().strip()) 
+
+
+r.sendlineafter(b&quot;$ &quot;, b&quot;3&quot;)
+r.sendlineafter(b&quot;To Bob: &quot;, str(Alice).encode())
+x1 = int(r.recvline().decode().strip()) 
+
+r.sendlineafter(b&quot;$ &quot;, b&quot;3&quot;)
+r.sendlineafter(b&quot;To Bob: &quot;, str(pow(Alice, 2, p)).encode())
+x2 = int(r.recvline().decode().strip()) 
+
+def small_roots(f, bounds, m=1, d=None):
+	if not d:
+		d = f.degree()
+	R = f.base_ring()
+	N = R.cardinality()
+	f /= f.coefficients().pop(0)
+	f = f.change_ring(ZZ)
+	G = Sequence([], f.parent())
+	for i in range(m+1):
+		base = N^(m-i) * f^i
+		for shifts in itertools.product(range(d), repeat=f.nvariables()):
+			g = base * prod(map(power, f.variables(), shifts))
+			G.append(g)
+	B, monomials = G.coefficient_matrix()
+	monomials = vector(monomials)
+	factors = [monomial(*bounds) for monomial in monomials]
+	for i, factor in enumerate(factors):
+		B.rescale_col(i, factor)
+	B = B.dense_matrix().LLL()
+	B = B.change_ring(QQ)
+	for i, factor in enumerate(factors):
+		B.rescale_col(i, 1/factor)
+	H = Sequence([], f.parent().change_ring(QQ))
+	for h in filter(None, B*monomials):
+		H.append(h)
+		I = H.ideal()
+		if I.dimension() == -1:
+			H.pop()
+		elif I.dimension() == 0:
+			roots = []
+			for root in I.variety(ring=ZZ):
+				root = tuple(R(root[var]) for var in f.variables())
+				roots.append(root)
+			return roots
+	return []
+
+PR.&lt;a,b&gt; = PolynomialRing(Zmod(p))
+f = (x1 + a)**2 - x2 - b
+ans = small_roots(f, (2**64, 2**64), m=8)
+print(&quot;ans =&quot;, ans)
+r.sendlineafter(b'$ ', b'4')
+r.sendlineafter(b'secret: ', str(x1 + ans[0][0]).encode())
+print(r.recvline().decode().strip())
+r.close()
+'''
+ans = [(275016199582168079, 3988784878785365375)]
+b'ByteCTF{0fcca5ab-c7dc-4b9a-83f0-b24d4d004c19}'
+'''
+</code></pre>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.slightwind.cn/tags/crypto/">Crypto</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/xor/">XOR</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/cbc/">CBC</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/ofb/">OFB</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/protocol/">Protocol</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/ecc/">ECC</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/ecdlp/">ECDLP</a></li>
+      <li><a href="https://blog.slightwind.cn/tags/coppersmith/">Coppersmith</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://blog.slightwind.cn/posts/ctf/huxiangbei2021/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>湖湘杯 2021 Crypto</span>
+  </a>
+  <a class="next" href="https://blog.slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Install OpenWrt for Redmi Router AC2100</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on x"
+        href="https://x.com/intent/tweet/?text=ByteCTF%202021%20Crypto&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f&amp;hashtags=Crypto%2cXOR%2cCBC%2cOFB%2cProtocol%2cECC%2cECDLP%2cCoppersmith">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z"/>
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f&amp;title=ByteCTF%202021%20Crypto&amp;summary=ByteCTF%202021%20Crypto&amp;source=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f&title=ByteCTF%202021%20Crypto">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on whatsapp"
+        href="https://api.whatsapp.com/send?text=ByteCTF%202021%20Crypto%20-%20https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on telegram"
+        href="https://telegram.me/share/url?text=ByteCTF%202021%20Crypto&amp;url=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share ByteCTF 2021 Crypto on ycombinator"
+        href="https://news.ycombinator.com/submitlink?t=ByteCTF%202021%20Crypto&u=https%3a%2f%2fblog.slightwind.cn%2fposts%2fctf%2fbytectf2021%2f">
+        <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+            <path
+                d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://blog.slightwind.cn/">Slightwind</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

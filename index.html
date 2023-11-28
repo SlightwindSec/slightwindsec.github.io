@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.120.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Slightwind</title>
+
+<meta name="description" content="Slightwind&#39;s Blog">
+<meta name="author" content="Slightwind">
+<link rel="canonical" href="https://blog.slightwind.cn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c7114bf2e60e294d9801cc3e33241fb43d14d31c3f547fb2668595a22e5fb442.css" integrity="sha256-xxFL8uYOKU2YAcw&#43;MyQftD0U0xw/VH&#43;yZoWVoi5ftEI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://blog.slightwind.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.slightwind.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.slightwind.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.slightwind.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.slightwind.cn/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://blog.slightwind.cn/index.xml">
+<link rel="alternate" type="application/json" href="https://blog.slightwind.cn/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: #282c34;
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta property="og:title" content="Slightwind" />
+<meta property="og:description" content="Slightwind&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.slightwind.cn/" /><meta property="og:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+
+<meta name="twitter:title" content="Slightwind"/>
+<meta name="twitter:description" content="Slightwind&#39;s Blog"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Slightwind",
+  "url": "https://blog.slightwind.cn/",
+  "description": "Slightwind\u0026#39;s Blog",
+  "thumbnailUrl": "https://blog.slightwind.cn/favicon.ico",
+  "sameAs": [
+      "https://github.com/SlightwindSec", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.slightwind.cn/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.slightwind.cn/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>Hi there! 👋</h1>
+    </header>
+    <div class="entry-content">
+        <em>Good morning, and in case I don&rsquo;t see ya, good afternoon, good evening, and good night.</em>
+    </div>
+    <footer class="entry-footer">
+        <div class="social-icons">
+    <a href="https://github.com/SlightwindSec" target="_blank" rel="noopener noreferrer me" title="Github">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+    </a>
+    <a href="index.xml" target="_blank" rel="noopener noreferrer me" title="Rss">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+    </a>
+</div>
+
+    </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Notes: Kaggle Courses - Intro to DL &amp; Computer Vision
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Intro to Deep Learning A Single Neuron The Linear Unit 下面是一个neuron（或称unit）的示意图，x是输入；w是x的权重weight；b是bias，是一种特殊的权重，没有和bias相关的输入数据，它可以独立于输入修改输出。神经网络通过修改权重来“learn”。
+y是这个神经元输出的值，$y=wx&#43;b$，刚好是一个直线的方程，w是斜率，b是在y轴上的截距。
+Example - The Linear Unit as a Model 单个神经元是通常只会在更大的网络中发挥作用，单神经元模型是线性模型。当$w=2.5, b=90$时，这个线性模型可以用来反应糖&#39;sugars&#39;和卡路里&#39;calories&#39;的关系：
+Multiple Inputs 对于多个输入，也是这样将每个输入乘以权重，并把它们相加。下面这个对应的公式为：$y=w_{0} x_{0}&#43;w_{1} x_{1}&#43;w_{2} x_{2}&#43;b.$ Linear Units in Keras 在Keras中创建模型最简单的方法是使用keras.Sequential，下面这个示例表示一个线性模型，可以输入3个特征（‘sugars’, ‘fiber’, ‘protein’），并且只有一个输出：‘calories’。
+from tensorflow import keras from tensorflow.keras import layers # Create a network with 1 linear unit model = keras.Sequential([ layers.Dense(units=1, input_shape=[3]) ]) 第一个参数units定义输出的个数，input_shape告诉Keras输入特征的数量。目前只需要用到input_shape=[num_columns]，input_shape还可以支持使用更复杂的数据：[height, width, channels]。
+Tensors是TensorFlow版本的numpy数组，并且做了一些使它更适合用于机器学习的改变，Tensors与GPU/TPU加速器兼容，而TPU就是专为Tensors而设计的。在Keras内部，使用Tensors表示神经网络的权重。
+model.weights可以用来查看权重，在训练开始前，权重都会被初始化为随机值。
+Deep Neural Networks Layers 神经网络会将神经元组成层（layers），合并有相同的输入的线性神经元，就得到了一个稠密层（dense layer） The Activation Function 两个中间没有其他东西的稠密层，效果并不会比一个稠密层的效果好多少，“稠密层本身不能带我们离开线和面的世界”，我们需要的是非线性（nonlinear），需要激活函数（activation function）。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-12 16:23:00 +0000 UTC'>March 12, 2022</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Intro to DL &amp; Computer Vision" href="https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
+Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
+给了一个简单使用pandas的例子：
+# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
+有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
+Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-10 16:23:00 +0000 UTC'>March 10, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML" href="https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Notes: Kaggle Courses - Pandas
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Pandas Creating, Reading and Writing Creating data import pandas as pd pandas是最受欢迎的python数据分析包。pandas中有两个核心对象DataFrame和Series。
+DataFrame是一个表，由多个数组构成，这些数组常常作为表里面的列。使用pd.DataFrame()来实例化一个DataFrame对象，数据参数使用的是python中的dict，dict的key作为DataFrame的列名，dict的value是一个list，作为对应列的全部元素。
+&gt;&gt;&gt; pd.DataFrame({&#39;Yes&#39;: [50, 21], &#39;No&#39;: [131, 2]}) Yes No 0 50 131 1 21 2 &gt;&gt;&gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}) Bob Sue 0 I liked it. Pretty good. 1 It was awful. Bland. 行的下标（通常称为索引(index)）默认和python的list一样，从0开始，也可以在构造时自定义
+&gt;&gt;&gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}, index=[&#39;Product A&#39;, &#39;Product B&#39;]) Bob Sue Product A I liked it....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-09 16:23:00 +0000 UTC'>March 9, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Pandas" href="https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Install OpenSSL and GmSSL on Win32
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>由于参与了一个在PLC和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
+OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
+Install ActivePerl and remove Stawberry Perl as it is not compatible with openssl.
+但是ActivePerl的官网只提供64bit的版本，安装32bit版本的ActivePerl需要支付$912/yr：
+The site states: “if you need 32-bit or other older/legacy versions, they are available through our new ActiveState Platform by subscribing to at least Team Tier. See pricing here.”
+这就很难搞，只能去下载安装现成的二进制文件：http://slproweb.com/products/Win32OpenSSL.html
+GmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，编译过程比较顺利。
+虽然也提及要用ActivePerl，但是我在对Configure进行了一点简单修改之后，用Strawberry Perl也可以成功运行perl Configure VC-WIN32。
+直接运行perl Configure VC-WIN32会遇到报错：&#34;glob&#34; is not exported by the File::Glob module。
+分别在Configure和test/build.info两个文件中，把：
+use if $^O ne &#34;VMS&#34;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-12-08 21:34:16 +0000 UTC'>December 8, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Install OpenSSL and GmSSL on Win32" href="https://blog.slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>使用树莓派4B作为一台服务器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
+解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用frp内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网IP了。
+静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网IP。
+动态公网IP 没有静态的，可以退而求其次搞动态的，跟运营商交涉一下是可以得到动态的公网IP的，虽然是上下行不对等的家庭带宽，但是作为服务器来说绰绰有余，已经远超很多便宜的云服务器了。
+第一次我直接跟人工客服打电话申请要一个静态公网IP被拒绝了；然后第二天我又一次联系了人工客服，询问能不能申请动态的公网IP（可以说装摄像头要用到，不能说在家里搭建服务器），结果很快就回电通知我已经给了动态的公网IP，还算顺利～
+Dynamic DNS 后面使用发现，我们这边的动态的公网IP大约2～3天变动一次，这就可以通过 Dynamic DNS（DDNS） 将动态的IP解析到固定的域名，就能通过固定的域名访问到服务器了。
+DDNS需要服务端和本地各运行一个服务：本地的树莓派或路由器上运行一个服务，每隔一段时间（几分钟）就获取一下自己的公网IP，判断一下有没有发生改变，如果发生改变就将新的IP发送给服务端，服务端得到新的IP，就重新将域名解析到新的IP，所以是动态DNS。
+DDNS的服务端只提供域名的动态解析服务，所以服务端的带宽对访问树莓派的速度没有影响（但是可能会影响到延时？实际使用没有明显感觉到）
+DDNS服务：
+直接使用一些网站（oray.com/3322.org/Dyndns.com/No-ip.com）免费提供的DDNS服务，但是他们给的域名都是比较杂乱的三级域名，需要再把自己租的阿里云/腾讯云域名CNAME解析到这个三级域名。花生壳（oray.com）可以免费使用；而No-ip.com免费版需要每30天登录上去手动续约。 使用自己的vps运行脚本为树莓派提供DDNS服务，由于需要通过脚本进行域名解析，所以需要在vps上安装对应的SDK，然后开发对应的脚本，可以直接将自己的阿里云/腾讯云域名解析到家里的公网IP。 我现在是选择使用花生壳（oray.com）的DDNS服务，只需要注册即可得到一个三级域名，通过控制台-&gt;域名-&gt;壳域名来查看。我的路由器是小米4A，可以在后台设置DDNS，选择“花生壳”并输入账号密码域名和检查IP的时间间隔即可。路由器不支持的话就需要在树莓派上运行一个脚本来发送新的IP。
+也有很多树莓派玩家通过每次变动IP时，让树莓派将新IP发送给自己的邮箱，使自己总是可以知道最新的IP地址。
+frp内网穿透 如果也申请不到动态IP，那就只能用frp做内网穿透了，需要借助一台有公网IP的vps，流量也都需要经过这台vps，所以享受不到家庭宽带的低价大带宽了。
+测试上下行带宽 可以在 speedtest.cn 测试下行带宽和上行带宽（最好直接连网线测）。
+从公网访问树莓派下载文件需要的是家里的上行带宽，而家庭宽带的上行都是很低的，只能去升级下行带宽，上行才能对应的提升一点。。。。所以如果感觉带宽不太够还是要去升级一下宽带的。
+我家的联通宽带就不太行，一开始是100M下行，20M上行，实测大约下行90~100M，上行20~40M。于是换了500M下行，50M上行的宽带，实测大约下行450～550M，上行60～70M。
+组装树莓派和安装Ubuntu 我的是树莓派4B。启动树莓派还需要有5V3A的电源和一张TF卡。
+各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png
+然后就是愉快的组装环节，树莓派PCB边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把TF卡插到读卡器里，再把读卡器插在这台电脑上。
+电脑上需要安装 balenaEtcher 来为TF卡写入Ubuntu镜像，balenaEtcher 支持MacOS/Windows/Linux，可以在官网下载：https://www.balena.io/etcher/
+写入镜像过程很简单，跟着点就可以，下图这样就是写入成功了。 写入完成后不需要手动推出磁盘（TF卡读卡器），可以直接拔掉，然后将TF卡插入树莓派即可。
+树莓派的Wi-Fi网卡性能较弱，而搭NAS比较需要速度，所以我直接给树莓派插上了网线。这时就可以直接通电了，树莓派会自动开机。
+内网SSH连接树莓派 现在就可以用电脑连接Wi-Fi并进入无线路由器的后台，应该可以看到连接路由器的所有设备的内网IP地址和MAC地址，等待几分钟可以看到一个设备的名称是ubuntu，接入方式是网线连接，那么这个就是树莓派了。可以通过 ssh ubuntu@内网IP来连接树莓派，默认密码是ubuntu。
+公网SSH连接树莓派 接着可以设置一下路由器，为了防止树莓派的内网IP发生改变，需要在路由器后台，高级设置-&gt;DHCP静态IP分配 把树莓派的MAC地址和当前的内网IP地址绑定起来。然后为了让公网对路由器的访问都转向树莓派，高级设置-&gt;端口转发-&gt;开启DMZ，把DMZ这边的IP地址设置为树莓派的内网IP地址。这样设置完成之后，就可以通过 ssh ubuntu@公网IP 来远程控制树莓派了，公网IP地址可以通过访问 http://testipv6.com/来查看。
+较为遗憾的是运营商一般会屏蔽掉80端口和443端口。。。所以如果在树莓派上起服务，只能通过端口访问，这个问题可以通过在一台有公网IP并且开着80端口的vps上配置Nginx反向代理来解决，不过这样的话流量还是要走vps，所以为了快速的下载上传文件，只能通过加着端口这种方法来访问了，不过好在最终速度理想。
+初始配置 在同一文件夹下备份默认的源：
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 编辑 /etc/apt/sources.list 并替换成下面的内容：（sudo vim /etc/apt/sources.list）...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-11-17 16:09:02 +0000 UTC'>November 17, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to 使用树莓派4B作为一台服务器" href="https://blog.slightwind.cn/posts/environment/raspberrypi4b/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://blog.slightwind.cn/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://blog.slightwind.cn/">Slightwind</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

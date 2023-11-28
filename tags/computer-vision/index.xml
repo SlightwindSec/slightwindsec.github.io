@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Computer Vision on Slightwind</title>
+    <link>https://blog.slightwind.cn/tags/computer-vision/</link>
+    <description>Recent content in Computer Vision on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://blog.slightwind.cn/papermod-cover.png</url>
+      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 12 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes: Kaggle Courses - Intro to DL &amp; Computer Vision</title>
+      <link>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</link>
+      <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
+      
+      <guid>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</guid>
+      <description>Intro to Deep Learning A Single Neuron The Linear Unit 下面是一个neuron（或称unit）的示意图，x是输入；w是x的权重weight；b是bias，是一种特殊的权重，没有和bias相关的输入数据，它可以独立于输入修改输出。神经网络通过修改权重来“learn”。
+y是这个神经元输出的值，$y=wx+b$，刚好是一个直线的方程，w是斜率，b是在y轴上的截距。
+Example - The Linear Unit as a Model 单个神经元是通常只会在更大的网络中发挥作用，单神经元模型是线性模型。当$w=2.5, b=90$时，这个线性模型可以用来反应糖&#39;sugars&#39;和卡路里&#39;calories&#39;的关系：
+Multiple Inputs 对于多个输入，也是这样将每个输入乘以权重，并把它们相加。下面这个对应的公式为：$y=w_{0} x_{0}+w_{1} x_{1}+w_{2} x_{2}+b.$ Linear Units in Keras 在Keras中创建模型最简单的方法是使用keras.Sequential，下面这个示例表示一个线性模型，可以输入3个特征（&amp;lsquo;sugars&amp;rsquo;, &amp;lsquo;fiber&amp;rsquo;, &amp;lsquo;protein&amp;rsquo;），并且只有一个输出：&amp;lsquo;calories&amp;rsquo;。
+from tensorflow import keras from tensorflow.keras import layers # Create a network with 1 linear unit model = keras.Sequential([ layers.Dense(units=1, input_shape=[3]) ]) 第一个参数units定义输出的个数，input_shape告诉Keras输入特征的数量。目前只需要用到input_shape=[num_columns]，input_shape还可以支持使用更复杂的数据：[height, width, channels]。
+Tensors是TensorFlow版本的numpy数组，并且做了一些使它更适合用于机器学习的改变，Tensors与GPU/TPU加速器兼容，而TPU就是专为Tensors而设计的。在Keras内部，使用Tensors表示神经网络的权重。
+model.weights可以用来查看权重，在训练开始前，权重都会被初始化为随机值。
+Deep Neural Networks Layers 神经网络会将神经元组成层（layers），合并有相同的输入的线性神经元，就得到了一个稠密层（dense layer） The Activation Function 两个中间没有其他东西的稠密层，效果并不会比一个稠密层的效果好多少，“稠密层本身不能带我们离开线和面的世界”，我们需要的是非线性（nonlinear），需要激活函数（activation function）。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Misc on Slightwind</title>
+    <link>https://blog.slightwind.cn/tags/misc/</link>
+    <description>Recent content in Misc on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://blog.slightwind.cn/papermod-cover.png</url>
+      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 07 Jul 2020 23:08:14 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/misc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Writeup for Crypto problems in SCTF 2020</title>
+      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
+      <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
+      
+      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
+      <description>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
+CRYPTANALYSIS OF RSA AND ITS VARIANTS
+这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：
+from binascii import hexlify, unhexlify e0 = 0x9a7dc3e0f2a3531035b18541df28b8407502c2101970862d19b107ea7dc37554e5ac620b3ce4be38e5d6fd6b1920aef9e017aa383e3c1dd8e7847dc7715832fa450d1b572cfe133c702c598ed022d40ad193608bcfeb9b9aebc910dd3257caa42e503764475b89bb99056822e21ba5723d9eee3196a6fca3debd1c7687fd310d n0 = 0xa98c363cf72b3bce39bae63a9d3d5ba0acaa7e81f9b1191ce20bb0b54a8c19216d20af640121c482e882c0772671280af9f42c764128a94104266dd65c0bcd93766e0f0ce119072302b7f3e5cc4b5cfece38e4124041a8f8dcbdb9193f35bede2c284e40f80398bf0ba0609229fa27faa2d51c552ff1ed911a6f6f220b7b6fed c0 = 0x57fcf94d27451fc35386e0f6eff53c6540ccff51862c992f4b59d0d49fa350493041c5be2f54a37f3afe81aa5e9a738461b3b709a4611a7289c83d769cb02f3c5d18e65d68f6fff1df0418c8a7351be1d7cce1a7514797c9bdc67d969224d783a5d004d67a5ef986d564ab1945e5c83a53d8d1dcb5e45323764a200e737b80c e1 = 0xbb31e6433057edfed88b6a37e4419a828d1575b2b9d04a5058cd912d5efb06b2f0c5c06c5d0dd35ebeda8afa8a9cc945c244c13fc501c76e720c2c04cab70c9f906c4a810defdd84c3a38507cdf79b4e4b0c7770cc3d2d862ea9bd5fe2469290d9d2a09c8164437e9d5b7b3a9c49d111e5caa9577f8ed1ef1916ec4cb71bbb8d n1 = 0xbcc2c4f4f51abb236b411f1f9d86d71133eb2d4ffe45a319b6ab6df1174b9ee619e696666702655b6c185735298cc008e9b7df842c480d3d42bb67228b6c7408a7afe68ab85ee1c80f43c8c52764c79ffdecc6e3a5ea76c1123affe9f02c649e5f5ca0a4082107ce4a2040e5756bf6a2b34757aefa5fb6fec6d7a9e86f0c8159 c1 = 0xacf91d2b6a300a60193485ef2e1127b5863c69da71ab9e7d71a3213e960a73e42f8e8031bf0ef20184ae0a259fd50260aacce06546af2f8bbef8a2f360c8f7511ad9c99d8715012ce0a4fa8dbba8c10d74f477156076bdfda80dc449eec3b45c7cd82802ecce7635e186d29744df04fcf812dc7e2d2f3c8cd751e4fcea43db1e e2 = 0x332f82f338c8b84524103d310d59fc541b66705948c57eaf972b26bb209a6ddde3d6930948a559ac1a3a26790cb1a133a90b999b164d4e22014b27660dad4e5639ffc19bcd2e4961c5b00b9116f49c3c02880bb3ad32972287442d6a86a9c86cd3981ee1084df4322edb9c5da39146e10de0586c8b5433a851d649a45c5a73cd n2 = 0xd0ad4d11576bb041ea2ce53f354dba362a93411a37f4a529e8b5eeae83a3437df6bd5e4e1f87a4d324a6ce2850f3568c929f5d5f73fef45bda03fa7bff00304a1eb833ce3535ee3552aa62b644f0d3c1679fe2c57b978c695f03e5b2d18d9b0821c7e0ca332f552b12e2b7109210d051bbe9d9b9e3cc3b16c81e77ebca65aca3 c2 = 0xc59078ae7cb454c970f272f595da71ae2b681156a1ce7112d9b96346f38bcdca87192ea39ac273851210e9f98f0d89f1bc657ce69ca14708cba8b319160a1f67b8cfc3643dc9b6a70769d8d64a9a3504d799f3d9afca7c7114880f4ccb5bef35738e660e4ede1c884f4a60f1f0e559fb754abd8e4b905ad3626a876bea43ec8e M = isqrt(max(n0, n1, n2)) M = 10704523536419069847275584063070587220303695362157261593514212717132031073368631333467085885236049291630529090309346493924305038011673707087598638071644281 B = matrix(ZZ, [ [M, e0, e1, e2], [0, -n0, 0, 0], [0, 0, -n1, 0], [0, 0, 0, -n2], ]) BL = B.</description>
+    </item>
+    
+  </channel>
+</rss>
