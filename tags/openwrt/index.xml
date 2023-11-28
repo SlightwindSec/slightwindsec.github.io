@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>OpenWrt on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/openwrt/</link>
+    <link>https://slightwindsec.github.io/tags/openwrt/</link>
     <description>Recent content in OpenWrt on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Oct 2021 18:38:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Oct 2021 18:38:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install OpenWrt for Redmi Router AC2100</title>
-      <link>https://blog.slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</link>
+      <link>https://slightwindsec.github.io/posts/environment/install-openwrt-for-redmi-ac2100/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</guid>
+      <guid>https://slightwindsec.github.io/posts/environment/install-openwrt-for-redmi-ac2100/</guid>
       <description>Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。
 先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：
 http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。

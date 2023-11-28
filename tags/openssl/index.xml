@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>OpenSSL on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/openssl/</link>
+    <link>https://slightwindsec.github.io/tags/openssl/</link>
     <description>Recent content in OpenSSL on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 Dec 2021 21:34:16 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Dec 2021 21:34:16 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install OpenSSL and GmSSL on Win32</title>
-      <link>https://blog.slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</link>
+      <link>https://slightwindsec.github.io/posts/environment/install-openssl-and-gmssl-on-win32/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</guid>
+      <guid>https://slightwindsec.github.io/posts/environment/install-openssl-and-gmssl-on-win32/</guid>
       <description>由于参与了一个在PLC和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
 Install ActivePerl and remove Stawberry Perl as it is not compatible with openssl.

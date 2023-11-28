@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Notes on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/notes/</link>
+    <link>https://slightwindsec.github.io/tags/notes/</link>
     <description>Recent content in Notes on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/notes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/notes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Notes: Kaggle Courses - Intro to DL &amp; Computer Vision</title>
-      <link>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</link>
+      <link>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-dl/</link>
       <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</guid>
+      <guid>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-dl/</guid>
       <description>Intro to Deep Learning A Single Neuron The Linear Unit 下面是一个neuron（或称unit）的示意图，x是输入；w是x的权重weight；b是bias，是一种特殊的权重，没有和bias相关的输入数据，它可以独立于输入修改输出。神经网络通过修改权重来“learn”。
 y是这个神经元输出的值，$y=wx+b$，刚好是一个直线的方程，w是斜率，b是在y轴上的截距。
 Example - The Linear Unit as a Model 单个神经元是通常只会在更大的网络中发挥作用，单神经元模型是线性模型。当$w=2.5, b=90$时，这个线性模型可以用来反应糖&#39;sugars&#39;和卡路里&#39;calories&#39;的关系：
@@ -30,10 +30,10 @@ Deep Neural Networks Layers 神经网络会将神经元组成层（layers），�
     
     <item>
       <title>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML</title>
-      <link>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</link>
+      <link>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-ml/</link>
       <pubDate>Thu, 10 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
+      <guid>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
       <description>Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
 从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
 Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
@@ -45,10 +45,10 @@ Your First Machine Learning Model Selecting Data for Modeling 有些时候数据
     
     <item>
       <title>Notes: Kaggle Courses - Pandas</title>
-      <link>https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</link>
+      <link>https://slightwindsec.github.io/posts/dataprocess/kaggle-courses-pandas/</link>
       <pubDate>Wed, 09 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</guid>
+      <guid>https://slightwindsec.github.io/posts/dataprocess/kaggle-courses-pandas/</guid>
       <description>Pandas Creating, Reading and Writing Creating data import pandas as pd pandas是最受欢迎的python数据分析包。pandas中有两个核心对象DataFrame和Series。
 DataFrame是一个表，由多个数组构成，这些数组常常作为表里面的列。使用pd.DataFrame()来实例化一个DataFrame对象，数据参数使用的是python中的dict，dict的key作为DataFrame的列名，dict的value是一个list，作为对应列的全部元素。
 &amp;gt;&amp;gt;&amp;gt; pd.DataFrame({&#39;Yes&#39;: [50, 21], &#39;No&#39;: [131, 2]}) Yes No 0 50 131 1 21 2 &amp;gt;&amp;gt;&amp;gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}) Bob Sue 0 I liked it. Pretty good. 1 It was awful. Bland. 行的下标（通常称为索引(index)）默认和python的list一样，从0开始，也可以在构造时自定义

@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Crypto on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/crypto/</link>
+    <link>https://slightwindsec.github.io/tags/crypto/</link>
     <description>Recent content in Crypto on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Nov 2021 09:17:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Nov 2021 09:17:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>湖湘杯 2021 Crypto</title>
-      <link>https://blog.slightwind.cn/posts/ctf/huxiangbei2021/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/huxiangbei2021/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/huxiangbei2021/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/huxiangbei2021/</guid>
       <description>hxb 2021 crypto signin $n1/n2$的连分数展开是对$q1/q2$的一个逼近，所以枚举连分数中的每一项，就可以得到$q1, q2$了，分解之后正常进行RSA解密得到flag。
 from Crypto.Util.number import GCD, inverse, long_to_bytes, isPrime pk = (1150398070565459492080597718626032792435556703413923483458704675295997646493249759818468321328556510074044954676615760446708253531839417036997811506222349194302791943489195718713797322878586379546657275419261647635859989280700191441312691274285176619391539387875252135478424580680264554294179123254566796890998243909286508189826458854346825493157697201495100628216832191035903848391447704849808577310612723700318670466035077202673373956324725108350230357879374234418393233, 1242678737076048096780023147702514112272319497423818488193557934695583793070332178723043194823444815153743889740338870676093799728875725651036060313223096288606947708155579060628807516053981975820338028456770109640111153719903207363617099371353910243497871090334898522942934052035102902892149792570965804205461900841595290667647854346905445201396273291648968142608158533514391348407631818144116768794595226974831093526512117505486679153727123796834305088741279455621586989) c1, c2 = (361624030197288323178211941746074961985876772079713896964822566468795093475887773853629454653096485450671233584616088768705417987527877166166213574572987732852155320225332020636386698169212072312758052524652761304795529199864805108000796457423822443871436659548626629448170698048984709740274043050729249408577243328282313593461300703078854044587993248807613713896590402657788194264718603549894361488507629356532718775278399264279359256975688280723740017979438505001819438, 33322989148902718763644384246610630825314206644879155585369541624158380990667828419255828083639294898100922608833810585530801931417726134558845725168047585271855248605561256531342703212030641555260907310067120102069499927711242804407691706542428236208695153618955781372741765233319988193384708525251620506966304554054884590718068210659709406626033891748214407992041364462525367373648910810036622684929049996166651416565651803952838857960054689875755131784246099270581394) n1, n2 = pk e = 0x10001 def getRoot(x, n): high = 1 while high ** n &amp;lt;= x: high *= 2 low = high//2 while low &amp;lt; high: mid = (low + high) // 2 if low &amp;lt; mid and mid**n &amp;lt; x: low = mid elif high &amp;gt; mid and mid**n &amp;gt; x: high = mid else: return mid return mid + 1 # https://github.</description>
     </item>
     
     <item>
       <title>ByteCTF 2021 Crypto</title>
-      <link>https://blog.slightwind.cn/posts/ctf/bytectf2021/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/bytectf2021/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/bytectf2021/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/bytectf2021/</guid>
       <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
 encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
 首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
@@ -38,10 +38,10 @@ from itertools import product from tqdm import tqdm from Crypto.Util.number impo
     
     <item>
       <title>0xGame 2020 Crypto Problems</title>
-      <link>https://blog.slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/0xgame-2020-crypto-problems/</link>
       <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/0xgame-2020-crypto-problems/</guid>
       <description>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和exp可以在我的GitHub上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的wp。
 Week 1 Calendar 题目给了一张图片和一串逗号隔开的坐标信息，没看出来的话不难想到去百度一下“日历加密”，这题只是做了简单的修改。
 SAT1,THU1,MON3,MON2,WED3,SUN2,THU1,SUN4,FRI3,THU1,MON4,MON4,FRI4,THU3,SUN4,SUN2,TUE4,THU1,FRI1,MON3,MON2
@@ -53,10 +53,10 @@ cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 2
     
     <item>
       <title>Writeup for 强网杯 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</link>
       <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</guid>
       <description>Writeup for 强网杯 2020 强网先锋 baby_crt 考点是 CRT-RSA，找到一篇paper：Wagner’s Attack on a Secure CRT-RSA Algorithm Reconsidered
 然后看到里面提到可以这样获取 $p$：
 $$ \large gcd(m^{c_1}-Sig^e,N)=p $$
@@ -66,10 +66,10 @@ from Crypto.Util.number import * from hashlib import sha1 e = 65537 n = 26318358
     
     <item>
       <title>Writeup for Crypto problems in WMCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
       <pubDate>Mon, 03 Aug 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
       <description>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
 make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
@@ -80,10 +80,10 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
     
     <item>
       <title>Writeup for Crypto problems in SCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
       <description>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
 CRYPTANALYSIS OF RSA AND ITS VARIANTS
 这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：
@@ -92,20 +92,20 @@ from binascii import hexlify, unhexlify e0 = 0x9a7dc3e0f2a3531035b18541df28b8407
     
     <item>
       <title>Writeup for Crypto problems in De1CTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
       <description>Writeup for Crypto problems in De1CTF 2020 NLFSR task.py
 from flag import a, b, c, d, flag assert flag == &amp;quot;De1CTF{&amp;quot; + &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) + &amp;quot;}&amp;quot; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &amp;lt;&amp;lt; 1) &amp;amp; 0xffffff) ^ (bin(r &amp;amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp;amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s += str(combine()) open(&amp;quot;data&amp;quot;, &amp;quot;w+&amp;quot;).</description>
     </item>
     
     <item>
       <title>Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF</title>
-      <link>https://blog.slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</link>
       <pubDate>Sat, 25 Apr 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</guid>
       <description>&amp;ldquo;not_RSA&amp;rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&amp;hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&amp;hellip;
 题目：
@@ -115,10 +115,10 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
     
     <item>
       <title>Find short vectors in two-dimensional lattices</title>
-      <link>https://blog.slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
+      <link>https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
       <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
+      <guid>https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
       <description>Notes for $An\ Introduction\ to\ Mathematical\ Cryptography$
 “A toy model of a real public key cryptosystem” 这里以 An Introduction to Mathematical Cryptography 书中的一个简单的加密模型为例，简单介绍一下通过高斯格基规约算法（Gaussian Lattice Reduction）解决二维的格上的寻找最短向量问题。
 最近在书中看到这个，刚好 西电新生赛@Mini L-CTF 有两个题目刚好是用这个模型实现的，当做例题整个 writeup。
@@ -128,10 +128,10 @@ from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 impor
     
     <item>
       <title>HGAME 2020 week1 writeup</title>
-      <link>https://blog.slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/hgame-2020-week1-writeup/</link>
       <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/hgame-2020-week1-writeup/</guid>
       <description>HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}
 Crypto InfantRSA 题目：
 p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：

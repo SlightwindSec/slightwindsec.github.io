@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Paillier on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/paillier/</link>
+    <link>https://slightwindsec.github.io/tags/paillier/</link>
     <description>Recent content in Paillier on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Apr 2020 13:33:02 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/paillier/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Apr 2020 13:33:02 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/paillier/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF</title>
-      <link>https://blog.slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</link>
       <pubDate>Sat, 25 Apr 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</guid>
       <description>&amp;ldquo;not_RSA&amp;rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&amp;hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&amp;hellip;
 题目：

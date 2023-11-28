@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Misc on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/misc/</link>
+    <link>https://slightwindsec.github.io/tags/misc/</link>
     <description>Recent content in Misc on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Jul 2020 23:08:14 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/misc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Jul 2020 23:08:14 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/misc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup for Crypto problems in SCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
       <description>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
 CRYPTANALYSIS OF RSA AND ITS VARIANTS
 这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Bare Metal Server on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/bare-metal-server/</link>
+    <link>https://slightwindsec.github.io/tags/bare-metal-server/</link>
     <description>Recent content in Bare Metal Server on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Nov 2021 16:09:02 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/bare-metal-server/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Nov 2021 16:09:02 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/bare-metal-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用树莓派4B作为一台服务器</title>
-      <link>https://blog.slightwind.cn/posts/environment/raspberrypi4b/</link>
+      <link>https://slightwindsec.github.io/posts/environment/raspberrypi4b/</link>
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/environment/raspberrypi4b/</guid>
+      <guid>https://slightwindsec.github.io/posts/environment/raspberrypi4b/</guid>
       <description>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
 解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用frp内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网IP了。
 静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网IP。

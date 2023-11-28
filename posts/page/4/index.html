@@ -9,16 +9,16 @@
 <meta name="keywords" content="">
 <meta name="description" content="Posts - Slightwind">
 <meta name="author" content="Slightwind">
-<link rel="canonical" href="https://blog.slightwind.cn/posts/">
+<link rel="canonical" href="https://slightwindsec.github.io/posts/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.c7114bf2e60e294d9801cc3e33241fb43d14d31c3f547fb2668595a22e5fb442.css" integrity="sha256-xxFL8uYOKU2YAcw&#43;MyQftD0U0xw/VH&#43;yZoWVoi5ftEI=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://blog.slightwind.cn/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.slightwind.cn/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.slightwind.cn/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://blog.slightwind.cn/apple-touch-icon.png">
-<link rel="mask-icon" href="https://blog.slightwind.cn/safari-pinned-tab.svg">
+<link rel="icon" href="https://slightwindsec.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://slightwindsec.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://slightwindsec.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://slightwindsec.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://slightwindsec.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://blog.slightwind.cn/posts/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://slightwindsec.github.io/posts/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -62,10 +62,10 @@
 <meta property="og:title" content="Posts" />
 <meta property="og:description" content="Slightwind&#39;s Blog" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.slightwind.cn/posts/" /><meta property="og:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+<meta property="og:url" content="https://slightwindsec.github.io/posts/" /><meta property="og:image" content="https://slightwindsec.github.io/papermod-cover.png"/>
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://blog.slightwind.cn/papermod-cover.png"/>
+<meta name="twitter:image" content="https://slightwindsec.github.io/papermod-cover.png"/>
 
 <meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content="Slightwind&#39;s Blog"/>
@@ -80,7 +80,7 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "https://blog.slightwind.cn/posts/"
+      "item": "https://slightwindsec.github.io/posts/"
     }
   ]
 }
@@ -102,7 +102,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://blog.slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <a href="https://slightwindsec.github.io/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -128,17 +128,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://blog.slightwind.cn/archives" title="Archive">
+                <a href="https://slightwindsec.github.io/archives" title="Archive">
                     <span>Archive</span>
                 </a>
             </li>
             <li>
-                <a href="https://blog.slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://slightwindsec.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="https://blog.slightwind.cn/tags/" title="Tags">
+                <a href="https://slightwindsec.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -146,7 +146,7 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://blog.slightwind.cn/">Home</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://slightwindsec.github.io/">Home</a></div>
   <h1>
     Posts
     <a href="/posts/index.xml" title="RSS" aria-label="RSS">
@@ -173,7 +173,7 @@ task.py
 from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 import iroot q = getPrime(1024) f = getPrime(511) g = getPrime(511) while g &lt; iroot(q//4, 2)[0] or g &gt; iroot(q//2, 2)[0]: g = getPrime(511) f_inv_q = inverse(f, q) h = f_inv_q*g % q m = bytes_to_long(b&#39;flag&#39;) # flag is base**(flag) r = getPrime(510) e = (r*h&#43;m) % q print(f) print(g) print(q) print(e) &#39;&#39;&#39; f = 4685394431238242086047454699939574117865082734421802876855769683954689809016908045500281898911462887906190042764753834184270447603004244910544167081517863 g = 5326402554595682620065287001809742915798424911036766723537742672943459577709829465021452623299712724999868094408519004699993233519540500859134358256211397 q = 172620634756442326936446284386446310176482010539257694929884002472846127607264743380697653537447369089693337723649017402105400257863085638725058903969478143249108126132543502414741890867122949021941524916405444824353100158506448429871964258931750339247018885114052623963451658829116065142400435131369957050799 e = 130055004464808383851466991915980644718382040848563991873041960765504627910537316320531719771695727709826775790697704799143461018934672453482988811575574961674813001940313918329737944758875566038617074550624823884742484696611063406222986507537981571075140436761436815079809518206635499600341038593553079293254 &#39;&#39;&#39; 其中私钥为 ( f , g ) ，公钥为 ( q , h ) ，这个已经给了私钥，所以解密过程非常简单。...</p>
   </div>
   <footer class="entry-footer"><span title='2020-03-16 09:17:00 +0000 UTC'>March 16, 2020</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Find short vectors in two-dimensional lattices" href="https://blog.slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/"></a>
+  <a class="entry-link" aria-label="post link to Find short vectors in two-dimensional lattices" href="https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -186,7 +186,7 @@ from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 impor
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。...</p>
   </div>
   <footer class="entry-footer"><span title='2020-02-29 00:00:00 +0000 UTC'>February 29, 2020</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Chinese Remainder Theorem" href="https://blog.slightwind.cn/posts/crypto/chinese-remainder-theorem/"></a>
+  <a class="entry-link" aria-label="post link to Chinese Remainder Theorem" href="https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -201,11 +201,11 @@ p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; 
 p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g !...</p>
   </div>
   <footer class="entry-footer"><span title='2020-01-20 03:38:02 +0000 UTC'>January 20, 2020</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to HGAME 2020 week1 writeup" href="https://blog.slightwind.cn/posts/ctf/hgame-2020-week1-writeup/"></a>
+  <a class="entry-link" aria-label="post link to HGAME 2020 week1 writeup" href="https://slightwindsec.github.io/posts/ctf/hgame-2020-week1-writeup/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="prev" href="https://blog.slightwind.cn/posts/page/3/">
+    <a class="prev" href="https://slightwindsec.github.io/posts/page/3/">
       «&nbsp;Prev&nbsp;
     </a>
   </nav>
@@ -213,7 +213,7 @@ p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c =
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://blog.slightwind.cn/">Slightwind</a></span>
+    <span>&copy; 2023 <a href="https://slightwindsec.github.io/">Slightwind</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

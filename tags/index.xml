@@ -2,364 +2,364 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/</link>
+    <link>https://slightwindsec.github.io/tags/</link>
     <description>Recent content in Tags on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Computer Vision</title>
-      <link>https://blog.slightwind.cn/tags/computer-vision/</link>
+      <link>https://slightwindsec.github.io/tags/computer-vision/</link>
       <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/computer-vision/</guid>
+      <guid>https://slightwindsec.github.io/tags/computer-vision/</guid>
       <description></description>
     </item>
     
     <item>
       <title>DL</title>
-      <link>https://blog.slightwind.cn/tags/dl/</link>
+      <link>https://slightwindsec.github.io/tags/dl/</link>
       <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/dl/</guid>
+      <guid>https://slightwindsec.github.io/tags/dl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kaggle</title>
-      <link>https://blog.slightwind.cn/tags/kaggle/</link>
+      <link>https://slightwindsec.github.io/tags/kaggle/</link>
       <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/kaggle/</guid>
+      <guid>https://slightwindsec.github.io/tags/kaggle/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Notes</title>
-      <link>https://blog.slightwind.cn/tags/notes/</link>
+      <link>https://slightwindsec.github.io/tags/notes/</link>
       <pubDate>Sat, 12 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/notes/</guid>
+      <guid>https://slightwindsec.github.io/tags/notes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ML</title>
-      <link>https://blog.slightwind.cn/tags/ml/</link>
+      <link>https://slightwindsec.github.io/tags/ml/</link>
       <pubDate>Thu, 10 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/ml/</guid>
+      <guid>https://slightwindsec.github.io/tags/ml/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pandas</title>
-      <link>https://blog.slightwind.cn/tags/pandas/</link>
+      <link>https://slightwindsec.github.io/tags/pandas/</link>
       <pubDate>Wed, 09 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/pandas/</guid>
+      <guid>https://slightwindsec.github.io/tags/pandas/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GmSSL</title>
-      <link>https://blog.slightwind.cn/tags/gmssl/</link>
+      <link>https://slightwindsec.github.io/tags/gmssl/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/gmssl/</guid>
+      <guid>https://slightwindsec.github.io/tags/gmssl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OpenSSL</title>
-      <link>https://blog.slightwind.cn/tags/openssl/</link>
+      <link>https://slightwindsec.github.io/tags/openssl/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/openssl/</guid>
+      <guid>https://slightwindsec.github.io/tags/openssl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSL</title>
-      <link>https://blog.slightwind.cn/tags/ssl/</link>
+      <link>https://slightwindsec.github.io/tags/ssl/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/ssl/</guid>
+      <guid>https://slightwindsec.github.io/tags/ssl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bare Metal Server</title>
-      <link>https://blog.slightwind.cn/tags/bare-metal-server/</link>
+      <link>https://slightwindsec.github.io/tags/bare-metal-server/</link>
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/bare-metal-server/</guid>
+      <guid>https://slightwindsec.github.io/tags/bare-metal-server/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Raspberry Pi</title>
-      <link>https://blog.slightwind.cn/tags/raspberry-pi/</link>
+      <link>https://slightwindsec.github.io/tags/raspberry-pi/</link>
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/raspberry-pi/</guid>
+      <guid>https://slightwindsec.github.io/tags/raspberry-pi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CBC</title>
-      <link>https://blog.slightwind.cn/tags/cbc/</link>
+      <link>https://slightwindsec.github.io/tags/cbc/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/cbc/</guid>
+      <guid>https://slightwindsec.github.io/tags/cbc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Continued fraction</title>
-      <link>https://blog.slightwind.cn/tags/continued-fraction/</link>
+      <link>https://slightwindsec.github.io/tags/continued-fraction/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/continued-fraction/</guid>
+      <guid>https://slightwindsec.github.io/tags/continued-fraction/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Crypto</title>
-      <link>https://blog.slightwind.cn/tags/crypto/</link>
+      <link>https://slightwindsec.github.io/tags/crypto/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/crypto/</guid>
+      <guid>https://slightwindsec.github.io/tags/crypto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LSFR</title>
-      <link>https://blog.slightwind.cn/tags/lsfr/</link>
+      <link>https://slightwindsec.github.io/tags/lsfr/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/lsfr/</guid>
+      <guid>https://slightwindsec.github.io/tags/lsfr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MT19937</title>
-      <link>https://blog.slightwind.cn/tags/mt19937/</link>
+      <link>https://slightwindsec.github.io/tags/mt19937/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/mt19937/</guid>
+      <guid>https://slightwindsec.github.io/tags/mt19937/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PRNG</title>
-      <link>https://blog.slightwind.cn/tags/prng/</link>
+      <link>https://slightwindsec.github.io/tags/prng/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/prng/</guid>
+      <guid>https://slightwindsec.github.io/tags/prng/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vigenere</title>
-      <link>https://blog.slightwind.cn/tags/vigenere/</link>
+      <link>https://slightwindsec.github.io/tags/vigenere/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/vigenere/</guid>
+      <guid>https://slightwindsec.github.io/tags/vigenere/</guid>
       <description></description>
     </item>
     
     <item>
       <title>XOR</title>
-      <link>https://blog.slightwind.cn/tags/xor/</link>
+      <link>https://slightwindsec.github.io/tags/xor/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/xor/</guid>
+      <guid>https://slightwindsec.github.io/tags/xor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Coppersmith</title>
-      <link>https://blog.slightwind.cn/tags/coppersmith/</link>
+      <link>https://slightwindsec.github.io/tags/coppersmith/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/coppersmith/</guid>
+      <guid>https://slightwindsec.github.io/tags/coppersmith/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECC</title>
-      <link>https://blog.slightwind.cn/tags/ecc/</link>
+      <link>https://slightwindsec.github.io/tags/ecc/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/ecc/</guid>
+      <guid>https://slightwindsec.github.io/tags/ecc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECDLP</title>
-      <link>https://blog.slightwind.cn/tags/ecdlp/</link>
+      <link>https://slightwindsec.github.io/tags/ecdlp/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/ecdlp/</guid>
+      <guid>https://slightwindsec.github.io/tags/ecdlp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OFB</title>
-      <link>https://blog.slightwind.cn/tags/ofb/</link>
+      <link>https://slightwindsec.github.io/tags/ofb/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/ofb/</guid>
+      <guid>https://slightwindsec.github.io/tags/ofb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Protocol</title>
-      <link>https://blog.slightwind.cn/tags/protocol/</link>
+      <link>https://slightwindsec.github.io/tags/protocol/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/protocol/</guid>
+      <guid>https://slightwindsec.github.io/tags/protocol/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OpenWrt</title>
-      <link>https://blog.slightwind.cn/tags/openwrt/</link>
+      <link>https://slightwindsec.github.io/tags/openwrt/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/openwrt/</guid>
+      <guid>https://slightwindsec.github.io/tags/openwrt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Router</title>
-      <link>https://blog.slightwind.cn/tags/router/</link>
+      <link>https://slightwindsec.github.io/tags/router/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/router/</guid>
+      <guid>https://slightwindsec.github.io/tags/router/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Wi-Fi</title>
-      <link>https://blog.slightwind.cn/tags/wi-fi/</link>
+      <link>https://slightwindsec.github.io/tags/wi-fi/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/wi-fi/</guid>
+      <guid>https://slightwindsec.github.io/tags/wi-fi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Apple Silicon M1</title>
-      <link>https://blog.slightwind.cn/tags/apple-silicon-m1/</link>
+      <link>https://slightwindsec.github.io/tags/apple-silicon-m1/</link>
       <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/apple-silicon-m1/</guid>
+      <guid>https://slightwindsec.github.io/tags/apple-silicon-m1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SageMath</title>
-      <link>https://blog.slightwind.cn/tags/sagemath/</link>
+      <link>https://slightwindsec.github.io/tags/sagemath/</link>
       <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/sagemath/</guid>
+      <guid>https://slightwindsec.github.io/tags/sagemath/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RSA</title>
-      <link>https://blog.slightwind.cn/tags/rsa/</link>
+      <link>https://slightwindsec.github.io/tags/rsa/</link>
       <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/rsa/</guid>
+      <guid>https://slightwindsec.github.io/tags/rsa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CRT</title>
-      <link>https://blog.slightwind.cn/tags/crt/</link>
+      <link>https://slightwindsec.github.io/tags/crt/</link>
       <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/crt/</guid>
+      <guid>https://slightwindsec.github.io/tags/crt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Lattice</title>
-      <link>https://blog.slightwind.cn/tags/lattice/</link>
+      <link>https://slightwindsec.github.io/tags/lattice/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/lattice/</guid>
+      <guid>https://slightwindsec.github.io/tags/lattice/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Misc</title>
-      <link>https://blog.slightwind.cn/tags/misc/</link>
+      <link>https://slightwindsec.github.io/tags/misc/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/misc/</guid>
+      <guid>https://slightwindsec.github.io/tags/misc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Diffie–Hellman</title>
-      <link>https://blog.slightwind.cn/tags/diffiehellman/</link>
+      <link>https://slightwindsec.github.io/tags/diffiehellman/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/diffiehellman/</guid>
+      <guid>https://slightwindsec.github.io/tags/diffiehellman/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LFSR</title>
-      <link>https://blog.slightwind.cn/tags/lfsr/</link>
+      <link>https://slightwindsec.github.io/tags/lfsr/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/lfsr/</guid>
+      <guid>https://slightwindsec.github.io/tags/lfsr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Paillier</title>
-      <link>https://blog.slightwind.cn/tags/paillier/</link>
+      <link>https://slightwindsec.github.io/tags/paillier/</link>
       <pubDate>Sat, 25 Apr 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/paillier/</guid>
+      <guid>https://slightwindsec.github.io/tags/paillier/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Algorithm</title>
-      <link>https://blog.slightwind.cn/tags/algorithm/</link>
+      <link>https://slightwindsec.github.io/tags/algorithm/</link>
       <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/algorithm/</guid>
+      <guid>https://slightwindsec.github.io/tags/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Affine</title>
-      <link>https://blog.slightwind.cn/tags/affine/</link>
+      <link>https://slightwindsec.github.io/tags/affine/</link>
       <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/affine/</guid>
+      <guid>https://slightwindsec.github.io/tags/affine/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Web</title>
-      <link>https://blog.slightwind.cn/tags/web/</link>
+      <link>https://slightwindsec.github.io/tags/web/</link>
       <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/tags/web/</guid>
+      <guid>https://slightwindsec.github.io/tags/web/</guid>
       <description></description>
     </item>
     

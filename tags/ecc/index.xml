@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>ECC on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/ecc/</link>
+    <link>https://slightwindsec.github.io/tags/ecc/</link>
     <description>Recent content in ECC on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 Oct 2021 10:46:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/ecc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 10:46:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/ecc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ByteCTF 2021 Crypto</title>
-      <link>https://blog.slightwind.cn/posts/ctf/bytectf2021/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/bytectf2021/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/bytectf2021/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/bytectf2021/</guid>
       <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
 encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
 首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
@@ -28,10 +28,10 @@ from itertools import product from tqdm import tqdm from Crypto.Util.number impo
     
     <item>
       <title>Writeup for Crypto problems in De1CTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
       <description>Writeup for Crypto problems in De1CTF 2020 NLFSR task.py
 from flag import a, b, c, d, flag assert flag == &amp;quot;De1CTF{&amp;quot; + &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) + &amp;quot;}&amp;quot; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &amp;lt;&amp;lt; 1) &amp;amp; 0xffffff) ^ (bin(r &amp;amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp;amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s += str(combine()) open(&amp;quot;data&amp;quot;, &amp;quot;w+&amp;quot;).</description>
     </item>

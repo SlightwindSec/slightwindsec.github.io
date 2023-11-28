@@ -1,2 +1,0 @@
-# slightwindsec.github.io
-Blog

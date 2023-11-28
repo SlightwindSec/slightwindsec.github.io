@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Algorithm on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/algorithm/</link>
+    <link>https://slightwindsec.github.io/tags/algorithm/</link>
     <description>Recent content in Algorithm on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Mar 2020 09:17:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Mar 2020 09:17:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Find short vectors in two-dimensional lattices</title>
-      <link>https://blog.slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
+      <link>https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
       <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
+      <guid>https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
       <description>Notes for $An\ Introduction\ to\ Mathematical\ Cryptography$
 “A toy model of a real public key cryptosystem” 这里以 An Introduction to Mathematical Cryptography 书中的一个简单的加密模型为例，简单介绍一下通过高斯格基规约算法（Gaussian Lattice Reduction）解决二维的格上的寻找最短向量问题。
 最近在书中看到这个，刚好 西电新生赛@Mini L-CTF 有两个题目刚好是用这个模型实现的，当做例题整个 writeup。
@@ -27,10 +27,10 @@ from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 impor
     
     <item>
       <title>Chinese Remainder Theorem</title>
-      <link>https://blog.slightwind.cn/posts/crypto/chinese-remainder-theorem/</link>
+      <link>https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/crypto/chinese-remainder-theorem/</guid>
+      <guid>https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/</guid>
       <description>模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&amp;hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。</description>
     </item>

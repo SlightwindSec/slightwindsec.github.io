@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>ECDLP on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/ecdlp/</link>
+    <link>https://slightwindsec.github.io/tags/ecdlp/</link>
     <description>Recent content in ECDLP on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 Oct 2021 10:46:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/ecdlp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 10:46:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/ecdlp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ByteCTF 2021 Crypto</title>
-      <link>https://blog.slightwind.cn/posts/ctf/bytectf2021/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/bytectf2021/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/bytectf2021/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/bytectf2021/</guid>
       <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
 encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
 首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。

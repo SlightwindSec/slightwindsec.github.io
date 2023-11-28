@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>CRT on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/crt/</link>
+    <link>https://slightwindsec.github.io/tags/crt/</link>
     <description>Recent content in CRT on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Aug 2020 16:23:55 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/crt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Aug 2020 16:23:55 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/crt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writeup for 强网杯 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</link>
       <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</guid>
       <description>Writeup for 强网杯 2020 强网先锋 baby_crt 考点是 CRT-RSA，找到一篇paper：Wagner’s Attack on a Secure CRT-RSA Algorithm Reconsidered
 然后看到里面提到可以这样获取 $p$：
 $$ \large gcd(m^{c_1}-Sig^e,N)=p $$
@@ -27,10 +27,10 @@ from Crypto.Util.number import * from hashlib import sha1 e = 65537 n = 26318358
     
     <item>
       <title>Writeup for Crypto problems in WMCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
       <pubDate>Mon, 03 Aug 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
       <description>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
 make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
@@ -41,10 +41,10 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
     
     <item>
       <title>Chinese Remainder Theorem</title>
-      <link>https://blog.slightwind.cn/posts/crypto/chinese-remainder-theorem/</link>
+      <link>https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/crypto/chinese-remainder-theorem/</guid>
+      <guid>https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/</guid>
       <description>模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&amp;hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。</description>
     </item>

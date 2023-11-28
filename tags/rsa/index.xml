@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>RSA on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/rsa/</link>
+    <link>https://slightwindsec.github.io/tags/rsa/</link>
     <description>Recent content in RSA on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/rsa/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/rsa/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0xGame 2020 Crypto Problems</title>
-      <link>https://blog.slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/0xgame-2020-crypto-problems/</link>
       <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/0xgame-2020-crypto-problems/</guid>
       <description>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和exp可以在我的GitHub上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的wp。
 Week 1 Calendar 题目给了一张图片和一串逗号隔开的坐标信息，没看出来的话不难想到去百度一下“日历加密”，这题只是做了简单的修改。
 SAT1,THU1,MON3,MON2,WED3,SUN2,THU1,SUN4,FRI3,THU1,MON4,MON4,FRI4,THU3,SUN4,SUN2,TUE4,THU1,FRI1,MON3,MON2
@@ -29,10 +29,10 @@ cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 2
     
     <item>
       <title>Writeup for 强网杯 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</link>
       <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-qwb-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</guid>
       <description>Writeup for 强网杯 2020 强网先锋 baby_crt 考点是 CRT-RSA，找到一篇paper：Wagner’s Attack on a Secure CRT-RSA Algorithm Reconsidered
 然后看到里面提到可以这样获取 $p$：
 $$ \large gcd(m^{c_1}-Sig^e,N)=p $$
@@ -42,10 +42,10 @@ from Crypto.Util.number import * from hashlib import sha1 e = 65537 n = 26318358
     
     <item>
       <title>Writeup for Crypto problems in WMCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
       <pubDate>Mon, 03 Aug 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
       <description>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
 make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
@@ -56,10 +56,10 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
     
     <item>
       <title>Writeup for Crypto problems in SCTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
       <description>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
 CRYPTANALYSIS OF RSA AND ITS VARIANTS
 这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：
@@ -68,10 +68,10 @@ from binascii import hexlify, unhexlify e0 = 0x9a7dc3e0f2a3531035b18541df28b8407
     
     <item>
       <title>Writeup for Crypto problems in De1CTF 2020</title>
-      <link>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
+      <link>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
+      <guid>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
       <description>Writeup for Crypto problems in De1CTF 2020 NLFSR task.py
 from flag import a, b, c, d, flag assert flag == &amp;quot;De1CTF{&amp;quot; + &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) + &amp;quot;}&amp;quot; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &amp;lt;&amp;lt; 1) &amp;amp; 0xffffff) ^ (bin(r &amp;amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp;amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s += str(combine()) open(&amp;quot;data&amp;quot;, &amp;quot;w+&amp;quot;).</description>
     </item>

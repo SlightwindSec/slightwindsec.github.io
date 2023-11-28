@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Pandas on Slightwind</title>
-    <link>https://blog.slightwind.cn/tags/pandas/</link>
+    <link>https://slightwindsec.github.io/tags/pandas/</link>
     <description>Recent content in Pandas on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://blog.slightwind.cn/papermod-cover.png</url>
-      <link>https://blog.slightwind.cn/papermod-cover.png</link>
+      <url>https://slightwindsec.github.io/papermod-cover.png</url>
+      <link>https://slightwindsec.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 09 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://blog.slightwind.cn/tags/pandas/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/pandas/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Notes: Kaggle Courses - Pandas</title>
-      <link>https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</link>
+      <link>https://slightwindsec.github.io/posts/dataprocess/kaggle-courses-pandas/</link>
       <pubDate>Wed, 09 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://blog.slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</guid>
+      <guid>https://slightwindsec.github.io/posts/dataprocess/kaggle-courses-pandas/</guid>
       <description>Pandas Creating, Reading and Writing Creating data import pandas as pd pandas是最受欢迎的python数据分析包。pandas中有两个核心对象DataFrame和Series。
 DataFrame是一个表，由多个数组构成，这些数组常常作为表里面的列。使用pd.DataFrame()来实例化一个DataFrame对象，数据参数使用的是python中的dict，dict的key作为DataFrame的列名，dict的value是一个list，作为对应列的全部元素。
 &amp;gt;&amp;gt;&amp;gt; pd.DataFrame({&#39;Yes&#39;: [50, 21], &#39;No&#39;: [131, 2]}) Yes No 0 50 131 1 21 2 &amp;gt;&amp;gt;&amp;gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}) Bob Sue 0 I liked it. Pretty good. 1 It was awful. Bland. 行的下标（通常称为索引(index)）默认和python的list一样，从0开始，也可以在构造时自定义
