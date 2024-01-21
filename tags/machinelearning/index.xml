@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MachineLearning on Slightwind</title>
+    <link>https://slightwind.cn/tags/machinelearning/</link>
+    <description>Recent content in MachineLearning on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://slightwind.cn/papermod-cover.png</url>
+      <link>https://slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 10 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/machinelearning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML</title>
+      <link>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</link>
+      <pubDate>Thu, 10 Mar 2022 16:23:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
+      <description>Intro to Machine Learning L How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
+Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
+给了一个简单使用pandas的例子：
+# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
+有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
+Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。</description>
+    </item>
+    
+  </channel>
+</rss>

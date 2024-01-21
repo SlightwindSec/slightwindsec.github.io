@@ -156,11 +156,11 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和exp可以在我的GitHub上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的wp。
+    <p>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和 exp 可以在我的 GitHub 上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的 wp。
 Week 1 Calendar 题目给了一张图片和一串逗号隔开的坐标信息，没看出来的话不难想到去百度一下“日历加密”，这题只是做了简单的修改。
 SAT1,THU1,MON3,MON2,WED3,SUN2,THU1,SUN4,FRI3,THU1,MON4,MON4,FRI4,THU3,SUN4,SUN2,TUE4,THU1,FRI1,MON3,MON2
-懒得百度的话，也不难看出前三个字母代表周一到周日，紧跟的数字范围是1～4，所以他们代表两个坐标，列举出来并用a～z替换1～26，即可得到flag。
-easyXor 做出这题只需要知道异或的逆运算还是异或，反过来跑一遍就拿到了flag。
+懒得百度的话，也不难看出前三个字母代表周一到周日，紧跟的数字范围是 1～4，所以他们代表两个坐标，列举出来并用a～z替换1～26，即可得到 flag。
+easyXor 做出这题只需要知道异或的逆运算还是异或，反过来跑一遍就拿到了 flag。
 exp:
 cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 26, 25, 87, 80, 10, 20, 20, 9, 4, 80, 73, 31, 5, 82, 0, 1, 92, 0, 0, 94, 81, 4, 85, 27, 35] flag=&#34;&#34; cipher&#43;=[ord(&#34;^&#34;)] for i in range(len(cipher)-1): flag = chr(cipher[len(cipher)-i-2]^cipher[len(cipher)-i-1])&#43;flag cipher[len(cipher)-i-2]=ord(flag[0]) print(flag) # 0xGame{ec15a9eb-08b7-4c39-904d-27eed888f73f} 发现有的学弟跑完脚本手动补0，exp正确的话，是可以得到完整flag的。...</p>
   </div>

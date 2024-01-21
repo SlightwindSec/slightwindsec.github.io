@@ -34,7 +34,7 @@ Deep Neural Networks Layers 神经网络会将神经元组成层（layers），�
       <pubDate>Thu, 10 Mar 2022 16:23:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
-      <description>Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
+      <description>Intro to Machine Learning L How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
 从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
 Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
 给了一个简单使用pandas的例子：
@@ -61,7 +61,7 @@ DataFrame是一个表，由多个数组构成，这些数组常常作为表里�
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</guid>
-      <description>由于参与了一个在PLC和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
+      <description>由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
 Install ActivePerl and remove Stawberry Perl as it is not compatible with openssl.
 但是ActivePerl的官网只提供64bit的版本，安装32bit版本的ActivePerl需要支付$912/yr：
@@ -80,32 +80,24 @@ use if $^O ne &amp;quot;VMS&amp;quot;, &#39;File::Glob&#39; =&amp;gt; qw/glob/; 
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/environment/raspberrypi4b/</guid>
-      <description>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
-解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用frp内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网IP了。
-静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网IP。
-动态公网IP 没有静态的，可以退而求其次搞动态的，跟运营商交涉一下是可以得到动态的公网IP的，虽然是上下行不对等的家庭带宽，但是作为服务器来说绰绰有余，已经远超很多便宜的云服务器了。
+      <description>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
+解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
+静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网 IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网 IP。
+动态公网IP 没有静态的，可以退而求其次搞动态的，跟运营商交涉一下是可以得到动态的公网 IP 的，虽然是上下行不对等的家庭带宽，但是作为服务器来说绰绰有余，已经远超很多便宜的云服务器了。
 第一次我直接跟人工客服打电话申请要一个静态公网IP被拒绝了；然后第二天我又一次联系了人工客服，询问能不能申请动态的公网IP（可以说装摄像头要用到，不能说在家里搭建服务器），结果很快就回电通知我已经给了动态的公网IP，还算顺利～
 Dynamic DNS 后面使用发现，我们这边的动态的公网IP大约2～3天变动一次，这就可以通过 Dynamic DNS（DDNS） 将动态的IP解析到固定的域名，就能通过固定的域名访问到服务器了。
-DDNS需要服务端和本地各运行一个服务：本地的树莓派或路由器上运行一个服务，每隔一段时间（几分钟）就获取一下自己的公网IP，判断一下有没有发生改变，如果发生改变就将新的IP发送给服务端，服务端得到新的IP，就重新将域名解析到新的IP，所以是动态DNS。
+DDNS需要服务端和本地各运行一个服务：本地的树莓派或路由器上运行一个服务，每隔一段时间（几分钟）就获取一下自己的公网IP，判断一下有没有发生改变，如果发生改变就将新的 IP 发送给服务端，服务端得到新的 IP，就重新将域名解析到新的IP，所以是动态DNS。
 DDNS的服务端只提供域名的动态解析服务，所以服务端的带宽对访问树莓派的速度没有影响（但是可能会影响到延时？实际使用没有明显感觉到）
 DDNS服务：
-直接使用一些网站（oray.com/3322.org/Dyndns.com/No-ip.com）免费提供的DDNS服务，但是他们给的域名都是比较杂乱的三级域名，需要再把自己租的阿里云/腾讯云域名CNAME解析到这个三级域名。花生壳（oray.com）可以免费使用；而No-ip.com免费版需要每30天登录上去手动续约。 使用自己的vps运行脚本为树莓派提供DDNS服务，由于需要通过脚本进行域名解析，所以需要在vps上安装对应的SDK，然后开发对应的脚本，可以直接将自己的阿里云/腾讯云域名解析到家里的公网IP。 我现在是选择使用花生壳（oray.com）的DDNS服务，只需要注册即可得到一个三级域名，通过控制台-&amp;gt;域名-&amp;gt;壳域名来查看。我的路由器是小米4A，可以在后台设置DDNS，选择“花生壳”并输入账号密码域名和检查IP的时间间隔即可。路由器不支持的话就需要在树莓派上运行一个脚本来发送新的IP。
+直接使用一些网站（oray.com/3322.org/Dyndns.com/No-ip.com）免费提供的DDNS服务，但是他们给的域名都是比较杂乱的三级域名，需要再把自己租的阿里云/腾讯云域名CNAME解析到这个三级域名。花生壳（oray.com）可以免费使用；而No-ip.com免费版需要每30天登录上去手动续约。 使用自己的vps运行脚本为树莓派提供DDNS服务，由于需要通过脚本进行域名解析，所以需要在vps上安装对应的SDK，然后开发对应的脚本，可以直接将自己的阿里云/腾讯云域名解析到家里的公网IP。 我现在是选择使用花生壳（oray.com）的DDNS服务，只需要注册即可得到一个三级域名，通过控制台-&amp;gt;域名-&amp;gt;壳域名来查看。我的路由器是小米 4A，可以在后台设置DDNS，选择“花生壳”并输入账号密码域名和检查 IP 的时间间隔即可。路由器不支持的话就需要在树莓派上运行一个脚本来发送新的IP。
 也有很多树莓派玩家通过每次变动IP时，让树莓派将新IP发送给自己的邮箱，使自己总是可以知道最新的IP地址。
-frp内网穿透 如果也申请不到动态IP，那就只能用frp做内网穿透了，需要借助一台有公网IP的vps，流量也都需要经过这台vps，所以享受不到家庭宽带的低价大带宽了。
+frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网穿透了，需要借助一台有公网 IP 的 vps，流量也都需要经过这台 vps，所以享受不到家庭宽带的低价大带宽了。
 测试上下行带宽 可以在 speedtest.cn 测试下行带宽和上行带宽（最好直接连网线测）。
 从公网访问树莓派下载文件需要的是家里的上行带宽，而家庭宽带的上行都是很低的，只能去升级下行带宽，上行才能对应的提升一点。。。。所以如果感觉带宽不太够还是要去升级一下宽带的。
 我家的联通宽带就不太行，一开始是100M下行，20M上行，实测大约下行90~100M，上行20~40M。于是换了500M下行，50M上行的宽带，实测大约下行450～550M，上行60～70M。
-组装树莓派和安装Ubuntu 我的是树莓派4B。启动树莓派还需要有5V3A的电源和一张TF卡。
+组装树莓派和安装Ubuntu 我的是树莓派 4B。启动树莓派还需要有 5V 3A 的电源和一张 TF 卡。
 各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png
-然后就是愉快的组装环节，树莓派PCB边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把TF卡插到读卡器里，再把读卡器插在这台电脑上。
-电脑上需要安装 balenaEtcher 来为TF卡写入Ubuntu镜像，balenaEtcher 支持MacOS/Windows/Linux，可以在官网下载：https://www.balena.io/etcher/
-写入镜像过程很简单，跟着点就可以，下图这样就是写入成功了。 写入完成后不需要手动推出磁盘（TF卡读卡器），可以直接拔掉，然后将TF卡插入树莓派即可。
-树莓派的Wi-Fi网卡性能较弱，而搭NAS比较需要速度，所以我直接给树莓派插上了网线。这时就可以直接通电了，树莓派会自动开机。
-内网SSH连接树莓派 现在就可以用电脑连接Wi-Fi并进入无线路由器的后台，应该可以看到连接路由器的所有设备的内网IP地址和MAC地址，等待几分钟可以看到一个设备的名称是ubuntu，接入方式是网线连接，那么这个就是树莓派了。可以通过 ssh ubuntu@内网IP来连接树莓派，默认密码是ubuntu。
-公网SSH连接树莓派 接着可以设置一下路由器，为了防止树莓派的内网IP发生改变，需要在路由器后台，高级设置-&amp;gt;DHCP静态IP分配 把树莓派的MAC地址和当前的内网IP地址绑定起来。然后为了让公网对路由器的访问都转向树莓派，高级设置-&amp;gt;端口转发-&amp;gt;开启DMZ，把DMZ这边的IP地址设置为树莓派的内网IP地址。这样设置完成之后，就可以通过 ssh ubuntu@公网IP 来远程控制树莓派了，公网IP地址可以通过访问 http://testipv6.com/来查看。
-较为遗憾的是运营商一般会屏蔽掉80端口和443端口。。。所以如果在树莓派上起服务，只能通过端口访问，这个问题可以通过在一台有公网IP并且开着80端口的vps上配置Nginx反向代理来解决，不过这样的话流量还是要走vps，所以为了快速的下载上传文件，只能通过加着端口这种方法来访问了，不过好在最终速度理想。
-初始配置 在同一文件夹下备份默认的源：
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 编辑 /etc/apt/sources.list 并替换成下面的内容：（sudo vim /etc/apt/sources.list）</description>
+然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。</description>
     </item>
     
     <item>
@@ -114,7 +106,7 @@ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 编辑 /etc/apt/sources.
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/ctf/huxiangbei2021/</guid>
-      <description>hxb 2021 crypto signin $n1/n2$的连分数展开是对$q1/q2$的一个逼近，所以枚举连分数中的每一项，就可以得到$q1, q2$了，分解之后正常进行RSA解密得到flag。
+      <description>hxb 2021 crypto signin $n1/n2$ 的连分数展开是对 $q1/q2$ 的一个逼近，所以枚举连分数中的每一项，就可以得到 $q1, q2$ 了，分解之后正常进行 RSA 解密得到 flag。
 from Crypto.Util.number import GCD, inverse, long_to_bytes, isPrime pk = (1150398070565459492080597718626032792435556703413923483458704675295997646493249759818468321328556510074044954676615760446708253531839417036997811506222349194302791943489195718713797322878586379546657275419261647635859989280700191441312691274285176619391539387875252135478424580680264554294179123254566796890998243909286508189826458854346825493157697201495100628216832191035903848391447704849808577310612723700318670466035077202673373956324725108350230357879374234418393233, 1242678737076048096780023147702514112272319497423818488193557934695583793070332178723043194823444815153743889740338870676093799728875725651036060313223096288606947708155579060628807516053981975820338028456770109640111153719903207363617099371353910243497871090334898522942934052035102902892149792570965804205461900841595290667647854346905445201396273291648968142608158533514391348407631818144116768794595226974831093526512117505486679153727123796834305088741279455621586989) c1, c2 = (361624030197288323178211941746074961985876772079713896964822566468795093475887773853629454653096485450671233584616088768705417987527877166166213574572987732852155320225332020636386698169212072312758052524652761304795529199864805108000796457423822443871436659548626629448170698048984709740274043050729249408577243328282313593461300703078854044587993248807613713896590402657788194264718603549894361488507629356532718775278399264279359256975688280723740017979438505001819438, 33322989148902718763644384246610630825314206644879155585369541624158380990667828419255828083639294898100922608833810585530801931417726134558845725168047585271855248605561256531342703212030641555260907310067120102069499927711242804407691706542428236208695153618955781372741765233319988193384708525251620506966304554054884590718068210659709406626033891748214407992041364462525367373648910810036622684929049996166651416565651803952838857960054689875755131784246099270581394) n1, n2 = pk e = 0x10001 def getRoot(x, n): high = 1 while high ** n &amp;lt;= x: high *= 2 low = high//2 while low &amp;lt; high: mid = (low + high) // 2 if low &amp;lt; mid and mid**n &amp;lt; x: low = mid elif high &amp;gt; mid and mid**n &amp;gt; x: high = mid else: return mid return mid + 1 # https://github.</description>
     </item>
     
@@ -124,11 +116,11 @@ from Crypto.Util.number import GCD, inverse, long_to_bytes, isPrime pk = (115039
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/ctf/bytectf2021/</guid>
-      <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的key和mask进行4次移位异或，这个函数在已知key的情况下是可逆的。
-encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为8，对于每一块的加密使用的就是上面的convert函数。
-首先通过密文的长度可以得知一共被分成了6块；前3块明文使用OFB模式，后三块明文使用CBC模式；keys是一个长度为4的列表，列表中每个值的范围是(-32, 32)，$64^4$爆破也是可以接受的。
-读完题目代码之后可以想到其实我们已经知道第一块明文了，就是flag的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个key加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的last。
-现在对于第二块，已知IV（last），未知keys，已知明文是可显示字符，所以可以爆破keys了，把能解出可显示字符明文的keys都保留出来，发现有4836个keys是满足的，那么我们还要借助第三块再筛一次，最终只得到一组keys。
+      <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的 key 和 mask 进行 4 次移位异或，这个函数在已知 key 的情况下是可逆的。
+encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为 8，对于每一块的加密使用的就是上面的convert函数。
+首先通过密文的长度可以得知一共被分成了 6 块；前 3 块明文使用 OFB 模式，后三块明文使用 CBC 模式；keys 是一个长度为 4 的列表，列表中每个值的范围是(-32, 32)，$64^4$ 爆破也是可以接受的。
+读完题目代码之后可以想到其实我们已经知道第一块明文了，就是 flag 的格式ByteCTF{，而OFB模式实际上是加密的key，最终结果和明文块异或，所以第一个明文块异或第一个密文块就可以知道第一个 key 加密的结果，也就是cur_c = convert(last, k)的cur_c，这样就可以得到第二块的 last。
+现在对于第二块，已知 IV（last），未知 keys，已知明文是可显示字符，所以可以爆破 keys 了，把能解出可显示字符明文的 keys 都保留出来，发现有 4836 个 keys 是满足的，那么我们还要借助第三块再筛一次，最终只得到一组 keys。
 from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&amp;lt;129) and (i&amp;gt;31)) for i in s]) c = &amp;quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&amp;quot; c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt += 1 try: print(m1.</description>
     </item>
     
@@ -138,22 +130,15 @@ from itertools import product from tqdm import tqdm from Crypto.Util.number impo
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</guid>
-      <description>Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。
-先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：
-http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。
+      <description>Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
+先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
+http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。
 http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;amp;user_id=longdike&amp;amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：
-http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;amp;user_id=longdike&amp;amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：
-ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。
-上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。
-# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：
-# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：
-# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password
-如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。
-刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。
-先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。
-然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」
-选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。
-现在就可以在路由器的后台进行一些自己需要的配置操作了。</description>
+http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;amp;user_id=longdike&amp;amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：
+ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。
+上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。
+# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
+# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：</description>
     </item>
     
     <item>
@@ -178,11 +163,11 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ cond
       <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</guid>
-      <description>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和exp可以在我的GitHub上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的wp。
+      <description>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和 exp 可以在我的 GitHub 上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的 wp。
 Week 1 Calendar 题目给了一张图片和一串逗号隔开的坐标信息，没看出来的话不难想到去百度一下“日历加密”，这题只是做了简单的修改。
 SAT1,THU1,MON3,MON2,WED3,SUN2,THU1,SUN4,FRI3,THU1,MON4,MON4,FRI4,THU3,SUN4,SUN2,TUE4,THU1,FRI1,MON3,MON2
-懒得百度的话，也不难看出前三个字母代表周一到周日，紧跟的数字范围是1～4，所以他们代表两个坐标，列举出来并用a～z替换1～26，即可得到flag。
-easyXor 做出这题只需要知道异或的逆运算还是异或，反过来跑一遍就拿到了flag。
+懒得百度的话，也不难看出前三个字母代表周一到周日，紧跟的数字范围是 1～4，所以他们代表两个坐标，列举出来并用a～z替换1～26，即可得到 flag。
+easyXor 做出这题只需要知道异或的逆运算还是异或，反过来跑一遍就拿到了 flag。
 exp:
 cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 26, 25, 87, 80, 10, 20, 20, 9, 4, 80, 73, 31, 5, 82, 0, 1, 92, 0, 0, 94, 81, 4, 85, 27, 35] flag=&amp;quot;&amp;quot; cipher+=[ord(&amp;quot;^&amp;quot;)] for i in range(len(cipher)-1): flag = chr(cipher[len(cipher)-i-2]^cipher[len(cipher)-i-1])+flag cipher[len(cipher)-i-2]=ord(flag[0]) print(flag) # 0xGame{ec15a9eb-08b7-4c39-904d-27eed888f73f} 发现有的学弟跑完脚本手动补0，exp正确的话，是可以得到完整flag的。</description>
     </item>

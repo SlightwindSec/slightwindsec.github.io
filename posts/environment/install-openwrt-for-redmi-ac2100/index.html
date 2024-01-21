@@ -7,22 +7,15 @@
 <meta name="robots" content="index, follow">
 <title>Install OpenWrt for Redmi Router AC2100 | Slightwind</title>
 <meta name="keywords" content="Router, OpenWrt, Wi-Fi">
-<meta name="description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。
-先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：
-http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。
+<meta name="description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
+先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
+http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。
 http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：
-http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：
-ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。
-上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。
-# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：
-# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：
-# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password
-如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。
-刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。
-先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。
-然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」
-选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。
-现在就可以在路由器的后台进行一些自己需要的配置操作了。">
+http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：
+ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。
+上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。
+# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
+# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8f0c4ae2923d4855c66f073aa2d2ffb208a713d50179122e3fb83729fa3a3b0d.css" integrity="sha256-jwxK4pI9SFXGbwc6otL/sginE9UBeRIuP7g3Kfo6Ow0=" rel="preload stylesheet" as="style">
@@ -76,22 +69,15 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <meta property="og:title" content="Install OpenWrt for Redmi Router AC2100" />
-<meta property="og:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。
-先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：
-http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。
+<meta property="og:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
+先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
+http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。
 http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：
-http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：
-ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。
-上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。
-# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：
-# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：
-# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password
-如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。
-刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。
-先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。
-然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」
-选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。
-现在就可以在路由器的后台进行一些自己需要的配置操作了。" />
+http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：
+ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。
+上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。
+# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
+# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-10-10T18:38:00+00:00" />
@@ -101,22 +87,15 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 <meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
 
 <meta name="twitter:title" content="Install OpenWrt for Redmi Router AC2100"/>
-<meta name="twitter:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。
-先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：
-http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。
+<meta name="twitter:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
+先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
+http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。
 http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：
-http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：
-ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。
-上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。
-# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：
-# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：
-# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password
-如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。
-刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。
-先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。
-然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」
-选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。
-现在就可以在路由器的后台进行一些自己需要的配置操作了。"/>
+http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20&#39;12345678%5Cn12345678&#39;%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：
+ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。
+上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。
+# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
+# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP："/>
 
 
 <script type="application/ld+json">
@@ -145,12 +124,12 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
   "@type": "BlogPosting",
   "headline": "Install OpenWrt for Redmi Router AC2100",
   "name": "Install OpenWrt for Redmi Router AC2100",
-  "description": "Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。\n先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：\nhttp://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026amp;user_id=longdike\u0026amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026amp;user_id=longdike\u0026amp;ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：\nssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。\n上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。\n# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：\n# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：\n# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password\n如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。\n刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。\n先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。\n然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」\n选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。\n现在就可以在路由器的后台进行一些自己需要的配置操作了。",
+  "description": "Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。\n先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：\nhttp://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026amp;user_id=longdike\u0026amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026amp;user_id=longdike\u0026amp;ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：\nssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。\n上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。\n# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：\n# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：",
   "keywords": [
     "Router", "OpenWrt", "Wi-Fi"
   ],
-  "articleBody": "Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。\n先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：\nhttp://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器IP是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：\nssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的are you ok。\n上传并刷入固件 前面拿到了shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后cd进入这两个文件所在的目录，用SCP传到路由器上。\n# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后ssh连接上路由器，开始刷入固件：\n# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：\n# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password\n如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。\n刷入新固件 由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。\n先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。\n然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」\n选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。\n现在就可以在路由器的后台进行一些自己需要的配置操作了。\n救砖：如果折腾的过程中出现了什么问题，可以使用官方的救砖工具MIWIFI Repair Tool，并刷入官方固件miwifi_rm2100_firmware_d6234_2.0.7.bin。\nMentioned files - - openwrt-RM2100-kernel1.bin 本地下载 腾讯微云 openwrt-RM2100-rootfs0.bin 本地下载 腾讯微云 03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin 本地下载 腾讯微云 MIWIFI Repair Tool 本地下载 腾讯微云 miwifi_rm2100_firmware_d6234_2.0.7.bin 本地下载 腾讯微云 ",
-  "wordCount" : "94",
+  "articleBody": "Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。\n先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：\nhttp://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：\nssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。\n上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。\n# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：\n# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：\n# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password\n如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉 UI 也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。\n刷入新固件 由于最新编译 ROM 较大无法直接通过telnet刷入，所以刷完上面 ROM 后需要在路由器管理后台更新最新 OP 固件。\n先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。\n然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」\n选择刚刚下载的 bin 文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的 Wi-Fi 详情里面看一下，我的是变成了 192.168.2.1，ssh 和 web 后台密码都是password。\n现在就可以在路由器的后台进行一些自己需要的配置操作了。\n救砖：如果折腾的过程中出现了什么问题，可以使用官方的救砖工具MIWIFI Repair Tool，并刷入官方固件miwifi_rm2100_firmware_d6234_2.0.7.bin。\nMentioned files - - openwrt-RM2100-kernel1.bin 谷歌云盘 腾讯微云 openwrt-RM2100-rootfs0.bin 谷歌云盘 腾讯微云 03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin 谷歌云盘 腾讯微云 MIWIFI Repair Tool 谷歌云盘 腾讯微云 miwifi_rm2100_firmware_d6234_2.0.7.bin 谷歌云盘 腾讯微云 ",
+  "wordCount" : "134",
   "inLanguage": "en",
   "datePublished": "2021-10-10T18:38:00Z",
   "dateModified": "2021-10-10T18:38:00Z",
@@ -268,28 +247,28 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 </div>
 
   <div class="post-content"><h2 id="get-shell">Get shell<a hidden class="anchor" aria-hidden="true" href="#get-shell">#</a></h2>
-<p>小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到shell，ssh连上路由器就可以往里面刷入新固件了。</p>
-<p>先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网IP，和自己的stok，例如我的开头是：</p>
+<p>小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。</p>
+<p>先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：</p>
 <pre><code>http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/...
 </code></pre>
-<p>我的路由器IP是<code>10.161.145.162</code>，stok的值为<code>e9974e290dd74c4683328c5a5876308b</code>，现在把下面的链接替换成自己的，然后Enter，浏览器返回0说明这一步可以了。</p>
+<p>我的路由器 IP 是<code>10.161.145.162</code>，stok的值为<code>e9974e290dd74c4683328c5a5876308b</code>，现在把下面的链接替换成自己的，然后 Enter，浏览器返回<code>0</code>说明这一步可以了。</p>
 <pre><code>http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B
 </code></pre>
-<p>然后下面这个链接也是一样的操作，同样应该返回0：</p>
+<p>然后下面这个链接也是一样的操作，同样应该返回<code>0</code>：</p>
 <pre><code>http://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B
 </code></pre>
-<p>如果这两个链接都成功返回了0，那么就可以使用习惯的工具去ssh连接路由器了：</p>
+<p>如果这两个链接都成功返回了<code>0</code>，那么就可以使用习惯的工具去 ssh 连接路由器了：</p>
 <pre><code class="language-bash">ssh root@「这里替换IP」
 # passwd 12345678
 </code></pre>
-<p>不出意外，这边是可以连接到路由器的shell的，然后可以看到字符画显示的<code>are you ok</code>。</p>
+<p>不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的<code>are you ok</code>。</p>
 <h2 id="上传并刷入固件">上传并刷入固件<a hidden class="anchor" aria-hidden="true" href="#上传并刷入固件">#</a></h2>
-<p>前面拿到了shell，现在可以上传固件了，首先下载<a href="https://downloads.slight-wind.com/AC2100-OpenWrt/openwrt-RM2100-kernel1.bin">openwrt-RM2100-kernel1.bin</a>和<a href="https://downloads.slight-wind.com/AC2100-OpenWrt/openwrt-RM2100-rootfs0.bin">openwrt-RM2100-rootfs0.bin</a>，然后cd进入这两个文件所在的目录，用SCP传到路由器上。</p>
+<p>前面拿到了 shell，现在可以上传固件了，首先下载<a href="https://share.weiyun.com/J8SYbS7U">openwrt-RM2100-kernel1.bin</a>和<a href="https://share.weiyun.com/FOFPmjbr">openwrt-RM2100-rootfs0.bin</a>，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。</p>
 <pre><code class="language-bash"># 把openwrt的固件通过SCP上传到路由器的/tmp目录下
 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp
 scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp
 </code></pre>
-<p>然后ssh连接上路由器，开始刷入固件：</p>
+<p>然后 ssh 连接上路由器，开始刷入固件：</p>
 <pre><code class="language-bash"># 进入/tmp目录下
 cd /tmp
 
@@ -300,21 +279,21 @@ nvram set flag_try_sys1_failed=1
 nvram commit
 mtd -r write openwrt-RM2100-rootfs0.bin rootfs0
 </code></pre>
-<p>等待写入完成，就可以重启路由器了，这个时候路由器的Wi-Fi名称变成了OpenWrt，并且没有密码，可以直接连接，然后用ssh连接新的IP：</p>
+<p>等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：</p>
 <pre><code class="language-bash"># 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变
 ssh root@192.168.1.1
 # 连上之后可以看到：root@OpenWrt:~# 
 </code></pre>
-<p>到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root  密码：password</p>
-<p>如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉UI也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。</p>
+<p>到这里，固件就刷入成功了。路由器管理地址为：<code>192.168.1.1</code> 用户名：<code>root</code>  密码：<code>password</code></p>
+<p>如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持<code>curl</code>命令，个人感觉 UI 也不够美观，所以我使用它来写入新的固件，这个固件支持<code>curl</code>，也更加美观。</p>
 <h2 id="刷入新固件">刷入新固件<a hidden class="anchor" aria-hidden="true" href="#刷入新固件">#</a></h2>
-<p>由于最新编译ROM较大无法直接通过telnet刷入，所以刷完上面ROM后需要在路由器管理后台更新最新OP固件。</p>
-<p>先下载一下<a href="https://downloads.slight-wind.com/AC2100-OpenWrt/03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin">03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin</a>固件。</p>
-<p>然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」</p>
-<p>选择刚刚下载的bin文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的Wi-Fi详情里面看一下，我的是变成了192.168.2.1，ssh和web后台密码都是password。</p>
+<p>由于最新编译 ROM 较大无法直接通过<code>telnet</code>刷入，所以刷完上面 ROM 后需要在路由器管理后台更新最新 OP 固件。</p>
+<p>先下载一下<a href="https://share.weiyun.com/VsAhWFO6">03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin</a>固件。</p>
+<p>然后登陆<code>192.168.1.1</code>后台后点击「<code>系统</code>」-「<code>备份/升级</code>」-「<code>刷写新固件（不保留配置）</code>」-「<code>上传op固件包</code>」</p>
+<p>选择刚刚下载的 bin 文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的 Wi-Fi 详情里面看一下，我的是变成了 192.168.2.1，ssh 和 web 后台密码都是<code>password</code>。</p>
 <p>现在就可以在路由器的后台进行一些自己需要的配置操作了。</p>
 <blockquote>
-<p>救砖：如果折腾的过程中出现了什么问题，可以使用官方的救砖工具<a href="https://gitee.com/slight-wind/file-hosting/raw/master/AC2100-OpenWrt/MIWIFIRepairTool.x86.zip">MIWIFI Repair Tool</a>，并刷入官方固件<a href="https://downloads.slight-wind.com/AC2100-OpenWrt/official-default/miwifi_rm2100_firmware_d6234_2.0.7.bin">miwifi_rm2100_firmware_d6234_2.0.7.bin</a>。</p>
+<p>救砖：如果折腾的过程中出现了什么问题，可以使用官方的救砖工具<a href="https://share.weiyun.com/pDhHZ1pQ">MIWIFI Repair Tool</a>，并刷入官方固件<a href="https://share.weiyun.com/xIFn6CO5">miwifi_rm2100_firmware_d6234_2.0.7.bin</a>。</p>
 </blockquote>
 <hr>
 <table>
@@ -328,27 +307,27 @@ ssh root@192.168.1.1
 <tbody>
 <tr>
 <td>openwrt-RM2100-kernel1.bin</td>
-<td style="text-align:center"><a href="https://downloads.slight-wind.com/AC2100-OpenWrt/openwrt-RM2100-kernel1.bin">本地下载</a></td>
+<td style="text-align:center"><a href="https://drive.google.com/file/d/1qY-jqgx9VYpF3jqVIA0QZM8DdFbp356H/view?usp=drive_link">谷歌云盘</a></td>
 <td style="text-align:center"><a href="https://share.weiyun.com/J8SYbS7U">腾讯微云</a></td>
 </tr>
 <tr>
 <td>openwrt-RM2100-rootfs0.bin</td>
-<td style="text-align:center"><a href="https://downloads.slight-wind.com/AC2100-OpenWrt/openwrt-RM2100-rootfs0.bin">本地下载</a></td>
+<td style="text-align:center"><a href="https://drive.google.com/file/d/1Vx_fmTKOWtmo-ZI68g3uP_0P5HD-mbyd/view?usp=drive_link">谷歌云盘</a></td>
 <td style="text-align:center"><a href="https://share.weiyun.com/FOFPmjbr">腾讯微云</a></td>
 </tr>
 <tr>
 <td>03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin</td>
-<td style="text-align:center"><a href="https://downloads.slight-wind.com/AC2100-OpenWrt/03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin">本地下载</a></td>
+<td style="text-align:center"><a href="https://drive.google.com/file/d/1NC7JMzLJu-Tj66fXaFBWiBmC9CyKjbfu/view?usp=sharing">谷歌云盘</a></td>
 <td style="text-align:center"><a href="https://share.weiyun.com/VsAhWFO6">腾讯微云</a></td>
 </tr>
 <tr>
 <td>MIWIFI Repair Tool</td>
-<td style="text-align:center"><a href="https://downloads.slight-wind.com/AC2100-OpenWrt/MIWIFIRepairTool.x86.zip">本地下载</a></td>
+<td style="text-align:center"><a href="https://drive.google.com/file/d/1cocPUd-7Jio7Buh-6II0s1cNx1cqfCK-/view?usp=sharing">谷歌云盘</a></td>
 <td style="text-align:center"><a href="https://share.weiyun.com/pDhHZ1pQ">腾讯微云</a></td>
 </tr>
 <tr>
 <td>miwifi_rm2100_firmware_d6234_2.0.7.bin</td>
-<td style="text-align:center"><a href="https://downloads.slight-wind.com/AC2100-OpenWrt/official-default/miwifi_rm2100_firmware_d6234_2.0.7.bin">本地下载</a></td>
+<td style="text-align:center"><a href="https://drive.google.com/file/d/1VGSGS55aciqQQZdlOkq2Kz632B1dSLVO/view?usp=sharing">谷歌云盘</a></td>
 <td style="text-align:center"><a href="https://share.weiyun.com/xIFn6CO5">腾讯微云</a></td>
 </tr>
 </tbody>
