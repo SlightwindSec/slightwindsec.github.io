@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on Slightwind</title>
-    <link>https://slightwindsec.github.io/categories/</link>
+    <link>https://slightwind.cn/categories/</link>
     <description>Recent content in Categories on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://slightwindsec.github.io/papermod-cover.png</url>
-      <link>https://slightwindsec.github.io/papermod-cover.png</link>
+      <url>https://slightwind.cn/papermod-cover.png</url>
+      <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://slightwindsec.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://slightwind.cn/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

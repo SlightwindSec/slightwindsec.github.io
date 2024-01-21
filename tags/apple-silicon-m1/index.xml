@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Apple Silicon M1 on Slightwind</title>
-    <link>https://slightwindsec.github.io/tags/apple-silicon-m1/</link>
+    <link>https://slightwind.cn/tags/apple-silicon-m1/</link>
     <description>Recent content in Apple Silicon M1 on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://slightwindsec.github.io/papermod-cover.png</url>
-      <link>https://slightwindsec.github.io/papermod-cover.png</link>
+      <url>https://slightwind.cn/papermod-cover.png</url>
+      <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Oct 2021 10:00:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/apple-silicon-m1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Oct 2021 10:00:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/apple-silicon-m1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install SageMath for Apple Silicon M1</title>
-      <link>https://slightwindsec.github.io/posts/crypto/install-sagemath-for-apple-silicon-m1/</link>
+      <link>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</link>
       <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
       
-      <guid>https://slightwindsec.github.io/posts/crypto/install-sagemath-for-apple-silicon-m1/</guid>
+      <guid>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</guid>
       <description>Install conda 官网上没有直接给出M1 Mac版本的SageMath二进制安装文件，不过给出了使用conda安装Sage的方法，参考Install from conda-forge。
 所以如果自己的Mac上还没有安装conda的话，可以先安装一下，然后使用conda安装SageMath。
 首先下载Miniforge3-MacOSX-arm64.sh，cd进入Miniforge3-MacOSX-arm64.sh所在的目录。

@@ -2,194 +2,196 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://slightwindsec.github.io/tags/computer-vision/</loc>
+    <loc>https://slightwind.cn/tags/computer-vision/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/dl/</loc>
+    <loc>https://slightwind.cn/tags/deeplearning/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/kaggle/</loc>
+    <loc>https://slightwind.cn/tags/kaggle/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/notes/</loc>
+    <loc>https://slightwind.cn/tags/notes/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-dl/</loc>
+    <loc>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/</loc>
+    <loc>https://slightwind.cn/posts/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/</loc>
+    <loc>https://slightwind.cn/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/</loc>
+    <loc>https://slightwind.cn/tags/</loc>
     <lastmod>2022-03-12T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/ml/</loc>
+    <loc>https://slightwind.cn/tags/ml/</loc>
     <lastmod>2022-03-10T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-ml/</loc>
+    <loc>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</loc>
     <lastmod>2022-03-10T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/dataprocess/kaggle-courses-pandas/</loc>
+    <loc>https://slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</loc>
     <lastmod>2022-03-09T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/pandas/</loc>
+    <loc>https://slightwind.cn/tags/pandas/</loc>
     <lastmod>2022-03-09T16:23:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/gmssl/</loc>
+    <loc>https://slightwind.cn/tags/gmssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/environment/install-openssl-and-gmssl-on-win32/</loc>
+    <loc>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/openssl/</loc>
+    <loc>https://slightwind.cn/tags/openssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/ssl/</loc>
+    <loc>https://slightwind.cn/tags/ssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/bare-metal-server/</loc>
+    <loc>https://slightwind.cn/tags/bare-metal-server/</loc>
     <lastmod>2021-11-17T16:09:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/raspberry-pi/</loc>
+    <loc>https://slightwind.cn/tags/raspberry-pi/</loc>
     <lastmod>2021-11-17T16:09:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/environment/raspberrypi4b/</loc>
+    <loc>https://slightwind.cn/posts/environment/raspberrypi4b/</loc>
     <lastmod>2021-11-17T16:09:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/cbc/</loc>
+    <loc>https://slightwind.cn/tags/cbc/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/continued-fraction/</loc>
+    <loc>https://slightwind.cn/tags/continued-fraction/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/crypto/</loc>
+    <loc>https://slightwind.cn/tags/crypto/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/lsfr/</loc>
+    <loc>https://slightwind.cn/tags/lsfr/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/mt19937/</loc>
+    <loc>https://slightwind.cn/tags/mt19937/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/prng/</loc>
+    <loc>https://slightwind.cn/tags/prng/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/vigenere/</loc>
+    <loc>https://slightwind.cn/tags/vigenere/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/xor/</loc>
+    <loc>https://slightwind.cn/tags/xor/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/huxiangbei2021/</loc>
+    <loc>https://slightwind.cn/posts/ctf/huxiangbei2021/</loc>
     <lastmod>2021-11-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/bytectf2021/</loc>
+    <loc>https://slightwind.cn/posts/ctf/bytectf2021/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/coppersmith/</loc>
+    <loc>https://slightwind.cn/tags/coppersmith/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/ecc/</loc>
+    <loc>https://slightwind.cn/tags/ecc/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/ecdlp/</loc>
+    <loc>https://slightwind.cn/tags/ecdlp/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/ofb/</loc>
+    <loc>https://slightwind.cn/tags/ofb/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/protocol/</loc>
+    <loc>https://slightwind.cn/tags/protocol/</loc>
     <lastmod>2021-10-29T10:46:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/environment/install-openwrt-for-redmi-ac2100/</loc>
+    <loc>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</loc>
     <lastmod>2021-10-10T18:38:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/openwrt/</loc>
+    <loc>https://slightwind.cn/tags/openwrt/</loc>
     <lastmod>2021-10-10T18:38:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/router/</loc>
+    <loc>https://slightwind.cn/tags/router/</loc>
     <lastmod>2021-10-10T18:38:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/wi-fi/</loc>
+    <loc>https://slightwind.cn/tags/wi-fi/</loc>
     <lastmod>2021-10-10T18:38:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/apple-silicon-m1/</loc>
+    <loc>https://slightwind.cn/tags/apple-silicon-m1/</loc>
     <lastmod>2021-10-09T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/crypto/install-sagemath-for-apple-silicon-m1/</loc>
+    <loc>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</loc>
     <lastmod>2021-10-09T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/sagemath/</loc>
+    <loc>https://slightwind.cn/tags/sagemath/</loc>
     <lastmod>2021-10-09T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/0xgame-2020-crypto-problems/</loc>
+    <loc>https://slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</loc>
     <lastmod>2020-12-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/rsa/</loc>
+    <loc>https://slightwind.cn/tags/rsa/</loc>
     <lastmod>2020-12-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/crt/</loc>
+    <loc>https://slightwind.cn/tags/crt/</loc>
     <lastmod>2020-08-24T16:23:55+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/writeup-for-qwb-2020/</loc>
+    <loc>https://slightwind.cn/posts/ctf/writeup-for-qwb-2020/</loc>
     <lastmod>2020-08-24T16:23:55+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</loc>
+    <loc>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</loc>
     <lastmod>2020-08-03T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/lattice/</loc>
+    <loc>https://slightwind.cn/tags/lattice/</loc>
     <lastmod>2020-07-07T23:08:14+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/misc/</loc>
+    <loc>https://slightwind.cn/tags/misc/</loc>
     <lastmod>2020-07-07T23:08:14+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</loc>
+    <loc>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</loc>
     <lastmod>2020-07-07T23:08:14+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/diffiehellman/</loc>
+    <loc>https://slightwind.cn/tags/diffiehellman/</loc>
     <lastmod>2020-05-04T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/lfsr/</loc>
+    <loc>https://slightwind.cn/tags/lfsr/</loc>
     <lastmod>2020-05-04T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</loc>
+    <loc>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</loc>
     <lastmod>2020-05-04T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</loc>
+    <loc>https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</loc>
     <lastmod>2020-04-25T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/paillier/</loc>
+    <loc>https://slightwind.cn/tags/paillier/</loc>
     <lastmod>2020-04-25T13:33:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/algorithm/</loc>
+    <loc>https://slightwind.cn/tags/algorithm/</loc>
     <lastmod>2020-03-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</loc>
+    <loc>https://slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</loc>
     <lastmod>2020-03-16T09:17:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/crypto/chinese-remainder-theorem/</loc>
+    <loc>https://slightwind.cn/posts/crypto/chinese-remainder-theorem/</loc>
     <lastmod>2020-02-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/affine/</loc>
+    <loc>https://slightwind.cn/tags/affine/</loc>
     <lastmod>2020-01-20T03:38:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/posts/ctf/hgame-2020-week1-writeup/</loc>
+    <loc>https://slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</loc>
     <lastmod>2020-01-20T03:38:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/tags/web/</loc>
+    <loc>https://slightwind.cn/tags/web/</loc>
     <lastmod>2020-01-20T03:38:02+00:00</lastmod>
   </url><url>
-    <loc>https://slightwindsec.github.io/archives/</loc>
+    <loc>https://slightwind.cn/about/</loc>
   </url><url>
-    <loc>https://slightwindsec.github.io/categories/</loc>
+    <loc>https://slightwind.cn/archives/</loc>
   </url><url>
-    <loc>https://slightwindsec.github.io/categories/</loc>
+    <loc>https://slightwind.cn/categories/</loc>
   </url><url>
-    <loc>https://slightwindsec.github.io/search/</loc>
+    <loc>https://slightwind.cn/categories/</loc>
   </url><url>
-    <loc>https://slightwindsec.github.io/series/</loc>
+    <loc>https://slightwind.cn/search/</loc>
+  </url><url>
+    <loc>https://slightwind.cn/series/</loc>
   </url>
 </urlset>

@@ -9,16 +9,16 @@
 <meta name="keywords" content="">
 <meta name="description" content="Slightwind&#39;s Blog">
 <meta name="author" content="Slightwind">
-<link rel="canonical" href="https://slightwindsec.github.io/tags/diffiehellman/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c7114bf2e60e294d9801cc3e33241fb43d14d31c3f547fb2668595a22e5fb442.css" integrity="sha256-xxFL8uYOKU2YAcw&#43;MyQftD0U0xw/VH&#43;yZoWVoi5ftEI=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://slightwindsec.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://slightwindsec.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://slightwindsec.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://slightwindsec.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://slightwindsec.github.io/safari-pinned-tab.svg">
+<link rel="canonical" href="https://slightwind.cn/tags/diffiehellman/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8f0c4ae2923d4855c66f073aa2d2ffb208a713d50179122e3fb83729fa3a3b0d.css" integrity="sha256-jwxK4pI9SFXGbwc6otL/sginE9UBeRIuP7g3Kfo6Ow0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://slightwind.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://slightwind.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://slightwind.cn/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://slightwindsec.github.io/tags/diffiehellman/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://slightwind.cn/tags/diffiehellman/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -62,10 +62,10 @@
 <meta property="og:title" content="Diffie–Hellman" />
 <meta property="og:description" content="Slightwind&#39;s Blog" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://slightwindsec.github.io/tags/diffiehellman/" /><meta property="og:image" content="https://slightwindsec.github.io/papermod-cover.png"/>
+<meta property="og:url" content="https://slightwind.cn/tags/diffiehellman/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/>
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwindsec.github.io/papermod-cover.png"/>
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
 
 <meta name="twitter:title" content="Diffie–Hellman"/>
 <meta name="twitter:description" content="Slightwind&#39;s Blog"/>
@@ -87,7 +87,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://slightwindsec.github.io/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <a href="https://slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -113,25 +113,30 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://slightwindsec.github.io/archives" title="Archive">
+                <a href="https://slightwind.cn/archives" title="Archive">
                     <span>Archive</span>
                 </a>
             </li>
             <li>
-                <a href="https://slightwindsec.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="https://slightwindsec.github.io/tags/" title="Tags">
+                <a href="https://slightwind.cn/tags/" title="Tags">
                     <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://slightwind.cn/about/" title="About">
+                    <span>About</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://slightwindsec.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://slightwindsec.github.io/tags/">Tags</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/tags/">Tags</a></div>
   <h1>
     Diffie–Hellman
     <a href="/tags/diffiehellman/index.xml" title="RSS" aria-label="RSS">
@@ -155,12 +160,12 @@
 from flag import a, b, c, d, flag assert flag == &#34;De1CTF{&#34; &#43; &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) &#43; &#34;}&#34; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &lt;&lt; 1) &amp; 0xffffff) ^ (bin(r &amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s &#43;= str(combine()) open(&#34;data&#34;, &#34;w&#43;&#34;)....</p>
   </div>
   <footer class="entry-footer"><span title='2020-05-04 13:33:02 +0000 UTC'>May 4, 2020</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Writeup for Crypto problems in De1CTF 2020" href="https://slightwindsec.github.io/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/"></a>
+  <a class="entry-link" aria-label="post link to Writeup for Crypto problems in De1CTF 2020" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/"></a>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://slightwindsec.github.io/">Slightwind</a></span>
+    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>ML on Slightwind</title>
-    <link>https://slightwindsec.github.io/tags/ml/</link>
+    <link>https://slightwind.cn/tags/ml/</link>
     <description>Recent content in ML on Slightwind</description>
     <image>
       <title>Slightwind</title>
-      <url>https://slightwindsec.github.io/papermod-cover.png</url>
-      <link>https://slightwindsec.github.io/papermod-cover.png</link>
+      <url>https://slightwind.cn/papermod-cover.png</url>
+      <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 10 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwindsec.github.io/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Mar 2022 16:23:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/ml/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML</title>
-      <link>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-ml/</link>
+      <link>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</link>
       <pubDate>Thu, 10 Mar 2022 16:23:00 +0000</pubDate>
       
-      <guid>https://slightwindsec.github.io/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
+      <guid>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</guid>
       <description>Intro to Machine Learning How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
 从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
 Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
