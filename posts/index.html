@@ -167,58 +167,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>Notes: Kaggle Courses - Intro to DL &amp; Computer Vision
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Intro to Deep Learning A Single Neuron The Linear Unit 下面是一个neuron（或称unit）的示意图，x是输入；w是x的权重weight；b是bias，是一种特殊的权重，没有和bias相关的输入数据，它可以独立于输入修改输出。神经网络通过修改权重来“learn”。
-y是这个神经元输出的值，$y=wx&#43;b$，刚好是一个直线的方程，w是斜率，b是在y轴上的截距。
-Example - The Linear Unit as a Model 单个神经元是通常只会在更大的网络中发挥作用，单神经元模型是线性模型。当$w=2.5, b=90$时，这个线性模型可以用来反应糖&#39;sugars&#39;和卡路里&#39;calories&#39;的关系：
-Multiple Inputs 对于多个输入，也是这样将每个输入乘以权重，并把它们相加。下面这个对应的公式为：$y=w_{0} x_{0}&#43;w_{1} x_{1}&#43;w_{2} x_{2}&#43;b.$ Linear Units in Keras 在Keras中创建模型最简单的方法是使用keras.Sequential，下面这个示例表示一个线性模型，可以输入3个特征（‘sugars’, ‘fiber’, ‘protein’），并且只有一个输出：‘calories’。
-from tensorflow import keras from tensorflow.keras import layers # Create a network with 1 linear unit model = keras.Sequential([ layers.Dense(units=1, input_shape=[3]) ]) 第一个参数units定义输出的个数，input_shape告诉Keras输入特征的数量。目前只需要用到input_shape=[num_columns]，input_shape还可以支持使用更复杂的数据：[height, width, channels]。
-Tensors是TensorFlow版本的numpy数组，并且做了一些使它更适合用于机器学习的改变，Tensors与GPU/TPU加速器兼容，而TPU就是专为Tensors而设计的。在Keras内部，使用Tensors表示神经网络的权重。
-model.weights可以用来查看权重，在训练开始前，权重都会被初始化为随机值。
-Deep Neural Networks Layers 神经网络会将神经元组成层（layers），合并有相同的输入的线性神经元，就得到了一个稠密层（dense layer） The Activation Function 两个中间没有其他东西的稠密层，效果并不会比一个稠密层的效果好多少，“稠密层本身不能带我们离开线和面的世界”，我们需要的是非线性（nonlinear），需要激活函数（activation function）。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-03-12 16:23:00 +0000 UTC'>March 12, 2022</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Intro to DL &amp; Computer Vision" href="https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Intro to Machine Learning L How Models Work 介绍了当前这篇教程的内容和受众，然后举例说明ml可以做什么，可以使用模型，来代替人对各种类型的房屋价值进行估计。然后用简单的决策树对房屋分类，预测不同房屋的价值。
-从数据中提取模式的过程这一步骤称为拟合(fitting)或训练(training)模型，用于拟合模型的数据称为训练数据(training data)。
-Basic Data Exploration Using Pandas to Get Familiar With Your Data 这里开始讲pandas，一般会把它缩写为pd，可以使用pandas来帮助我们熟悉数据。pandas中有一个重要的概念“DataFrame”，可以把它类比成Excel中的工作表，或者SQL数据库中的table，pandas的功能很强大。
-给了一个简单使用pandas的例子：
-# save filepath to variable for easier access melbourne_file_path = &#39;../input/melbourne-housing-snapshot/melb_data.csv&#39; # read the data and store data in DataFrame titled melbourne_data melbourne_data = pd.read_csv(melbourne_file_path) # print a summary of the data in Melbourne data melbourne_data.describe() Interpreting Data Description 这里就是解释了一下上面这个例子中，各个列的含义，然后提到了缺失值。
-有些位置可能会出现一些缺失值，这确实是符合现实情况的，比如泰坦尼克号的数据中，有些人的数据收集不全了，这种时候可以通过一些方法把它填上。然后看到有篇文章讲到缺失值可以通过其他的比较全的数据作为X，缺失值对应的特征作为y，来简单构建一个模型预测一下，从而达到通过其他信息补上可能性比较大的值的操作。
-Your First Machine Learning Model Selecting Data for Modeling 有些时候数据中会有太多的变量，这些变量不一定是我们的模型所需要的，应该通过一些方法来选择对我们训练模型有价值的变量。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-03-10 16:23:00 +0000 UTC'>March 10, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Intro to ML &amp; Intermediate ML" href="https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Notes: Kaggle Courses - Pandas
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Pandas Creating, Reading and Writing Creating data import pandas as pd pandas是最受欢迎的python数据分析包。pandas中有两个核心对象DataFrame和Series。
-DataFrame是一个表，由多个数组构成，这些数组常常作为表里面的列。使用pd.DataFrame()来实例化一个DataFrame对象，数据参数使用的是python中的dict，dict的key作为DataFrame的列名，dict的value是一个list，作为对应列的全部元素。
-&gt;&gt;&gt; pd.DataFrame({&#39;Yes&#39;: [50, 21], &#39;No&#39;: [131, 2]}) Yes No 0 50 131 1 21 2 &gt;&gt;&gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}) Bob Sue 0 I liked it. Pretty good. 1 It was awful. Bland. 行的下标（通常称为索引(index)）默认和python的list一样，从0开始，也可以在构造时自定义
-&gt;&gt;&gt; pd.DataFrame({&#39;Bob&#39;: [&#39;I liked it.&#39;, &#39;It was awful.&#39;], &#39;Sue&#39;: [&#39;Pretty good.&#39;, &#39;Bland.&#39;]}, index=[&#39;Product A&#39;, &#39;Product B&#39;]) Bob Sue Product A I liked it....</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-03-09 16:23:00 +0000 UTC'>March 9, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind</footer>
-  <a class="entry-link" aria-label="post link to Notes: Kaggle Courses - Pandas" href="https://slightwind.cn/posts/dataprocess/kaggle-courses-pandas/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2>Install OpenSSL and GmSSL on Win32
     </h2>
   </header>
@@ -353,6 +301,54 @@ cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 2
   </div>
   <footer class="entry-footer"><span title='2020-12-21 00:00:00 +0000 UTC'>December 21, 2020</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Slightwind</footer>
   <a class="entry-link" aria-label="post link to 0xGame 2020 Crypto Problems" href="https://slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Writeup for 强网杯 2020
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Writeup for 强网杯 2020 强网先锋 baby_crt 考点是 CRT-RSA，找到一篇paper：Wagner’s Attack on a Secure CRT-RSA Algorithm Reconsidered
+然后看到里面提到可以这样获取 $p$：
+$$ \large gcd(m^{c_1}-Sig^e,N)=p $$
+这个题目只有 $c_1$ 没有给出，但是很小，可以直接爆破。
+from Crypto.Util.number import * from hashlib import sha1 e = 65537 n = 26318358382258215770827770763384603359524444566146134039272065206657135513496897321983920652242182112479484135343436206815722605756557098241887233837248519031879444740922789351356138322947108346833956405647578838873425658405513192437479359531790697924285889505666769580176431360506227506064132034621123828090480606055877425480739950809109048177976884825589023444901953529913585288143291544181183810227553891973915960951526154469344587083295640034876874318610991153058462811369615555470571469517472865469502025030548451296909857667669963720366290084062470583318590585472209798523021029182199921435625983186101089395997 m = 26275493320706026144196966398886196833815170413807705805287763413013100962831703774640332765503838087434904835657988276064660304427802961609185997964665440867416900711128517859267504657627160598700248689738045243142111489179673375819308779535247214660694211698799461044354352200950309392321861021920968200334344131893259850468214901266208090469265809729514249143938043521579678234754670097056281556861805568096657415974805578299196440362791907408888958917063668867208257370099324084840742435785960681801625180611324948953657666742195051492610613830629731633827861546693629268844700581558851830936504144170791124745540 sig = 20152941369122888414130075002845764046912727471716839854671280255845798928738103824595339885345405419943354215456598381228519131902698373225795339649300359363119754605698321052334731477127433796964107633109608706030111197156701607379086766944096066649323367976786383015106681896479446835419143225832320978530554399851074180762308322092339721839566642144908864530466017614731679525392259796511789624080228587080621454084957169193343724515867468178242402356741884890739873250658960438450287159439457730127074563991513030091456771906853781028159857466498315359846665211412644316716082898396009119848634426989676119219246 for c1 in range(1, 65536): p = GCD(pow(m, c1, n) - pow(sig, e, n), n) if p == 1: continue print(p) break q = n//p flag = &#34;flag{&#34; &#43; sha1(long_to_bytes(p if p &lt; q else q))....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-08-24 16:23:55 +0000 UTC'>August 24, 2020</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Writeup for 强网杯 2020" href="https://slightwind.cn/posts/ctf/writeup-for-qwb-2020/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Writeup for Crypto problems in WMCTF 2020
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
+An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
+make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
+规约得到的密钥对 $(F, G)$ 是不一定等于原来的密钥对 $(f, g)$，但它们在解密过程是等价的，我们得到的密钥对 (F, G) 长度都是 768bits。
+exp 多跑几次就能得到 flag。
+from gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote(&#39;170....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-08-03 13:33:02 +0000 UTC'>August 3, 2020</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Writeup for Crypto problems in WMCTF 2020" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Writeup for Crypto problems in SCTF 2020
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
+CRYPTANALYSIS OF RSA AND ITS VARIANTS
+这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：
+from binascii import hexlify, unhexlify e0 = 0x9a7dc3e0f2a3531035b18541df28b8407502c2101970862d19b107ea7dc37554e5ac620b3ce4be38e5d6fd6b1920aef9e017aa383e3c1dd8e7847dc7715832fa450d1b572cfe133c702c598ed022d40ad193608bcfeb9b9aebc910dd3257caa42e503764475b89bb99056822e21ba5723d9eee3196a6fca3debd1c7687fd310d n0 = 0xa98c363cf72b3bce39bae63a9d3d5ba0acaa7e81f9b1191ce20bb0b54a8c19216d20af640121c482e882c0772671280af9f42c764128a94104266dd65c0bcd93766e0f0ce119072302b7f3e5cc4b5cfece38e4124041a8f8dcbdb9193f35bede2c284e40f80398bf0ba0609229fa27faa2d51c552ff1ed911a6f6f220b7b6fed c0 = 0x57fcf94d27451fc35386e0f6eff53c6540ccff51862c992f4b59d0d49fa350493041c5be2f54a37f3afe81aa5e9a738461b3b709a4611a7289c83d769cb02f3c5d18e65d68f6fff1df0418c8a7351be1d7cce1a7514797c9bdc67d969224d783a5d004d67a5ef986d564ab1945e5c83a53d8d1dcb5e45323764a200e737b80c e1 = 0xbb31e6433057edfed88b6a37e4419a828d1575b2b9d04a5058cd912d5efb06b2f0c5c06c5d0dd35ebeda8afa8a9cc945c244c13fc501c76e720c2c04cab70c9f906c4a810defdd84c3a38507cdf79b4e4b0c7770cc3d2d862ea9bd5fe2469290d9d2a09c8164437e9d5b7b3a9c49d111e5caa9577f8ed1ef1916ec4cb71bbb8d n1 = 0xbcc2c4f4f51abb236b411f1f9d86d71133eb2d4ffe45a319b6ab6df1174b9ee619e696666702655b6c185735298cc008e9b7df842c480d3d42bb67228b6c7408a7afe68ab85ee1c80f43c8c52764c79ffdecc6e3a5ea76c1123affe9f02c649e5f5ca0a4082107ce4a2040e5756bf6a2b34757aefa5fb6fec6d7a9e86f0c8159 c1 = 0xacf91d2b6a300a60193485ef2e1127b5863c69da71ab9e7d71a3213e960a73e42f8e8031bf0ef20184ae0a259fd50260aacce06546af2f8bbef8a2f360c8f7511ad9c99d8715012ce0a4fa8dbba8c10d74f477156076bdfda80dc449eec3b45c7cd82802ecce7635e186d29744df04fcf812dc7e2d2f3c8cd751e4fcea43db1e e2 = 0x332f82f338c8b84524103d310d59fc541b66705948c57eaf972b26bb209a6ddde3d6930948a559ac1a3a26790cb1a133a90b999b164d4e22014b27660dad4e5639ffc19bcd2e4961c5b00b9116f49c3c02880bb3ad32972287442d6a86a9c86cd3981ee1084df4322edb9c5da39146e10de0586c8b5433a851d649a45c5a73cd n2 = 0xd0ad4d11576bb041ea2ce53f354dba362a93411a37f4a529e8b5eeae83a3437df6bd5e4e1f87a4d324a6ce2850f3568c929f5d5f73fef45bda03fa7bff00304a1eb833ce3535ee3552aa62b644f0d3c1679fe2c57b978c695f03e5b2d18d9b0821c7e0ca332f552b12e2b7109210d051bbe9d9b9e3cc3b16c81e77ebca65aca3 c2 = 0xc59078ae7cb454c970f272f595da71ae2b681156a1ce7112d9b96346f38bcdca87192ea39ac273851210e9f98f0d89f1bc657ce69ca14708cba8b319160a1f67b8cfc3643dc9b6a70769d8d64a9a3504d799f3d9afca7c7114880f4ccb5bef35738e660e4ede1c884f4a60f1f0e559fb754abd8e4b905ad3626a876bea43ec8e M = isqrt(max(n0, n1, n2)) M = 10704523536419069847275584063070587220303695362157261593514212717132031073368631333467085885236049291630529090309346493924305038011673707087598638071644281 B = matrix(ZZ, [ [M, e0, e1, e2], [0, -n0, 0, 0], [0, 0, -n1, 0], [0, 0, 0, -n2], ]) BL = B....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-07-07 23:08:14 +0000 UTC'>July 7, 2020</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Writeup for Crypto problems in SCTF 2020" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

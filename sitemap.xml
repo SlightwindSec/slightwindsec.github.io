@@ -2,42 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://slightwind.cn/tags/computer-vision/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/deeplearning/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/kaggle/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/notes/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-dl/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/posts/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/</loc>
-    <lastmod>2022-03-12T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/machinelearning/</loc>
-    <lastmod>2022-03-10T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/posts/tutorial/notes-kaggle-courses-intro-to-ml/</loc>
-    <lastmod>2022-03-10T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/posts/dataprocess/kaggle-courses-pandas/</loc>
-    <lastmod>2022-03-09T16:23:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/pandas/</loc>
-    <lastmod>2022-03-09T16:23:00+00:00</lastmod>
-  </url><url>
     <loc>https://slightwind.cn/tags/gmssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
@@ -47,7 +11,16 @@
     <loc>https://slightwind.cn/tags/openssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
+    <loc>https://slightwind.cn/posts/</loc>
+    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/</loc>
+    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
+  </url><url>
     <loc>https://slightwind.cn/tags/ssl/</loc>
+    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
     <loc>https://slightwind.cn/tags/bare-metal-server/</loc>
