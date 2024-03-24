@@ -140,8 +140,8 @@ p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c =
   "keywords": [
     "Crypto", "Web", "Affine"
   ],
-  "articleBody": "HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}\nCrypto InfantRSA 题目：\np = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：\np = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g != 1: raise Exception('modular inverse does not exist') else: return x % m d=modinv(e,(p-1)*(q-1)) m=pow(c,d,p*q) print(hex(m)) Affine 题目:\nimport gmpy2 from secret import A, B, flag assert flag.startswith('hgame{') and flag.endswith('}') TABLE = 'zxcvbnmasdfghjklqwertyuiop1234567890QWERTYUIOPASDFGHJKLZXCVBNM' MOD = len(TABLE) cipher = '' for b in flag: i = TABLE.find(b) if i == -1: cipher += b else: ii = (A*i + B) % MOD cipher += TABLE[ii] print(cipher) # A8I5z{xr1A_J7ha_vG_TpH410} 仿射加密解密，（$A^{-1}$为 A 对 MOD 的逆元）。 c=(A*x+B) % MOD m=$A^{-1}A$−1(x−B) % MOD 可以看出想解密要知道 A 和 B ，我们已知 “hgame{” 被加密成了 “A8I5z{” ，我们只需要取前两个字符就可以枚举出 A 和 B 了，从 12 变到46（ h 变成 A ），从 11 变到 33（ g 变成 8 ），模数 MOD 为 TABLE 的长度 62。 #include using namespace std; int main(){ for(int i=0;i\u003c62;i++) for(int j=0;j\u003c62;j++) if(((i*12+j)%62==46)\u0026\u0026((i*11+j)%62==33)\u0026\u0026((i*7+j)%62==43)){ cout\u003c",
-  "wordCount" : "688",
+  "articleBody": "HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}\nCrypto InfantRSA 题目：\np = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：\np = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g != 1: raise Exception('modular inverse does not exist') else: return x % m d=modinv(e,(p-1)*(q-1)) m=pow(c,d,p*q) print(hex(m)) Affine 题目:\nimport gmpy2 from secret import A, B, flag assert flag.startswith('hgame{') and flag.endswith('}') TABLE = 'zxcvbnmasdfghjklqwertyuiop1234567890QWERTYUIOPASDFGHJKLZXCVBNM' MOD = len(TABLE) cipher = '' for b in flag: i = TABLE.find(b) if i == -1: cipher += b else: ii = (A*i + B) % MOD cipher += TABLE[ii] print(cipher) # A8I5z{xr1A_J7ha_vG_TpH410} 仿射加密解密，（$A^{-1}$为 A 对 MOD 的逆元）。 c=(A*x+B) % MOD m=$A^{-1}A$−1(x−B) % MOD 可以看出想解密要知道 A 和 B ，我们已知 hgame{ 被加密成了 A8I5z{，我们只需要取前两个字符就可以枚举出 A 和 B 了，从 12 变到46（ h 变成 A ），从 11 变到 33（ g 变成 8 ），模数 MOD 为 TABLE 的长度 62。 #include using namespace std; int main(){ for(int i=0;i\u003c62;i++) for(int j=0;j\u003c62;j++) if(((i*12+j)%62==46)\u0026\u0026((i*11+j)%62==33)\u0026\u0026((i*7+j)%62==43)){ cout\u003c",
+  "wordCount" : "692",
   "inLanguage": "en",
   "datePublished": "2020-01-20T03:38:02Z",
   "dateModified": "2020-01-20T03:38:02Z",
@@ -293,10 +293,10 @@ p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c =
 <h3 id="cosmos-的博客">Cosmos 的博客<a hidden class="anchor" aria-hidden="true" href="#cosmos-的博客">#</a></h3>
 <ol>
 <li>看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到：
-aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9</li>
+<code>aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9</code></li>
 <li>base64 解码得到 flag。</li>
 </ol>
-<p>hgame{g1t_le@k_1s_danger0us_!!!}</p>
+<p><code>hgame{g1t_le@k_1s_danger0us_!!!}</code></p>
 <h2 id="crypto">Crypto<a hidden class="anchor" aria-hidden="true" href="#crypto">#</a></h2>
 <h3 id="infantrsa">InfantRSA<a hidden class="anchor" aria-hidden="true" href="#infantrsa">#</a></h3>
 <p>题目：</p>
@@ -350,7 +350,7 @@ print(cipher)
 <li>仿射加密解密，（$A^{-1}$为 A 对 MOD 的逆元）。
 c=(A*x+B) % MOD
 m=$A^{-1}A$−1(x−B) % MOD</li>
-<li>可以看出想解密要知道 A 和 B ，我们已知 “hgame{” 被加密成了 “A8I5z{” ，我们只需要取前两个字符就可以枚举出 A 和 B 了，从 12 变到46（ h 变成 A ），从 11 变到 33（ g 变成 8 ），模数 MOD 为 TABLE 的长度 62。</li>
+<li>可以看出想解密要知道 <code>A</code> 和 <code>B</code> ，我们已知 <code>hgame{</code> 被加密成了 <code>A8I5z{</code>，我们只需要取前两个字符就可以枚举出 <code>A</code> 和 <code>B</code> 了，从 12 变到46（ <code>h</code> 变成 <code>A</code> ），从 11 变到 33（ <code>g</code> 变成 <code>8</code> ），模数 <code>MOD</code> 为 <code>TABLE</code> 的长度 <code>62</code>。</li>
 </ol>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
@@ -423,7 +423,7 @@ print(base64.b64encode(xor(flag, keystream)).decode())
 </code></pre>
 <ol>
 <li>
-<p>这题可以 nc 连接服务器，所以可以得到很多的 flag 密文，而且已知flag以 ‘hgame{’ 开始以 ‘}’ 结束。</p>
+<p>这题可以 nc 连接服务器，所以可以得到很多的 flag 密文，而且已知flag以 <code>hgame{</code> 开始以 <code>}</code> 结束。</p>
 </li>
 <li>
 <p>加密脚本就是用 flag 和随机等长字符串异或运算然后输出base64编码后的结果，一开始在网上各种找资料，流加密多次密钥攻击，发现都是这样:</p>
@@ -435,7 +435,7 @@ A = E(A) xor E(B) xor B</p>
 </blockquote>
 <p>在 GitHub 上也可以找到 many-time-pad-attack 的脚本，也是需要有一段自己的字符串让脚本加密一次才能推出其他的明文。而这题显然不可以上传一个字符串让服务器上的脚本把 flag 和自己的字符串异或一下再发给自己…</p>
 <ol start="3">
-<li>然而想到一个集合内的字符相互异或的结果也是一个很有限的集合，反过来如果知道一个异或的结果，我们就可以大概知道这个结果可能是哪些字符异或出来的，称这些字符组成的集合为A，那么以此类推（多次nc下来一些密文）得到集合B，C，D…然后取这些集合的交集就可以极大地缩小这个位置可能的字符集合。</li>
+<li>然而想到一个集合内的字符相互异或的结果也是一个很有限的集合，反过来如果知道一个异或的结果，我们就可以大概知道这个结果可能是哪些字符异或出来的，称这些字符组成的集合为 A，那么以此类推（多次 nc 下来一些密文）得到集合 B，C，D&hellip; 然后取这些集合的交集就可以极大地缩小这个位置可能的字符集合。</li>
 </ol>
 <p>exp：</p>
 <pre><code class="language-python">import gmpy2
@@ -535,7 +535,7 @@ for i in range(0, 43):
 <p>hgame{r3us1nG+M3$5age-&amp;&amp;~rEduC3d_k3Y-5P4Ce}</p>
 <h3 id="reorder">Reorder<a hidden class="anchor" aria-hidden="true" href="#reorder">#</a></h3>
 <p>这题只有 nc 连接，随便输入会发现顺序被打乱后输出，最后输出打乱后的 flag ，所以只要按顺序输入字母数字然后看是怎样被打乱的，就说明 flag 也被用同样的方法打乱了，直接复原即可。</p>
-<p>hgame{jU$t+5ImpL3_PeRmuTATi0n!!}</p>
+<p><code>hgame{jU$t+5ImpL3_PeRmuTATi0n!!}</code></p>
 <h2 id="misc">Misc<a hidden class="anchor" aria-hidden="true" href="#misc">#</a></h2>
 <h3 id="欢迎参加hgame">欢迎参加HGame！<a hidden class="anchor" aria-hidden="true" href="#欢迎参加hgame">#</a></h3>
 <blockquote>
@@ -544,14 +544,14 @@ Li0tIC4uLi0tIC4tLi4gLS4tLiAtLS0tLSAtLSAuIC4uLS0uLSAtIC0tLSAuLi0tLi0gLi4tLS0gLS0t
 注：若解题得到的是无hgame{}字样的 flag 花括号内内容，请手动添加hgame{}后提交。
 【Notice】解出来的字母均为大写</p>
 </blockquote>
-<p>base64 解码，然后摩斯电码解码。
-hgame{W3LC0METO2020HGAM3}</p>
+<p>base64 解码，然后摩斯电码解码。</p>
+<p><code>hgame{W3LC0METO2020HGAM3}</code></p>
 <h3 id="壁纸">壁纸<a hidden class="anchor" aria-hidden="true" href="#壁纸">#</a></h3>
 <ol>
 <li>binwalk 提取出来个加密过的 zip，然后两秒爆破数字出密码 76953815 。</li>
 <li>Unicode 转中文。</li>
 </ol>
-<p>hgame{Do_y0u_KnOW_uNiC0d3?}</p>
+<p><code>hgame{Do_y0u_KnOW_uNiC0d3?}</code></p>
 <h3 id="克苏鲁神话">克苏鲁神话<a hidden class="anchor" aria-hidden="true" href="#克苏鲁神话">#</a></h3>
 <ol>
 <li>题目解压出一个 Bacon.txt，一个 Novel.zip。</li>
@@ -563,7 +563,7 @@ hgame{W3LC0METO2020HGAM3}</p>
 <ol start="4">
 <li>doc 里一篇文章，看不到 flag ，Word：「选项」-「显示」-「隐藏文字」。拉到文章底部看到 flag 。</li>
 </ol>
-<p>hgame{Y0u_h@Ve_F0Und_mY_S3cReT}</p>
+<p><code>hgame{Y0u_h@Ve_F0Und_mY_S3cReT}</code></p>
 <h3 id="签到题proplus">签到题ProPlus<a hidden class="anchor" aria-hidden="true" href="#签到题proplus">#</a></h3>
 <blockquote>
 <p>Rdjxfwxjfimkn z,ts wntzi xtjrwm xsfjt jm ywt rtntwhf f y   h jnsxf qjFjf jnb  rg fiyykwtbsnkm tm  xa jsdwqjfmkjy wlviHtqzqsGsffywjjyynf yssm xfjypnyihjn.
@@ -577,7 +577,7 @@ Three fences first, Five Caesar next. English sentense first, zip password next.
 <li>winHex：「文件」-「新建」-「1Bytes」-「确定」-「Ctrl+V 粘贴」- 选择「Ascii Hex」然后删去开头的“00”，然后另存为 xxx.png。</li>
 <li>得到二维码，扫了就出 flag。</li>
 </ol>
-<p>hgame{3Nc0dInG_@lL_iN_0Ne!}</p>
+<p><code>hgame{3Nc0dInG_@lL_iN_0Ne!}</code></p>
 
 
   </div>

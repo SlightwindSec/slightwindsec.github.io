@@ -11,7 +11,34 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 Dec 2021 21:34:16 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Mar 2024 15:30:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bitsandbytes</title>
+      <link>https://slightwind.cn/tags/bitsandbytes/</link>
+      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/tags/bitsandbytes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LLM</title>
+      <link>https://slightwind.cn/tags/llm/</link>
+      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/tags/llm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MMLU</title>
+      <link>https://slightwind.cn/tags/mmlu/</link>
+      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/tags/mmlu/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>GmSSL</title>
       <link>https://slightwind.cn/tags/gmssl/</link>

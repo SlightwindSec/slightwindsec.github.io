@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://slightwind.cn/tags/bitsandbytes/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/llm/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/mmlu/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/posts/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/</loc>
+    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
+  </url><url>
     <loc>https://slightwind.cn/tags/gmssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
@@ -11,16 +32,7 @@
     <loc>https://slightwind.cn/tags/openssl/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
-    <loc>https://slightwind.cn/posts/</loc>
-    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/</loc>
-    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
-  </url><url>
     <loc>https://slightwind.cn/tags/ssl/</loc>
-    <lastmod>2021-12-08T21:34:16+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/</loc>
     <lastmod>2021-12-08T21:34:16+00:00</lastmod>
   </url><url>
     <loc>https://slightwind.cn/tags/bare-metal-server/</loc>

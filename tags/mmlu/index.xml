@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MMLU on Slightwind</title>
+    <link>https://slightwind.cn/tags/mmlu/</link>
+    <description>Recent content in MMLU on Slightwind</description>
+    <image>
+      <title>Slightwind</title>
+      <url>https://slightwind.cn/papermod-cover.png</url>
+      <link>https://slightwind.cn/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Mar 2024 15:30:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/mmlu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quantization Impact on Model Accuracy</title>
+      <link>https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/</link>
+      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/</guid>
+      <description>Mistral-7B&amp;rsquo;s performance on 5-shot MMLU Mistral-7B 是一个很强的 7B 开源模型，在 Mistral 官网和论文中声称可以在 5-shot MMLU 上达到 60.1% 的准确率，首先下载官方的模型权重文件（Mistral-7B-v0.1）并直接在原精度（BF16）上进行推理，尝试复现出官方的准确率。
+llmtask 这里使用 llmtask 来进行下游任务测试，非常方便快捷，只需要
+pip install llmtask==0.0.2 即可完成安装，可以直接测试模型在 C-Eval 和 MMLU 数据集上的表现。
+示例代码：
+import random from llmtask import TaskGenerator choices = (&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;D&amp;quot;) TG = TaskGenerator(&amp;quot;mmlu&amp;quot;, max_shot=4) for task in TG: TG.feedback(random.choice(choices)) print(TG.summary()) 测试 Mistral-7B 原精度推理脚本：
+import time import torch from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig from llmtask import TaskGenerator def log(msg): with open(&amp;quot;mmlu_5shot_bf16.</description>
+    </item>
+    
+  </channel>
+</rss>
