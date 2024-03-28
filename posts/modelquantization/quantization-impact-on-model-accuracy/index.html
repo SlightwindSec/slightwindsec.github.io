@@ -14,7 +14,7 @@ pip install llmtask==0.0.2 即可完成安装，可以直接测试模型在 C-Ev
 import random from llmtask import TaskGenerator choices = (&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;) TG = TaskGenerator(&quot;mmlu&quot;, max_shot=4) for task in TG: TG.feedback(random.choice(choices)) print(TG.summary()) 测试 Mistral-7B 原精度推理脚本：
 import time import torch from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig from llmtask import TaskGenerator def log(msg): with open(&quot;mmlu_5shot_bf16.">
 <meta name="author" content="Slightwind">
-<link rel="canonical" href="https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/">
+<link rel="canonical" href="https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8f0c4ae2923d4855c66f073aa2d2ffb208a713d50179122e3fb83729fa3a3b0d.css" integrity="sha256-jwxK4pI9SFXGbwc6otL/sginE9UBeRIuP7g3Kfo6Ow0=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -100,7 +100,7 @@ pip install llmtask==0.0.2 即可完成安装，可以直接测试模型在 C-Ev
 import random from llmtask import TaskGenerator choices = (&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;) TG = TaskGenerator(&quot;mmlu&quot;, max_shot=4) for task in TG: TG.feedback(random.choice(choices)) print(TG.summary()) 测试 Mistral-7B 原精度推理脚本：
 import time import torch from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig from llmtask import TaskGenerator def log(msg): with open(&quot;mmlu_5shot_bf16." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-03-01T15:30:00+00:00" />
 <meta property="article:modified_time" content="2024-03-01T15:30:00+00:00" />
 
@@ -131,7 +131,7 @@ import time import torch from transformers import AutoModelForCausalLM, AutoToke
       "@type": "ListItem",
       "position":  2 ,
       "name": "Quantization Impact on Model Accuracy",
-      "item": "https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/"
+      "item": "https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/"
     }
   ]
 }
@@ -157,7 +157,7 @@ import time import torch from transformers import AutoModelForCausalLM, AutoToke
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://slightwind.cn/posts/modelquantization/bitsandbytes-model-quant/"
+    "@id": "https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/"
   },
   "publisher": {
     "@type": "Organization",
