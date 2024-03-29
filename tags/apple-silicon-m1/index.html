@@ -10,7 +10,7 @@
 <meta name="description" content="Slightwind&#39;s Blog">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/tags/apple-silicon-m1/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8f0c4ae2923d4855c66f073aa2d2ffb208a713d50179122e3fb83729fa3a3b0d.css" integrity="sha256-jwxK4pI9SFXGbwc6otL/sginE9UBeRIuP7g3Kfo6Ow0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -156,14 +156,14 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>Install conda 官网上没有直接给出M1 Mac版本的SageMath二进制安装文件，不过给出了使用conda安装Sage的方法，参考Install from conda-forge。
-所以如果自己的Mac上还没有安装conda的话，可以先安装一下，然后使用conda安装SageMath。
-首先下载Miniforge3-MacOSX-arm64.sh，cd进入Miniforge3-MacOSX-arm64.sh所在的目录。
+    <p>Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。
+所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。
+首先下载Miniforge3-MacOSX-arm64.sh，cd 进入Miniforge3-MacOSX-arm64.sh所在的目录。
 bash Miniforge3-MacOSX-arm64.sh 接着一路回车，直到确认条款：
 Do you accept the license terms? [yes|no] [no] &gt;&gt;&gt; yes 然后编辑配置文件vim ~/.zshrc，在最下面加入如下内容：
-path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) export PATH :wq保存并退出，然后source ~/.zshrc，conda info应该就可以看到了，到这里conda安装完成。
-在终端输入下面这些，给conda换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/ conda config --set show_channel_urls yes 然后输入conda config --show | grep https可以看到已经更新成功的上面的链接。...</p>
+path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) export PATH :wq保存并退出，然后source ~/.zshrc，conda info应该就可以看到了，到这里 conda 安装完成。
+在终端输入下面这些，给 conda 换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors....</p>
   </div>
   <footer class="entry-footer"><span title='2021-10-09 10:00:00 +0000 UTC'>October 9, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Slightwind</footer>
   <a class="entry-link" aria-label="post link to Install SageMath for Apple Silicon M1" href="https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/"></a>

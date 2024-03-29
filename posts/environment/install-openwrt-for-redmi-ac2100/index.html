@@ -18,7 +18,7 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 # 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8f0c4ae2923d4855c66f073aa2d2ffb208a713d50179122e3fb83729fa3a3b0d.css" integrity="sha256-jwxK4pI9SFXGbwc6otL/sginE9UBeRIuP7g3Kfo6Ow0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
