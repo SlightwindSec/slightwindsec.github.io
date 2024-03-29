@@ -167,6 +167,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Writeup for Crypto problems in WMCTF 2020
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
+An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
+make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
+规约得到的密钥对 $(F, G)$ 是不一定等于原来的密钥对 $(f, g)$，但它们在解密过程是等价的，我们得到的密钥对 (F, G) 长度都是 768bits。
+exp 多跑几次就能得到 flag。
+from gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote(&#39;170....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-08-03 13:33:02 +0000 UTC'>August 3, 2020</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind</footer>
+  <a class="entry-link" aria-label="post link to Writeup for Crypto problems in WMCTF 2020" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Writeup for Crypto problems in SCTF 2020
     </h2>
   </header>
