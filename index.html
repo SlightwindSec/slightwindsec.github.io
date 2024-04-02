@@ -187,14 +187,12 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>Mistral-7B’s performance on 5-shot MMLU Mistral-7B 是一个很强的 7B 开源模型，在 Mistral 官网和论文中声称可以在 5-shot MMLU 上达到 60.1% 的准确率，首先下载官方的模型权重文件（Mistral-7B-v0.1）并直接在原精度（BF16）上进行推理，尝试复现出官方的准确率。
-llmtask 这里使用 llmtask 来进行下游任务测试，非常方便快捷，只需要
-pip install llmtask==0.0.2 即可完成安装，可以直接测试模型在 C-Eval 和 MMLU 数据集上的表现。
-示例代码：
-import random from llmtask import TaskGenerator choices = (&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;) TG = TaskGenerator(&#34;mmlu&#34;, max_shot=4) for task in TG: TG.feedback(random.choice(choices)) print(TG.summary()) 测试 Mistral-7B 原精度推理脚本：
-import time import torch from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig from llmtask import TaskGenerator def log(msg): with open(&#34;mmlu_5shot_bf16....</p>
+    <p>Mistral-7B’s performance on 5-shot MMLU 如果对测试细节不感兴趣，只需要看下面给出的汇总表格即可。
+Overview 量化/非量化版本的 Mistral-7B-v0.1 模型在 5-shot MMLU 上的表现：
+Quant Type Compute Dtype Double Quant Avg (%) Total Time (s) BF16 BF16 N/A $61.00$ $312.79$ INT8 BF16&amp;INT8 N/A $60.87$ $614.43$ FP4 FP16 False $59.37$ $347.00$ FP4 FP16 True $59.17$ $353.22$ FP4 FP32 False $59.50$ $1061.27$ NF4 FP16 False $59.04$ $361.19$ 同时，也简单记录了量化对模型推理速度的影响：
+Quant Type Compute Dtype Batch Size Input (tokens) Output (tokens) First Token (ms) Non-first Token (ms) BF16 BF16 1 128 128 $38....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-03-01 15:30:00 +0000 UTC'>March 1, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Slightwind</footer>
+  <footer class="entry-footer"><span title='2024-03-01 15:30:00 +0000 UTC'>March 1, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind</footer>
   <a class="entry-link" aria-label="post link to Quantization Impact on Model Accuracy" href="https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/"></a>
 </article>
 

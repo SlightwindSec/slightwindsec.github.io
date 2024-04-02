@@ -18,12 +18,10 @@
       <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
       
       <guid>https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/</guid>
-      <description>Mistral-7B&amp;rsquo;s performance on 5-shot MMLU Mistral-7B 是一个很强的 7B 开源模型，在 Mistral 官网和论文中声称可以在 5-shot MMLU 上达到 60.1% 的准确率，首先下载官方的模型权重文件（Mistral-7B-v0.1）并直接在原精度（BF16）上进行推理，尝试复现出官方的准确率。
-llmtask 这里使用 llmtask 来进行下游任务测试，非常方便快捷，只需要
-pip install llmtask==0.0.2 即可完成安装，可以直接测试模型在 C-Eval 和 MMLU 数据集上的表现。
-示例代码：
-import random from llmtask import TaskGenerator choices = (&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;D&amp;quot;) TG = TaskGenerator(&amp;quot;mmlu&amp;quot;, max_shot=4) for task in TG: TG.feedback(random.choice(choices)) print(TG.summary()) 测试 Mistral-7B 原精度推理脚本：
-import time import torch from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig from llmtask import TaskGenerator def log(msg): with open(&amp;quot;mmlu_5shot_bf16.</description>
+      <description>Mistral-7B&amp;rsquo;s performance on 5-shot MMLU 如果对测试细节不感兴趣，只需要看下面给出的汇总表格即可。
+Overview 量化/非量化版本的 Mistral-7B-v0.1 模型在 5-shot MMLU 上的表现：
+Quant Type Compute Dtype Double Quant Avg (%) Total Time (s) BF16 BF16 N/A $61.00$ $312.79$ INT8 BF16&amp;amp;INT8 N/A $60.87$ $614.43$ FP4 FP16 False $59.37$ $347.00$ FP4 FP16 True $59.17$ $353.22$ FP4 FP32 False $59.50$ $1061.27$ NF4 FP16 False $59.04$ $361.19$ 同时，也简单记录了量化对模型推理速度的影响：
+Quant Type Compute Dtype Batch Size Input (tokens) Output (tokens) First Token (ms) Non-first Token (ms) BF16 BF16 1 128 128 $38.</description>
     </item>
     
     <item>
@@ -249,6 +247,16 @@ from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 impor
 Crypto InfantRSA 题目：
 p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：
 p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://slightwind.cn/posts/modelquantization/a-friendly-introduction-to-llm-int8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://slightwind.cn/posts/modelquantization/a-friendly-introduction-to-llm-int8/</guid>
+      <description>A Friendly Introduction to LLM.int8() 目前大模型权重通常以FP16或BF16格式存储，但是许多研究发现模型推理时可以使用更少的比特位的数据类型，模型可以比较正常运行的同时，还能够大量节省GPU/NPU内存。
+性能：本文中将会使用性能一词来代表推理的速度，比如平均输出每个token的耗时，耗时越低意味着性能越强； 下游任务精度： </description>
     </item>
     
     <item>
