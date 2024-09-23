@@ -14,9 +14,7 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;&hellip;&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -41,7 +39,7 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -61,26 +59,19 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 
     </style>
 </noscript>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
           
           
           delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\(', right: '\\)', display: false},
-                {left: '\\[', right: '\\]', display: false},
-                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
-                {left: "\\begin{align}", right: "\\end{align}", display: true},
-                {left: "\\begin{aligned}", right: "\\end{aligned}", display: true},
-                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
-                {left: "\\[", right: "\\]", display: true}
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
           ],
           
           throwOnError : false
@@ -88,23 +79,43 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
     });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF" />
 <meta property="og:description" content="&ldquo;not_RSA&rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&hellip;
 题目：
 from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n&#43;1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;(mod \ n^2) \\ &amp;\equiv g^m r^n \ &amp;(mod \ n^2) \end{aligned} $$
 其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;&hellip;&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-04-25T13:33:02+00:00" />
 <meta property="article:modified_time" content="2020-04-25T13:33:02+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF"/>
 <meta name="twitter:description" content="&ldquo;not_RSA&rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&hellip;
@@ -146,7 +157,7 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
   "articleBody": "“not_RSA” in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl… 不过还是记录一下自己推导的解题过程\n直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了…\n题目：\nfrom Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n+1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print('c=',c) print('n=',n) 主要加密过程是： $$ \\begin{aligned} c\u0026\\equiv(g^m \\ mod \\ n^2)(r^n \\ mod \\ n^2) \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv g^m r^n \\ \u0026(mod \\ n^2) \\end{aligned} $$\n其中有 $$ \\begin{aligned} g^m\u0026\\equiv (n+1)^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+…+C_m^mn^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 \\ \u0026(mod \\ n^2)\\\\ \u0026\\equiv 1 + mn \\ \u0026(mod \\ n^2) \\end{aligned} $$ 所以得到$c\\equiv g^m r^n\\equiv (1 + mn)r^n \\ (mod \\ n^2)$\n现在就要想办法消除掉 $r^n$ 的影响，不难发现 $r^n\\ mod\\ n = c\\ mod\\ n$。\n所以我们需要由 $r^n\\ mod\\ n$ 得到 $r$ 的值或者 $r^n\\ mod\\ n^2$的值，才可以对 $r^n$ 在模 $n^2$ 下求逆元。这里我这个菜鸡想了好久…最终想到将 $r^n\\ mod\\ n$ 分别对 $n$ 的两个因数 $p,q$ 取模，然后再用中国剩余定理（CRT）合并，从而得到 $r$。\n然后我们只需要计算 $r^n\\ mod\\ n^2$ 的逆元并与 $c$ 相乘，就得到 $(1+mn)\\ mod\\ n^2$，也就得到了 $m$。\nfrom Crypto.Util.number import long_to_bytes, inverse from functools import reduce c = 29088911054711509252215615231015162998042579425917914434962376243477176757448053722602422672251758332052330100944900171067962180230120924963561223495629695702541446456981441239486190458125750543542379899722558637306740763104274377031599875275807723323394379557227060332005571272240560453811389162371812183549 n = 6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093 p = 80006336965345725157774618059504992841841040207998249416678435780577798937819 q = 80006336965345725157774618059504992841841040207998249416678435780577798937447 g = n+1 phi = (p-1)*(q-1) rn = c % n x1 = rn % p d1 = inverse(q, p-1) r1 = pow(x1, d1, p) x2 = rn % q d2 = inverse(p, q-1) r2 = pow(x2, d2, q) def CRT(m, a): Num = len(m) M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(Num)] x = 0 for i in range(Num): x += a[i]*t[i]*Mi[i] return x % M r = CRT([p, q], [r1, r2]) R = pow(r, n, n*n) R_inv = inverse(R, n*n) mn = (c*R_inv) % (n*n) m = (mn-1)//n print(long_to_bytes(m)) Paillier Crytposystem 选取素数 $p, q$，计算 $n=p\\cdot q$，$\\lambda =lcm(p-1,q-1)$，选取 $g\\in\\Z_{n^2}^*$满足 $g$ 的阶是 $n$ 的倍数。\n其中公钥为：$n, g$，私钥为：$p, q,\\lambda$。\n加密时明文 $m",
   "wordCount" : "533",
   "inLanguage": "en",
-  "datePublished": "2020-04-25T13:33:02Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2020-04-25T13:33:02Z",
   "dateModified": "2020-04-25T13:33:02Z",
   "author":{
     "@type": "Person",
@@ -236,12 +247,14 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF
     </h1>
     <div class="post-meta"><span title='2020-04-25 13:33:02 +0000 UTC'>April 25, 2020</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -250,7 +263,7 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#not_rsa-in-dasctf" aria-label="&amp;ldquo;not_RSA&amp;rdquo; in DASCTF">&ldquo;not_RSA&rdquo; in DASCTF</a></li>
+                    <a href="#not_rsa-in-dasctf" aria-label="&ldquo;not_RSA&rdquo; in DASCTF">&ldquo;not_RSA&rdquo; in DASCTF</a></li>
                 <li>
                     <a href="#paillier-crytposystem" aria-label="Paillier Crytposystem">Paillier Crytposystem</a>
                 </li>
@@ -428,23 +441,46 @@ print(long_to_bytes(m))
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -497,6 +533,29 @@ print(long_to_bytes(m))
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -547,6 +606,8 @@ print(long_to_bytes(m))
         }
     });
 </script>
+
+
 </body>
 
 </html>

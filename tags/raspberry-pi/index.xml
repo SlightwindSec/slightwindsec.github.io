@@ -9,14 +9,14 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Nov 2021 16:09:02 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Nov 2021 16:09:02 +0000</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用树莓派4B作为一台服务器</title>
       <link>https://slightwind.cn/posts/environment/raspberrypi4b/</link>
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/raspberrypi4b/</guid>
       <description>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
 解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
@@ -37,6 +37,5 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png
 然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。</description>
     </item>
-    
   </channel>
 </rss>

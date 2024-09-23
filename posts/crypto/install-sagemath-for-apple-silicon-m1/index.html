@@ -17,9 +17,7 @@ path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) e
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors.">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -44,7 +42,7 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ cond
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -64,10 +62,29 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ cond
 
     </style>
 </noscript>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Install SageMath for Apple Silicon M1" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Install SageMath for Apple Silicon M1" />
 <meta property="og:description" content="Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。
 所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。
 首先下载Miniforge3-MacOSX-arm64.sh，cd 进入Miniforge3-MacOSX-arm64.sh所在的目录。
@@ -77,13 +94,14 @@ path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) e
 在终端输入下面这些，给 conda 换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-10-09T10:00:00+00:00" />
 <meta property="article:modified_time" content="2021-10-09T10:00:00+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Install SageMath for Apple Silicon M1"/>
 <meta name="twitter:description" content="Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。
 所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。
@@ -128,7 +146,7 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ cond
   "articleBody": "Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。\n所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。\n首先下载Miniforge3-MacOSX-arm64.sh，cd 进入Miniforge3-MacOSX-arm64.sh所在的目录。\nbash Miniforge3-MacOSX-arm64.sh 接着一路回车，直到确认条款：\nDo you accept the license terms? [yes|no] [no] \u003e\u003e\u003e yes 然后编辑配置文件vim ~/.zshrc，在最下面加入如下内容：\npath=('/Users/「这里替换成Mac用户名」/miniforge3/bin' $path) export PATH :wq保存并退出，然后source ~/.zshrc，conda info应该就可以看到了，到这里 conda 安装完成。\n在终端输入下面这些，给 conda 换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：\nconda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/msys2/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/bioconda/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/ conda config --set show_channel_urls yes 然后输入conda config --show | grep https可以看到已经更新成功的上面的链接。\n如果是直接新开的终端，直接输入conda是没有反应的，需要先source ~/.zshrc一下。\nInstall SageMath conda config --append channels conda-forge conda config --set channel_priority strict conda create -n sage sage python=3.9 # Proceed ([y]/n)? y # 然后就开始下载安装了 这时输入conda activate sage，然后输入sage就可以看到sage启动了，也可以使用sage xxx.sage来执行一个sage脚本，这样就是安装完成了。\n注意每次都要先vim ~/.zshrc进入conda，然后conda activate sage进入sage。\nMentioned files - - Miniforge3-MacOSX-arm64.sh - 腾讯微云 ",
   "wordCount" : "133",
   "inLanguage": "en",
-  "datePublished": "2021-10-09T10:00:00Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2021-10-09T10:00:00Z",
   "dateModified": "2021-10-09T10:00:00Z",
   "author":{
     "@type": "Person",
@@ -218,12 +236,14 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ cond
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Install SageMath for Apple Silicon M1
     </h1>
     <div class="post-meta"><span title='2021-10-09 10:00:00 +0000 UTC'>October 9, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -320,23 +340,46 @@ conda create -n sage sage python=3.9
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -389,6 +432,29 @@ conda create -n sage sage python=3.9
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -439,6 +505,8 @@ conda create -n sage sage python=3.9
         }
     });
 </script>
+
+
 </body>
 
 </html>

@@ -27,9 +27,7 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/environment/raspberrypi4b/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -54,7 +52,7 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -74,10 +72,29 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 
     </style>
 </noscript>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="使用树莓派4B作为一台服务器" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="使用树莓派4B作为一台服务器" />
 <meta property="og:description" content="树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
 解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
 静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网 IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网 IP。
@@ -97,13 +114,14 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png
 然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/environment/raspberrypi4b/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/environment/raspberrypi4b/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-17T16:09:02+00:00" />
 <meta property="article:modified_time" content="2021-11-17T16:09:02+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="使用树莓派4B作为一台服务器"/>
 <meta name="twitter:description" content="树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
 解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
@@ -158,7 +176,7 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
   "articleBody": "树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～\n解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。\n静态公网IP 如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网 IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网 IP。\n动态公网IP 没有静态的，可以退而求其次搞动态的，跟运营商交涉一下是可以得到动态的公网 IP 的，虽然是上下行不对等的家庭带宽，但是作为服务器来说绰绰有余，已经远超很多便宜的云服务器了。\n第一次我直接跟人工客服打电话申请要一个静态公网IP被拒绝了；然后第二天我又一次联系了人工客服，询问能不能申请动态的公网IP（可以说装摄像头要用到，不能说在家里搭建服务器），结果很快就回电通知我已经给了动态的公网IP，还算顺利～\nDynamic DNS 后面使用发现，我们这边的动态的公网IP大约2～3天变动一次，这就可以通过 Dynamic DNS（DDNS） 将动态的IP解析到固定的域名，就能通过固定的域名访问到服务器了。\nDDNS需要服务端和本地各运行一个服务：本地的树莓派或路由器上运行一个服务，每隔一段时间（几分钟）就获取一下自己的公网IP，判断一下有没有发生改变，如果发生改变就将新的 IP 发送给服务端，服务端得到新的 IP，就重新将域名解析到新的IP，所以是动态DNS。\nDDNS的服务端只提供域名的动态解析服务，所以服务端的带宽对访问树莓派的速度没有影响（但是可能会影响到延时？实际使用没有明显感觉到）\nDDNS服务：\n直接使用一些网站（oray.com/3322.org/Dyndns.com/No-ip.com）免费提供的DDNS服务，但是他们给的域名都是比较杂乱的三级域名，需要再把自己租的阿里云/腾讯云域名CNAME解析到这个三级域名。花生壳（oray.com）可以免费使用；而No-ip.com免费版需要每30天登录上去手动续约。 使用自己的vps运行脚本为树莓派提供DDNS服务，由于需要通过脚本进行域名解析，所以需要在vps上安装对应的SDK，然后开发对应的脚本，可以直接将自己的阿里云/腾讯云域名解析到家里的公网IP。 我现在是选择使用花生壳（oray.com）的DDNS服务，只需要注册即可得到一个三级域名，通过控制台-\u003e域名-\u003e壳域名来查看。我的路由器是小米 4A，可以在后台设置DDNS，选择“花生壳”并输入账号密码域名和检查 IP 的时间间隔即可。路由器不支持的话就需要在树莓派上运行一个脚本来发送新的IP。\n也有很多树莓派玩家通过每次变动IP时，让树莓派将新IP发送给自己的邮箱，使自己总是可以知道最新的IP地址。\nfrp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网穿透了，需要借助一台有公网 IP 的 vps，流量也都需要经过这台 vps，所以享受不到家庭宽带的低价大带宽了。\n测试上下行带宽 可以在 speedtest.cn 测试下行带宽和上行带宽（最好直接连网线测）。\n从公网访问树莓派下载文件需要的是家里的上行带宽，而家庭宽带的上行都是很低的，只能去升级下行带宽，上行才能对应的提升一点。。。。所以如果感觉带宽不太够还是要去升级一下宽带的。\n我家的联通宽带就不太行，一开始是100M下行，20M上行，实测大约下行90~100M，上行20~40M。于是换了500M下行，50M上行的宽带，实测大约下行450～550M，上行60～70M。\n组装树莓派和安装Ubuntu 我的是树莓派 4B。启动树莓派还需要有 5V 3A 的电源和一张 TF 卡。\n各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png\n然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。\n电脑上需要安装 balenaEtcher 来为 TF 卡写入 Ubuntu 镜像，balenaEtcher 支持 MacOS/Windows/Linux，可以在官网下载：https://www.balena.io/etcher/\n写入镜像过程很简单，跟着点就可以，下图这样就是写入成功了。 写入完成后不需要手动推出磁盘（TF 卡读卡器），可以直接拔掉，然后将 TF 卡插入树莓派即可。\n树莓派的 Wi-Fi 网卡性能较弱，而搭 NAS 比较需要速度，所以我直接给树莓派插上了网线。这时就可以直接通电了，树莓派会自动开机。\n内网SSH连接树莓派 现在就可以用电脑连接 Wi-Fi 并进入无线路由器的后台，应该可以看到连接路由器的所有设备的内网 IP 地址和MAC 地址，等待几分钟可以看到一个设备的名称是ubuntu，接入方式是网线连接，那么这个就是树莓派了。可以通过 ssh ubuntu@内网IP来连接树莓派，默认密码是ubuntu。\n公网SSH连接树莓派 接着可以设置一下路由器，为了防止树莓派的内网IP发生改变，需要在路由器后台，高级设置-\u003eDHCP静态IP分配 把树莓派的MAC地址和当前的内网IP地址绑定起来。然后为了让公网对路由器的访问都转向树莓派，高级设置-\u003e端口转发-\u003e开启DMZ，把DMZ这边的IP地址设置为树莓派的内网IP地址。这样设置完成之后，就可以通过 ssh ubuntu@公网IP 来远程控制树莓派了，公网IP地址可以通过访问 http://testipv6.com/来查看。\n较为遗憾的是运营商一般会屏蔽掉80端口和443端口。。。所以如果在树莓派上起服务，只能通过端口访问，这个问题可以通过在一台有公网IP并且开着80端口的vps上配置Nginx反向代理来解决，不过这样的话流量还是要走vps，所以为了快速的下载上传文件，只能通过加着端口这种方法来访问了，不过好在最终速度理想。\n初始配置 在同一文件夹下备份默认的源：\nsudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 编辑 /etc/apt/sources.list 并替换成下面的内容：（sudo vim /etc/apt/sources.list）\n# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal main restricted universe multiverse # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal main restricted universe multiverse deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-updates main restricted universe multiverse # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-updates main restricted universe multiverse deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-backports main restricted universe multiverse # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-backports main restricted universe multiverse deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-security main restricted universe multiverse # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-security main restricted universe multiverse 然后更新：\nsudo apt update sudo apt upgrade 安装KodExplorer 私有云有很多种选择：seafile、nextcloud、KodExplorer 等，我使用的是 KodExplorer（可道云），比较美观并且可以创建低权限用户支持预览的格式也很多。\nKodExplorer 官网链接：https://kodcloud.com/，官网的文档很详细。\n为树莓派安装好 lamp 环境，然后将 KodExplorer 的文件夹放到 web 目录下即可，开放好对应的端口之后，我们就可以通过http://[域名]/[目录名]来访问到 KodExplorer 了。\n不过要注意的是，服务要开在其他开放了的端口（80，443 会被运营商屏蔽）。\n优化上传和下载的速度，可以按照这个方法操作一下：https://teddysun.com/489.html，速度提升非常明显。\n挂载硬盘 安装好 KodExplorer 之后，就可以上传下载文件了，不过是存到 TF 卡里的，作为 NAS 当然需要给树莓派外挂硬盘，树莓派上有两个 USB 3.0 接口和两个 USB 2.0 接口，可以在这里挂上移动硬盘或者是硬盘加硬盘盒。\n我使用的方法是给树莓派的 USB 3.0 接口插了一个硬盘盒，可以自己选择需要大小的硬盘放在硬盘盒里，缺点是硬盘需要 12v 的供电，而树莓派的 USB 3.0 仅有 5v，所以需要给硬盘盒外接一个 12v 电源，不是很优雅，但硬盘的容量选择很多。\n首先为了让树莓派支持ExFat和NTFS格式的硬盘，需要安装下面两个依赖：\nsudo apt-get install exfat-fuse sudo apt-get install ntfs-3g 然后就可以挂载硬盘了，插上硬盘之后可以 sudo fdisk -l 来查看到自己的硬盘，然后 df -h 查看已经挂载的磁盘，这时这里是没有自己的硬盘的。\nsudo mkdir /www/wwwroot/[站点名称]/nas sudo mount /dev/sda1 /www/wwwroot/[站点名称]/nas [站点名称]换成自己的站点名称。\n就可以通过 df -h 查看到已经挂载到这个目录的硬盘了，加载内核模块modprobe fuse，然后设置开机自动挂载，先 sudo vim /etc/fstab，然后在底部添加这一行：\n/dev/sda1 /www/wwwroot/[站点名称]/nas ntfs-3g defaults,nofail,noexec,umask=0000 0 0 安装SageMath 只需要一行命令，就可以在树莓派上安装好 SageMath 了，也可以很方便的为 SageMath 里的 Python 环境安装第三方包。\nsudo apt-get install sagemath --fix-missing sage -python3 -m pip install pycryptodome 用 sage exp.sage 来直接运行 sage 脚本。\n散热风扇改造 店家送的风扇只能直接连接树莓派的供电引脚，然后满转运行，我觉得这样很不优雅，至少应该像机箱的风扇一样，可以随着当前CPU温度改变转速，温度不太高的时候完全可以停下，可以尽可能的减小噪声，所以我开始动手改装了树莓派的风扇。\n在寻找合适的树莓派风扇的过程中，偶然发现一种很强劲的小风扇：悬浮轴承、18128RPM、5V、直径 3CM，这也太适合树莓派了，就选择它了。\n然后是写脚本来控制转速，要利用到树莓派可玩性最高的东西——GPIO，可以用 Python 写脚本，并且 GPIO 支持 PWM 输出，通过调节占空比来调节转速。\nimport RPi.GPIO as GPIO import os import time # Configuration PWM_BOARD_IN1 = 8 # BOARD pin used to drive PWM fan PWM_BOARD_IN2 = 10 # BOARD pin (keep it LOW except want the fan to reverse) WAIT_TIME = 1 # [s] Time to wait between each refresh PWM_FREQ = 25000 # [Hz] 25kHz for PWM control MIN_TEMP = 35 MAX_TEMP = 65 FAN_LOW = 5 FAN_HIGH = 100 TEMP_COEFFICIENT = float(FAN_HIGH - FAN_LOW)/float(MAX_TEMP - MIN_TEMP) def setFanSpeed(speed): fan.start(speed) def getCpuTemperature(): res = os.popen('cat /sys/class/thermal/thermal_zone0/temp').readline() return float(res)/1000 def handleFanSpeed(temperature): fanSpeed = round(FAN_LOW + (round(max(0, temperature-MIN_TEMP)) * TEMP_COEFFICIENT), 3) setFanSpeed(fanSpeed) with open(\"fan_speed\", \"w\") as f: f.write(str(fanSpeed)) try: GPIO.setwarnings(False) GPIO.setmode(GPIO.BOARD) out_list = [PWM_BOARD_IN1, PWM_BOARD_IN2] GPIO.setup(out_list, GPIO.OUT) GPIO.output(out_list, GPIO.LOW) fan = GPIO.PWM(out_list[0], PWM_FREQ) while True: handleFanSpeed(getCpuTemperature()) time.sleep(WAIT_TIME) except KeyboardInterrupt: setFanSpeed(50) 为了方便实时监控到树派的转速，脚本会一直吧速度写进fan_speed文件里，供另外一个程序获取。\n开发树莓派资源监控页面 资源监控这边希望可以看到树莓派的公网 IP、CPU 温度、CPU 的资源占用情况，ROM/RAM 的资源占用情况，风扇的转速。\n风扇的转速写在了文件里，并且实时更新，所以这边去获取一下即可。\n. ├── assets │ ├── css ├── images │ ├── js │ └── vendors ├── fan_control │ ├── fan_control.py │ └── fan_speed ├── pi_dashboard.py └── templates ├── assets │ ├── css │ ├── images │ ├── js │ └── vendors └── index.html 后端使用flask，前端用的是mazer组件库。\nfrom flask import Flask, render_template import os import re import requests app = Flask(__name__,template_folder='templates',static_folder=\"assets\") def get_cpu_temperature(): try: res = os.popen('cat /sys/class/thermal/thermal_zone0/temp').readline() temp = float(res)/1000 return temp except: return \"Error\" def get_cpu_info(): try: res = os.popen(\"top -bn1 1 | grep Cpu\").read() us = [float(i[:-3].strip(\" \")) for i in re.findall(r\"[0-9. ]*us\", res)] sy = [float(i[:-3].strip(\" \")) for i in re.findall(r\"[0-9. ]*sy\", res)] cpu_used = [round(x[0]+x[1], 1) for x in zip(us, sy)] assert len(cpu_used)==4 return cpu_used except: return [\"Error\" for _ in range(4)] def get_rom_info(Filesystem): '''return list: [Size, Used, Avail, Use%]''' try: res = os.popen(\"df -h\").read() card_data = re.findall(Filesystem+\"[0-9. KMG%]*\", res)[0].split()[1:] card_data = [i[:-1] if (i[-1]==\"G\" or i[-1]==\"%\") else i for i in card_data] assert len(card_data)==4 return card_data except: return [\"Error\" for _ in range(4)] def get_public_ip(): try: res = requests.get(\"http://members.3322.org/dyndns/getip\") return res.text.strip() except: return \"Error\" def get_intranet_ip(): try: res = os.popen(\"hostname -i\").read().split(\" \")[0] return res except: return \"Error\" def get_ram_info(): try: res = os.popen('free').read() ram_info = re.findall(\"Mem:[0-9 ]*\", res)[0].split()[1:3] return [str(int(i)//1024) for i in ram_info] except: return [\"Error\" for _ in range(2)] def get_fan_speed(): try: with open(\"fan_control/fan_speed\", \"r\") as f: fan_speed = f.read() return fan_speed except: return \"Error\" @app.route('/') def dashboard_page(): context = { \"cpu_used\":get_cpu_info(), \"cpu_temp\":get_cpu_temperature(), \"fan_speed\":get_fan_speed(), \"ip_adress\":{\"intranet\":get_intranet_ip(),\"public\":get_public_ip()}, \"ram\":get_ram_info(), \"rom\":get_rom_info(\"/dev/mmcblk0p2\"), \"external_storage\":get_rom_info(\"/dev/sda1\") } return render_template('index.html', **context) if __name__ == '__main__': app.run(\"0.0.0.0\", 82) # nohup gunicorn -w 4 -b 0.0.0.0:82 pi_dashboard:app \u0026 感觉对我来说，树莓派是个比较有意思的玩具，折腾了一段时间学到了一些杂七杂八的东西，算是填补了一直以来对树莓派的好奇心。\n用树莓派跑了一些脚本，虽然可以 24h 稳定运行，但是性能差点意思，还有一些服务由于各种原因导致在树莓派上兼容不是很好。\n为了更强的性能、更稳定的运行一些服务，我后面又装了一台裸金属服务器～然后把树莓派挂咸鱼出掉了，由于树莓派在涨价，运行了半年的树莓派竟然没赔，理财产品了属于是。\n",
   "wordCount" : "710",
   "inLanguage": "en",
-  "datePublished": "2021-11-17T16:09:02Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2021-11-17T16:09:02Z",
   "dateModified": "2021-11-17T16:09:02Z",
   "author":{
     "@type": "Person",
@@ -248,12 +266,14 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       使用树莓派4B作为一台服务器
     </h1>
     <div class="post-meta"><span title='2021-11-17 16:09:02 +0000 UTC'>November 17, 2021</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -345,17 +365,17 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 <blockquote>
 <p>各版本树莓派的对照表：<a href="/blog/raspberrypi4b/raspberrypi-version-compare-4b.png">https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png</a></p>
 </blockquote>
-<p>
-<img loading="lazy" src="/blog/raspberrypi4b/raspberrypi_list.png" alt=""   /></p>
+<p><img loading="lazy" src="/blog/raspberrypi4b/raspberrypi_list.png" alt=""  />
+</p>
 <p>然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。
-
-<img loading="lazy" src="/blog/raspberrypi4b/2021-2-25-buildup.png" alt=""   /></p>
+<img loading="lazy" src="/blog/raspberrypi4b/2021-2-25-buildup.png" alt=""  />
+</p>
 <h4 id="写入ubuntu镜像">写入Ubuntu镜像<a hidden class="anchor" aria-hidden="true" href="#写入ubuntu镜像">#</a></h4>
 <p>树莓派支持安装很多种系统，我选择的是 <code>Ubuntu Server 20.04.2 LTS 64-bit</code>，可以在这里下载：<a href="https://ubuntu.com/download/raspberry-pi">https://ubuntu.com/download/raspberry-pi</a>，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。</p>
 <p>电脑上需要安装 <code>balenaEtcher</code> 来为 TF 卡写入 Ubuntu 镜像，<code>balenaEtcher</code> 支持 MacOS/Windows/Linux，可以在官网下载：<a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a></p>
 <p>写入镜像过程很简单，跟着点就可以，下图这样就是写入成功了。
-
-<img loading="lazy" src="/blog/raspberrypi4b/FlashComplete.png" alt="balenaEtcher"   /></p>
+<img loading="lazy" src="/blog/raspberrypi4b/FlashComplete.png" alt="balenaEtcher"  />
+</p>
 <p>写入完成后不需要手动推出磁盘（TF 卡读卡器），可以直接拔掉，然后将 TF 卡插入树莓派即可。</p>
 <p>树莓派的 Wi-Fi 网卡性能较弱，而搭 NAS 比较需要速度，所以我直接给树莓派插上了网线。这时就可以直接通电了，树莓派会自动开机。</p>
 <h4 id="内网ssh连接树莓派">内网SSH连接树莓派<a hidden class="anchor" aria-hidden="true" href="#内网ssh连接树莓派">#</a></h4>
@@ -408,8 +428,8 @@ sudo mount /dev/sda1  /www/wwwroot/[站点名称]/nas
 <p>就可以通过 <code>df -h</code> 查看到已经挂载到这个目录的硬盘了，加载内核模块<code>modprobe fuse</code>，然后设置开机自动挂载，先 <code>sudo vim /etc/fstab</code>，然后在底部添加这一行：</p>
 <pre><code class="language-bash">/dev/sda1  /www/wwwroot/[站点名称]/nas ntfs-3g defaults,nofail,noexec,umask=0000 0 0
 </code></pre>
-<p>
-<img loading="lazy" src="/blog/raspberrypi4b/nas_KodExplorer.png" alt="KodExplorer"   /></p>
+<p><img loading="lazy" src="/blog/raspberrypi4b/nas_KodExplorer.png" alt="KodExplorer"  />
+</p>
 <h3 id="安装sagemath">安装SageMath<a hidden class="anchor" aria-hidden="true" href="#安装sagemath">#</a></h3>
 <p>只需要一行命令，就可以在树莓派上安装好 SageMath 了，也可以很方便的为 SageMath 里的 Python 环境安装第三方包。</p>
 <pre><code class="language-bash">sudo apt-get install sagemath --fix-missing
@@ -578,8 +598,8 @@ if __name__ == '__main__':
 # nohup gunicorn -w 4 -b 0.0.0.0:82 pi_dashboard:app &amp;
 
 </code></pre>
-<p>
-<img loading="lazy" src="/blog/raspberrypi4b/pi4b_statistics.png" alt="按自己的需求写了一个简单的面板"   /></p>
+<p><img loading="lazy" src="/blog/raspberrypi4b/pi4b_statistics.png" alt="按自己的需求写了一个简单的面板"  />
+</p>
 <p>感觉对我来说，树莓派是个比较有意思的玩具，折腾了一段时间学到了一些杂七杂八的东西，算是填补了一直以来对树莓派的好奇心。</p>
 <p>用树莓派跑了一些脚本，虽然可以 24h 稳定运行，但是性能差点意思，还有一些服务由于各种原因导致在树莓派上兼容不是很好。</p>
 <p>为了更强的性能、更稳定的运行一些服务，我后面又装了一台裸金属服务器～然后把树莓派挂咸鱼出掉了，由于树莓派在涨价，运行了半年的树莓派竟然没赔，理财产品了属于是。</p>
@@ -605,23 +625,46 @@ if __name__ == '__main__':
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -674,6 +717,29 @@ if __name__ == '__main__':
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -724,6 +790,8 @@ if __name__ == '__main__':
         }
     });
 </script>
+
+
 </body>
 
 </html>

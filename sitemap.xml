@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://slightwind.cn/tags/floating-point/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/ieee-754/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/posts/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/tags/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
+    <loc>https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/</loc>
+    <lastmod>2024-09-17T11:17:00+08:00</lastmod>
+  </url><url>
     <loc>https://slightwind.cn/tags/bitsandbytes/</loc>
     <lastmod>2024-03-01T15:30:00+00:00</lastmod>
   </url><url>
@@ -11,16 +29,7 @@
     <loc>https://slightwind.cn/tags/mmlu/</loc>
     <lastmod>2024-03-01T15:30:00+00:00</lastmod>
   </url><url>
-    <loc>https://slightwind.cn/posts/</loc>
-    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
-  </url><url>
     <loc>https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/</loc>
-    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/</loc>
-    <lastmod>2024-03-01T15:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/tags/</loc>
     <lastmod>2024-03-01T15:30:00+00:00</lastmod>
   </url><url>
     <loc>https://slightwind.cn/tags/gmssl/</loc>
@@ -169,8 +178,6 @@
   </url><url>
     <loc>https://slightwind.cn/tags/web/</loc>
     <lastmod>2020-01-20T03:38:02+00:00</lastmod>
-  </url><url>
-    <loc>https://slightwind.cn/posts/modelquantization/a-friendly-introduction-to-llm-int8/</loc>
   </url><url>
     <loc>https://slightwind.cn/about/</loc>
   </url><url>

@@ -9,7 +9,8 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://slightwind.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.120.3</generator>
+    <language>en</language>
+    <atom:link href="https://slightwind.cn/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

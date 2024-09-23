@@ -9,14 +9,14 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Mar 2020 09:17:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Mar 2020 09:17:00 +0000</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Find short vectors in two-dimensional lattices</title>
       <link>https://slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
       <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
       <description>Notes for $An\ Introduction\ to\ Mathematical\ Cryptography$
 “A toy model of a real public key cryptosystem” 这里以 An Introduction to Mathematical Cryptography 书中的一个简单的加密模型为例，简单介绍一下通过高斯格基规约算法（Gaussian Lattice Reduction）解决二维的格上的寻找最短向量问题。
@@ -24,16 +24,13 @@
 task.py
 from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 import iroot q = getPrime(1024) f = getPrime(511) g = getPrime(511) while g &amp;lt; iroot(q//4, 2)[0] or g &amp;gt; iroot(q//2, 2)[0]: g = getPrime(511) f_inv_q = inverse(f, q) h = f_inv_q*g % q m = bytes_to_long(b&#39;flag&#39;) # flag is base**(flag) r = getPrime(510) e = (r*h+m) % q print(f) print(g) print(q) print(e) &#39;&#39;&#39; f = 4685394431238242086047454699939574117865082734421802876855769683954689809016908045500281898911462887906190042764753834184270447603004244910544167081517863 g = 5326402554595682620065287001809742915798424911036766723537742672943459577709829465021452623299712724999868094408519004699993233519540500859134358256211397 q = 172620634756442326936446284386446310176482010539257694929884002472846127607264743380697653537447369089693337723649017402105400257863085638725058903969478143249108126132543502414741890867122949021941524916405444824353100158506448429871964258931750339247018885114052623963451658829116065142400435131369957050799 e = 130055004464808383851466991915980644718382040848563991873041960765504627910537316320531719771695727709826775790697704799143461018934672453482988811575574961674813001940313918329737944758875566038617074550624823884742484696611063406222986507537981571075140436761436815079809518206635499600341038593553079293254 &#39;&#39;&#39; 其中私钥为 ( f , g ) ，公钥为 ( q , h ) ，这个已经给了私钥，所以解密过程非常简单。</description>
     </item>
-    
     <item>
       <title>Chinese Remainder Theorem</title>
       <link>https://slightwind.cn/posts/crypto/chinese-remainder-theorem/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/chinese-remainder-theorem/</guid>
       <description>模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&amp;hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。</description>
     </item>
-    
   </channel>
 </rss>

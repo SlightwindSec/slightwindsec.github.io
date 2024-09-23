@@ -15,9 +15,7 @@ exp 多跑几次就能得到 flag。
 from gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote(&#39;170.">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -42,7 +40,7 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -62,26 +60,19 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
 
     </style>
 </noscript>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
           
           
           delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\(', right: '\\)', display: false},
-                {left: '\\[', right: '\\]', display: false},
-                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
-                {left: "\\begin{align}", right: "\\end{align}", display: true},
-                {left: "\\begin{aligned}", right: "\\end{aligned}", display: true},
-                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
-                {left: "\\[", right: "\\]", display: true}
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
           ],
           
           throwOnError : false
@@ -89,10 +80,29 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
     });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Writeup for Crypto problems in WMCTF 2020" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Writeup for Crypto problems in WMCTF 2020" />
 <meta property="og:description" content="Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
 make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。
@@ -100,13 +110,14 @@ make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可�
 exp 多跑几次就能得到 flag。
 from gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote(&#39;170." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-08-03T13:33:02+00:00" />
 <meta property="article:modified_time" content="2020-08-03T13:33:02+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Writeup for Crypto problems in WMCTF 2020"/>
 <meta name="twitter:description" content="Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
@@ -149,7 +160,7 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
   "articleBody": "Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，\nAn Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）\nmake_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可以直接用高斯格基规约算法，然而 eat_cake() 这边的 cake 是比较大的（768bits）就会导致在取模的时候值容易发生改变，所以给它加上几个 g，并使用给出的 pow 来验证是否是正确的 cake。\n规约得到的密钥对 $(F, G)$ 是不一定等于原来的密钥对 $(f, g)$，但它们在解密过程是等价的，我们得到的密钥对 (F, G) 长度都是 768bits。\nexp 多跑几次就能得到 flag。\nfrom gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote('170.106.35.18', 8631) def proof_of_work(txt, Hash): for a in ascii_letters+digits: for b in ascii_letters+digits: for c in ascii_letters+digits: if sha256((a+b+c+txt).encode()).hexdigest() == Hash: return a+b+c def gaussian(v1, v2): while True: if sqrt(v2[0]**2+v2[1]**2) \u003c sqrt(v1[0]**2+v1[1]**2): v1, v2 = v2, v1 m = int((v1[0]*v2[0]+v1[1]*v2[1])/(v1[0]**2+v1[1]**2)) if m == 0: return (v1, v2) v2 = [v2[0]-m*v1[0], v2[1]-m*v1[1]] r.recvuntil(\"XXX+\") nonce = r.recv(17).decode() r.recvuntil(\" == \") target = r.recv(64).decode() r.recvuntil(\"\\nGive me XXX:\") w = proof_of_work(nonce, target) r.send(str(w)+\"\\n\") r.recvuntil(\"What's your choice?\\n\") r.send(\"1\\n\") r.recvline() temp = r.recvline().strip().decode().split(\" \") q, h, c = [int(i) for i in temp] N = int(r.recvline().strip().decode()) cip = int(r.recvline().strip().decode()) s1, s2 = gaussian([1, h], [0, q]) f, g = s1[0], s1[1] cake = (c*f % q) % g cake = invert(f, g)*cake % g for k in range(10000): if pow(cake, 0x10001, N) == cip: print(\"cake is: \", cake) break cake += g r.send(str(cake)+\"\\n\") print(r.recvline().strip().decode()) #WMCTF{Wh4t_A_pi3ce_of_CAKE!} babySum 密度接近 0.8 的子集和问题（Subset sum problem），BKZ-24 跑得比较慢好在成功率高一点。\nfrom json import load def check(sol, A): s = 0 for x, a in zip(sol, A): s += x*a return s k, n, d = 20, 120, 0.8 s, A = load(open(\"data\", \"r\")) N = 50 lat = [] for i, a in enumerate(A): lat.append([1*(j == i) for j in range(n)] + [N*a] + [N]) lat.append([0]*n + [N*s] + [k*N]) itr = 0 while True: itr += 1 print(itr) nums = lat[::] shuffle(nums) m = matrix(ZZ, nums) ml = m.BKZ(block_size=24) for i, row in enumerate(ml): if not (-1 \u003c= min(row[:-1]) and max(row[:-1]) \u003c= 1): continue for i in range(len(row)): if row[i] \u003c 0: row[i] *= -1 temp_bool = (check(row, A) == s) if temp_bool == True: print(i, row) quit() #0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 到 check.py 里面运行输入得到 flag：WMCTF{83077532752999414286785898029842440}\nGame 对 AES 选择明文攻击，逐个字节爆破。\nCBC 模式的 AES 加密，块长度为 b，C0 是初始向量 IV，IV 是和服务器端同步的最新的加密向量。\nIV 始终和服务器端的 IV 同步，用来消除掉当前加密的一次异或，再用 C0 异或一下就构造出了 Step2 的加密结果的第一个 block。所以爆破一个 byte 最多会和服务器交互 256 次，不过平均下来约 128 次得到一个 byte。\n以 16bytes 块长度为例，让服务器把已知的 15bytes 的 r 和未知部分的前 1byte 拼起来加密，然后本地去枚举最后一个 byte 和 15bytes 拼起来发送到服务器加密，如果加密后的第一个块和在服务器端拼起来的那段是相等的，就说明猜对了。就多知道了一个 secret 的 byte，把它当作已知，再进行下一个 byte 的枚举。\nfrom pwn import remote from hashlib import sha256 from Crypto.Util.number import * import string import os r = remote('81.68.174.63', 16442) def proof_of_work(txt, Hash): S = string.ascii_letters+string.digits for a in S: for b in S: for c in S: for d in S: if sha256((a+b+c+d+txt).encode()).hexdigest() == Hash: print(a+b+c+d) return a+b+c+d def select_x(x): r.recvuntil(\"3. exit\\n\") r.recvuntil(\"\u003e\") r.send(str(x)) r.recvuntil(\"(in hex): \") r.recvuntil(\"XXXX+\") nonce = r.recv(16).decode() r.recvuntil(\" == \") target = r.recv(64).decode() print(\"waiting....\") w = proof_of_work(nonce, target) r.send(str(w)) print(\"----------proof of work is ok!----------\") r.recvuntil(\"IV is: \") IV = r.recv(32).decode() # 16 bytes -\u003e 32 hexlength print(\"IV is: {}\".format(IV)) secret = b\"\" for Byte in range(48): byte_len = (15 - (Byte % 16)) if ((Byte % 16) != 15) else 16 bound = ((byte_len + Byte + 1) // 16) * 32 select_x(1) r_ = os.urandom(byte_len) r.send(r_.hex()) C_ = r.recvline().strip().decode() C0 = IV if bound==32 else C_[bound-64:bound-32] IV = C_[-32:] print(\"brute force {} byte\".format(Byte+1)) for i in range(256): select_x(1) Pi = int(C0, 16) ^ int(IV, 16) ^ int((r_.hex()+secret.hex())[-30:]+long_to_bytes(i).hex(), 16) r.send(long_to_bytes(Pi).hex()) Ci = r.recvline().strip().decode() IV = Ci[-32:] if Ci[:32] == C_[bound-32:bound]: secret += long_to_bytes(i) print(\"Current secret: {}\".format(secret)) break print(\"secret is: {}\".format(secret)) select_x(2) r.send(secret.hex()) flag = r.recvline().strip().decode() print(flag) ",
   "wordCount" : "699",
   "inLanguage": "en",
-  "datePublished": "2020-08-03T13:33:02Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2020-08-03T13:33:02Z",
   "dateModified": "2020-08-03T13:33:02Z",
   "author":{
     "@type": "Person",
@@ -239,12 +250,14 @@ from gmpy2 import iroot, sqrt, invert from pwn import remote from string import 
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Writeup for Crypto problems in WMCTF 2020
     </h1>
     <div class="post-meta"><span title='2020-08-03 13:33:02 +0000 UTC'>August 3, 2020</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -464,23 +477,46 @@ print(flag)
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -533,6 +569,29 @@ print(flag)
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -583,6 +642,8 @@ print(flag)
         }
     });
 </script>
+
+
 </body>
 
 </html>

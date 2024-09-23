@@ -9,332 +9,275 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 01 Mar 2024 15:30:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Sep 2024 11:17:00 +0800</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Floating-point</title>
+      <link>https://slightwind.cn/tags/floating-point/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://slightwind.cn/tags/floating-point/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IEEE 754</title>
+      <link>https://slightwind.cn/tags/ieee-754/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://slightwind.cn/tags/ieee-754/</guid>
+      <description></description>
+    </item>
     <item>
       <title>bitsandbytes</title>
       <link>https://slightwind.cn/tags/bitsandbytes/</link>
-      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/bitsandbytes/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>LLM</title>
       <link>https://slightwind.cn/tags/llm/</link>
-      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/llm/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>MMLU</title>
       <link>https://slightwind.cn/tags/mmlu/</link>
-      <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/mmlu/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>GmSSL</title>
       <link>https://slightwind.cn/tags/gmssl/</link>
-      <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/gmssl/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>OpenSSL</title>
       <link>https://slightwind.cn/tags/openssl/</link>
-      <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/openssl/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>SSL</title>
       <link>https://slightwind.cn/tags/ssl/</link>
-      <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/ssl/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Bare Metal Server</title>
       <link>https://slightwind.cn/tags/bare-metal-server/</link>
-      <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/bare-metal-server/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Raspberry Pi</title>
       <link>https://slightwind.cn/tags/raspberry-pi/</link>
-      <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/raspberry-pi/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>CBC</title>
       <link>https://slightwind.cn/tags/cbc/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/cbc/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Continued fraction</title>
       <link>https://slightwind.cn/tags/continued-fraction/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/continued-fraction/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Crypto</title>
       <link>https://slightwind.cn/tags/crypto/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/crypto/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>LSFR</title>
       <link>https://slightwind.cn/tags/lsfr/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/lsfr/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>MT19937</title>
       <link>https://slightwind.cn/tags/mt19937/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/mt19937/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>PRNG</title>
       <link>https://slightwind.cn/tags/prng/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/prng/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Vigenere</title>
       <link>https://slightwind.cn/tags/vigenere/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/vigenere/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>XOR</title>
       <link>https://slightwind.cn/tags/xor/</link>
-      <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/xor/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Coppersmith</title>
       <link>https://slightwind.cn/tags/coppersmith/</link>
-      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/coppersmith/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>ECC</title>
       <link>https://slightwind.cn/tags/ecc/</link>
-      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/ecc/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>ECDLP</title>
       <link>https://slightwind.cn/tags/ecdlp/</link>
-      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/ecdlp/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>OFB</title>
       <link>https://slightwind.cn/tags/ofb/</link>
-      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/ofb/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Protocol</title>
       <link>https://slightwind.cn/tags/protocol/</link>
-      <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/protocol/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>OpenWrt</title>
       <link>https://slightwind.cn/tags/openwrt/</link>
-      <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/openwrt/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Router</title>
       <link>https://slightwind.cn/tags/router/</link>
-      <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/router/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Wi-Fi</title>
       <link>https://slightwind.cn/tags/wi-fi/</link>
-      <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/wi-fi/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Apple Silicon M1</title>
       <link>https://slightwind.cn/tags/apple-silicon-m1/</link>
-      <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/apple-silicon-m1/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>SageMath</title>
       <link>https://slightwind.cn/tags/sagemath/</link>
-      <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/sagemath/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Paillier</title>
       <link>https://slightwind.cn/tags/paillier/</link>
-      <pubDate>Tue, 20 Jul 2021 00:23:48 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/paillier/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>RSA</title>
       <link>https://slightwind.cn/tags/rsa/</link>
-      <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/rsa/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>CRT</title>
       <link>https://slightwind.cn/tags/crt/</link>
-      <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/crt/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Lattice</title>
       <link>https://slightwind.cn/tags/lattice/</link>
-      <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/lattice/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Misc</title>
       <link>https://slightwind.cn/tags/misc/</link>
-      <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/misc/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Diffie–Hellman</title>
       <link>https://slightwind.cn/tags/diffiehellman/</link>
-      <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/diffiehellman/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>LFSR</title>
       <link>https://slightwind.cn/tags/lfsr/</link>
-      <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/lfsr/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Algorithm</title>
       <link>https://slightwind.cn/tags/algorithm/</link>
-      <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/algorithm/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Affine</title>
       <link>https://slightwind.cn/tags/affine/</link>
-      <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/affine/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Web</title>
       <link>https://slightwind.cn/tags/web/</link>
-      <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
-      
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://slightwind.cn/tags/web/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

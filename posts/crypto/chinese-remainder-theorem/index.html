@@ -11,9 +11,7 @@
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/crypto/chinese-remainder-theorem/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -38,7 +36,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -58,26 +56,19 @@
 
     </style>
 </noscript>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
           
           
           delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\(', right: '\\)', display: false},
-                {left: '\\[', right: '\\]', display: false},
-                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
-                {left: "\\begin{align}", right: "\\end{align}", display: true},
-                {left: "\\begin{aligned}", right: "\\end{aligned}", display: true},
-                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
-                {left: "\\[", right: "\\]", display: true}
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
           ],
           
           throwOnError : false
@@ -85,20 +76,40 @@
     });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Chinese Remainder Theorem" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Chinese Remainder Theorem" />
 <meta property="og:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/crypto/chinese-remainder-theorem/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/crypto/chinese-remainder-theorem/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-02-29T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-02-29T00:00:00+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Chinese Remainder Theorem"/>
 <meta name="twitter:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。"/>
@@ -137,7 +148,7 @@
   "articleBody": "模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): '''Return a solution to a Chinese Remainder Theorem problem. ''' M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的…\n与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \\cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。\n$x$ 为最小解，$m_1 , m_2 , \\dots , m_n$ 的最小公倍数为 $L$，$X \u003c M$ ，易知 $X = x + k \\cdot L$ ，枚举 $k$ 就可以了。\nfrom Crypto.Util.number import GCD, inverse from functools import reduce def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def crt_minial(a, m): '''Return the minial solution to a Chinese Remainder Theorem problem. ''' assert len(a) == len(m), f\"length of {a} is not equal to {b}\" m1, a1, lcm = m[0], a[0], m[0] for i in range(1, len(m)): c = a[i]-a1 g, k, _ = egcd(m1, m[i]) lcm = lcm*m[i]//GCD(lcm, m[i]) assert c % g == 0, 'No Answer!' t = m[i]//g a1 += m1*(((c//g*k) % t + t) % t) m1 = m[i]//g*m1 return a1 ",
   "wordCount" : "215",
   "inLanguage": "en",
-  "datePublished": "2020-02-29T00:00:00Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2020-02-29T00:00:00Z",
   "dateModified": "2020-02-29T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -227,12 +238,14 @@
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Chinese Remainder Theorem
     </h1>
     <div class="post-meta"><span title='2020-02-29 00:00:00 +0000 UTC'>February 29, 2020</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -316,23 +329,46 @@ def crt_minial(a, m):
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -385,6 +421,29 @@ def crt_minial(a, m):
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -435,6 +494,8 @@ def crt_minial(a, m):
         }
     });
 </script>
+
+
 </body>
 
 </html>

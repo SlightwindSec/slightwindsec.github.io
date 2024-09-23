@@ -9,14 +9,14 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Oct 2021 10:00:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/apple-silicon-m1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Oct 2021 10:00:00 +0000</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/apple-silicon-m1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install SageMath for Apple Silicon M1</title>
       <link>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</link>
       <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</guid>
       <description>Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。
 所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。
@@ -27,6 +27,5 @@ path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) e
 在终端输入下面这些，给 conda 换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors.</description>
     </item>
-    
   </channel>
 </rss>

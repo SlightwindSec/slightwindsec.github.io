@@ -9,14 +9,14 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Oct 2021 18:38:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Oct 2021 18:38:00 +0000</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install OpenWrt for Redmi Router AC2100</title>
       <link>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</guid>
       <description>Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
 先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
@@ -28,6 +28,5 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 # 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
 # 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：</description>
     </item>
-    
   </channel>
 </rss>

@@ -20,9 +20,7 @@ GmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，
 use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -47,7 +45,7 @@ use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -67,10 +65,29 @@ use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：
 
     </style>
 </noscript>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Install OpenSSL and GmSSL on Win32" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Install OpenSSL and GmSSL on Win32" />
 <meta property="og:description" content="由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
 Install ActivePerl and remove Stawberry Perl as it is not compatible with openssl.
@@ -83,13 +100,14 @@ GmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，
 分别在Configure和test/build.info两个文件中，把：
 use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-08T21:34:16+00:00" />
 <meta property="article:modified_time" content="2021-12-08T21:34:16+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Install OpenSSL and GmSSL on Win32"/>
 <meta name="twitter:description" content="由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
@@ -137,7 +155,7 @@ use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：
   "articleBody": "由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。\nOpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：\nInstall ActivePerl and remove Stawberry Perl as it is not compatible with openssl.\n但是ActivePerl的官网只提供64bit的版本，安装32bit版本的ActivePerl需要支付$912/yr：\nThe site states: “if you need 32-bit or other older/legacy versions, they are available through our new ActiveState Platform by subscribing to at least Team Tier. See pricing here.”\n这就很难搞，只能去下载安装现成的二进制文件：http://slproweb.com/products/Win32OpenSSL.html\nGmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，编译过程比较顺利。\n虽然也提及要用ActivePerl，但是我在对Configure进行了一点简单修改之后，用Strawberry Perl也可以成功运行perl Configure VC-WIN32。\n直接运行perl Configure VC-WIN32会遇到报错：\"glob\" is not exported by the File::Glob module。\n分别在Configure和test/build.info两个文件中，把：\nuse if $^O ne \"VMS\", 'File::Glob' =\u003e qw/glob/; 修改为：\nuse if $^O ne \"VMS\", 'File::Glob' =\u003e qw/:glob/; 就可以了，接下来如果不是在Visual Studio中直接make，会报错缺少stddef.h，这时需要启动VS中的CMD来进行编译，我的版本是VS Community 2017，需要手动配置一下VS的命令行环境。\n在Visual Studio中配置命令行环境 可以参考https://blog.csdn.net/u013553529/article/details/77417058\n工具(T) -\u003e 外部工具(E)... -\u003e 添加(A) -\u003e\n标题: Terminal 自定义，设置好会显示在工具(T)下拉框中 命令: C:\\Windows\\System32\\cmd.exe cmd.exe的绝对路径 参数: /k \"C:\\Program Files\\Microsoft Visual Studio\\2017\\Common7\\Tools\\VsDevCmd.bat\" 英文引号中是VsDevCmd.bat的绝对路径 初始目录: $(ProjectDir) 自定义，打开cmd时的初始目录 -\u003e 确定\n配置完成之后，就可以通过工具(T)-\u003eTerminal来打开cmd，这时再进入GmSSL的目录下就可以make了，遇到了新的报错：无法解析的外部符号 EVP_get_ciphernames，这个问题在https://github.com/guanzhi/GmSSL/issues/1037 有提到解决方法，定位到EVP_get_ciphernames和EVP_get_digestnames，并把它们注释掉即可。\n/* char *EVP_get_ciphernames(int aliases); char *EVP_get_digestnames(int aliases); */ 现在就可以畅通无阻的make、make install了。\n配置环境变量 命令行调用gmssl环境变量：\n右键计算机-\u003e属性-\u003e高级系统设置-\u003e环境变量-\u003e系统变量Path-\u003e编辑-\u003e添加C:\\Program Files\\GmSSL\\bin;-\u003e确定-\u003e确定-\u003e确定\ngcc/g++编译环境变量：\n变量 值 备注 PATH C:\\Program Files\\GmSSL\\bin; 命令行可执行文件 LIBRARY_PATH C:\\Program Files\\GmSSL\\lib; 编译时调用的lib C_INCLUDE_PATH C:\\Program Files\\GmSSL\\include; C程序#include\u003c\u003e CPLUS_INCLUDE_PATH C:\\Program Files\\GmSSL\\include; C++程序#include\u003c\u003e 编译时参数-lcrypto一直不能用，结果在C:\\Program Files\\GmSSL\\lib中把libcrypto.lib重命名为crypto.lib后成功解决，可以正常编译包含gmssl的c/cpp程序。\n",
   "wordCount" : "156",
   "inLanguage": "en",
-  "datePublished": "2021-12-08T21:34:16Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2021-12-08T21:34:16Z",
   "dateModified": "2021-12-08T21:34:16Z",
   "author":{
     "@type": "Person",
@@ -227,12 +245,14 @@ use if $^O ne &quot;VMS&quot;, &#39;File::Glob&#39; =&gt; qw/glob/; 修改为：
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Install OpenSSL and GmSSL on Win32
     </h1>
     <div class="post-meta"><span title='2021-12-08 21:34:16 +0000 UTC'>December 8, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -382,23 +402,46 @@ char *EVP_get_digestnames(int aliases);
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -451,6 +494,29 @@ char *EVP_get_digestnames(int aliases);
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -501,6 +567,8 @@ char *EVP_get_digestnames(int aliases);
         }
     });
 </script>
+
+
 </body>
 
 </html>

@@ -18,9 +18,7 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 # 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.62636b85483d682266e137b11d6183ecf8085a8d4f979b41001cc50ed5245b55.css" integrity="sha256-YmNrhUg9aCJm4TexHWGD7PgIWo1Pl5tBABzFDtUkW1U=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
@@ -45,7 +43,7 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: #282c34;
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -65,10 +63,29 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 
     </style>
 </noscript>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.1/styles/atom-one-dark.min.css" integrity="sha512-Fcqyubi5qOvl+yCwSJ+r7lli+CO1eHXMaugsZrnxuU4DVpLYWXTVoHy55+mCb4VZpMgy7PBhV7IiymC0yu9tkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<meta property="og:title" content="Install OpenWrt for Redmi Router AC2100" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Install OpenWrt for Redmi Router AC2100" />
 <meta property="og:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
 先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
 http://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。
@@ -79,13 +96,14 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 # 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
 # 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/" /><meta property="og:image" content="https://slightwind.cn/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-10-10T18:38:00+00:00" />
 <meta property="article:modified_time" content="2021-10-10T18:38:00+00:00" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png"/>
-
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Install OpenWrt for Redmi Router AC2100"/>
 <meta name="twitter:description" content="Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
 先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
@@ -131,7 +149,7 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
   "articleBody": "Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。\n先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：\nhttp://10.161.145.162/cgi-bin/luci/;stok=e9974e290dd74c4683328c5a5876308b/... 我的路由器 IP 是10.161.145.162，stok的值为e9974e290dd74c4683328c5a5876308b，现在把下面的链接替换成自己的，然后 Enter，浏览器返回0说明这一步可以了。\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B 然后下面这个链接也是一样的操作，同样应该返回0：\nhttp://「这里替换IP」/cgi-bin/luci/;stok=「stok的值」/api/misystem/set_config_iotdev?bssid=Xiaomi\u0026user_id=longdike\u0026ssid=-h%3B%20echo%20-e%20'12345678%5Cn12345678'%20%7C%20passwd%20root%3B 如果这两个链接都成功返回了0，那么就可以使用习惯的工具去 ssh 连接路由器了：\nssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以连接到路由器的 shell 的，然后可以看到字符画显示的are you ok。\n上传并刷入固件 前面拿到了 shell，现在可以上传固件了，首先下载openwrt-RM2100-kernel1.bin和openwrt-RM2100-rootfs0.bin，然后 cd 进入这两个文件所在的目录，用 SCP 传到路由器上。\n# 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：\n# 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：\n# 用新的IP来ssh连上去，刷完OpenWrt之后，内网IP也会改变 ssh root@192.168.1.1 # 连上之后可以看到：root@OpenWrt:~# 到这里，固件就刷入成功了。路由器管理地址为：192.168.1.1 用户名：root 密码：password\n如果现在的固件可以满足使用要求，那么就不需要接着操作了，但是我需要使用路由器上运行一个脚本来自动使用账号密码连接校园网，每当网络断开时再重新去连接，而当前的固件不支持curl命令，个人感觉 UI 也不够美观，所以我使用它来写入新的固件，这个固件支持curl，也更加美观。\n刷入新固件 由于最新编译 ROM 较大无法直接通过telnet刷入，所以刷完上面 ROM 后需要在路由器管理后台更新最新 OP 固件。\n先下载一下03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin固件。\n然后登陆192.168.1.1后台后点击「系统」-「备份/升级」-「刷写新固件（不保留配置）」-「上传op固件包」\n选择刚刚下载的 bin 文件进行安装，安装完成后，重启路由器，然后连接上路由器后台就可以了，这里同样要注意，刷入新固件后路由器的IP会改变，最好进电脑的 Wi-Fi 详情里面看一下，我的是变成了 192.168.2.1，ssh 和 web 后台密码都是password。\n现在就可以在路由器的后台进行一些自己需要的配置操作了。\n救砖：如果折腾的过程中出现了什么问题，可以使用官方的救砖工具MIWIFI Repair Tool，并刷入官方固件miwifi_rm2100_firmware_d6234_2.0.7.bin。\nMentioned files - - openwrt-RM2100-kernel1.bin 谷歌云盘 腾讯微云 openwrt-RM2100-rootfs0.bin 谷歌云盘 腾讯微云 03.10-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin 谷歌云盘 腾讯微云 MIWIFI Repair Tool 谷歌云盘 腾讯微云 miwifi_rm2100_firmware_d6234_2.0.7.bin 谷歌云盘 腾讯微云 ",
   "wordCount" : "134",
   "inLanguage": "en",
-  "datePublished": "2021-10-10T18:38:00Z",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2021-10-10T18:38:00Z",
   "dateModified": "2021-10-10T18:38:00Z",
   "author":{
     "@type": "Person",
@@ -221,12 +239,14 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 <article class="post-single">
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
-    <h1 class="post-title">
+    <h1 class="post-title entry-hint-parent">
       Install OpenWrt for Redmi Router AC2100
     </h1>
     <div class="post-meta"><span title='2021-10-10 18:38:00 +0000 UTC'>October 10, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Slightwind
 
-</div>
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
@@ -355,23 +375,46 @@ ssh root@192.168.1.1
   </a>
 </nav>
 
-  </footer>
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span>
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-</footer>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
 </a>
+
 
 <script>
     let menu = document.getElementById('menu')
@@ -424,6 +467,29 @@ ssh root@192.168.1.1
             document.body.classList.add('dark');
             localStorage.setItem("pref-theme", 'dark');
         }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
     })
 
 </script>
@@ -474,6 +540,8 @@ ssh root@192.168.1.1
         }
     });
 </script>
+
+
 </body>
 
 </html>

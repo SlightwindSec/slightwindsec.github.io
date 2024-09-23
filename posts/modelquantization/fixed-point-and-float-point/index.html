@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>定点数和浮点数 | Slightwind</title>
+<meta name="keywords" content="Floating-point, IEEE 754">
+<meta name="description" content="定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。
+定点数 1. &ldquo;定点&quot;表示的整数 4-bit无符号整数可以用下面这种方式来表示：
+整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。
+2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：
+$$ \begin{array}{c:c:c:c|c:c:c} 2^3 &amp; 2^2 &amp; 2^1 &amp; 2^0 &amp; 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：
+可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。
+定点数的特点：
+定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。
+4-bit可以表示出集合 $A=\{i|0\leq i \leq 15, i\in \Z\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\{2^i|i\in A\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。
+前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：
+$$ \begin{array}{c:c:c} 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+例如：尾数101可以计算得到 $\bold{1}\times 0.5&#43;\bold{0}\times 0.25&#43;\bold{1}\times 0.125=0.625$
+将指数部分的值与尾数部分的值相乘得到十进制的结果：">
+<meta name="author" content="Slightwind">
+<link rel="canonical" href="https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://slightwind.cn/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://slightwind.cn/apple-touch-icon.png">
+<link rel="mask-icon" href="https://slightwind.cn/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('img[data-darksrc]');
+  images.forEach(function(image) {
+    console.log(localStorage.getItem("pref-theme"));
+      if (localStorage.getItem("pref-theme") === "dark") {
+          image.src = image.getAttribute('data-darksrc');
+      } else {
+          image.src = image.getAttribute('data-src');
+      }
+  });
+});
+</script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="定点数和浮点数" />
+<meta property="og:description" content="定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。
+定点数 1. &ldquo;定点&quot;表示的整数 4-bit无符号整数可以用下面这种方式来表示：
+整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。
+2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：
+$$ \begin{array}{c:c:c:c|c:c:c} 2^3 &amp; 2^2 &amp; 2^1 &amp; 2^0 &amp; 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：
+可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。
+定点数的特点：
+定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。
+4-bit可以表示出集合 $A=\{i|0\leq i \leq 15, i\in \Z\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\{2^i|i\in A\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。
+前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：
+$$ \begin{array}{c:c:c} 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+例如：尾数101可以计算得到 $\bold{1}\times 0.5&#43;\bold{0}\times 0.25&#43;\bold{1}\times 0.125=0.625$
+将指数部分的值与尾数部分的值相乘得到十进制的结果：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/" />
+<meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-17T11:17:00+08:00" />
+<meta property="article:modified_time" content="2024-09-17T11:17:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
+<meta name="twitter:title" content="定点数和浮点数"/>
+<meta name="twitter:description" content="定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。
+定点数 1. &ldquo;定点&quot;表示的整数 4-bit无符号整数可以用下面这种方式来表示：
+整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。
+2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：
+$$ \begin{array}{c:c:c:c|c:c:c} 2^3 &amp; 2^2 &amp; 2^1 &amp; 2^0 &amp; 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：
+可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。
+定点数的特点：
+定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。
+4-bit可以表示出集合 $A=\{i|0\leq i \leq 15, i\in \Z\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\{2^i|i\in A\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。
+前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：
+$$ \begin{array}{c:c:c} 2^{-1} &amp; 2^{-2} &amp; 2^{-3} \end{array} $$
+例如：尾数101可以计算得到 $\bold{1}\times 0.5&#43;\bold{0}\times 0.25&#43;\bold{1}\times 0.125=0.625$
+将指数部分的值与尾数部分的值相乘得到十进制的结果："/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://slightwind.cn/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "定点数和浮点数",
+      "item": "https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "定点数和浮点数",
+  "name": "定点数和浮点数",
+  "description": "定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。\n定点数 1. \u0026ldquo;定点\u0026quot;表示的整数 4-bit无符号整数可以用下面这种方式来表示：\n整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。\n2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：\n$$ \\begin{array}{c:c:c:c|c:c:c} 2^3 \u0026amp; 2^2 \u0026amp; 2^1 \u0026amp; 2^0 \u0026amp; 2^{-1} \u0026amp; 2^{-2} \u0026amp; 2^{-3} \\end{array} $$\n小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：\n可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。\n定点数的特点：\n定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。\n4-bit可以表示出集合 $A=\\{i|0\\leq i \\leq 15, i\\in \\Z\\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\\{2^i|i\\in A\\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。\n前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：\n$$ \\begin{array}{c:c:c} 2^{-1} \u0026amp; 2^{-2} \u0026amp; 2^{-3} \\end{array} $$\n例如：尾数101可以计算得到 $\\bold{1}\\times 0.5+\\bold{0}\\times 0.25+\\bold{1}\\times 0.125=0.625$\n将指数部分的值与尾数部分的值相乘得到十进制的结果：",
+  "keywords": [
+    "Floating-point", "IEEE 754"
+  ],
+  "articleBody": "定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。\n定点数 1. “定点\"表示的整数 4-bit无符号整数可以用下面这种方式来表示：\n整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。\n2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：\n$$ \\begin{array}{c:c:c:c|c:c:c} 2^3 \u0026 2^2 \u0026 2^1 \u0026 2^0 \u0026 2^{-1} \u0026 2^{-2} \u0026 2^{-3} \\end{array} $$\n小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：\n可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。\n定点数的特点：\n定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。\n4-bit可以表示出集合 $A=\\{i|0\\leq i \\leq 15, i\\in \\Z\\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\\{2^i|i\\in A\\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。\n前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：\n$$ \\begin{array}{c:c:c} 2^{-1} \u0026 2^{-2} \u0026 2^{-3} \\end{array} $$\n例如：尾数101可以计算得到 $\\bold{1}\\times 0.5+\\bold{0}\\times 0.25+\\bold{1}\\times 0.125=0.625$\n将指数部分的值与尾数部分的值相乘得到十进制的结果：\n发现这样会导致出现重复的表示，比如 $2\\times 0.25 = 4\\times 0.125 = 0.5$，我们可以在全部的尾数前都加入一个隐式前导位（implicit leading bit），（除保留的特殊值 $0$ 以外）前导位永远为 $1$，我们不用花费一个比特位来存储它，所以它是“隐式”的。隐式前导位使尾数的范围从 $[0, 1)$ 变成了 $[1, 2)$，在区间 $[1, 2)$ 内就不存在 $2$ 倍、$4$ 倍这样的关系了。\n但这又引入了新的问题，指数部分 $E \\geq 0$，$2^E \\geq 1$，与 $M\\in [1, 2)$ 相乘也只能得到大于等于 $1$ 的结果，区间 $[0, 1)$ 内的值无法表示。\n这时，我们可以引入指数偏差（Exponent bias）$bias$ 来得到有符号的指数 $E - bias$，当 $bias=7$ 时，就可以得到 $$ 2^{E-bias} \\in \\{2^{-7}, 2^{-6}, 2^{-5}, 2^{-4}, 2^{-3}, 2^{-2}, 2^{-1}, 2^{0}, 2^{1}, 2^{2}, 2^{3}\\} $$\n另外，我们还需要保留一些特殊值，例如 $0$、$NaN$ 以及 $INF$。 $$ \\begin{align} 0 \u0026= 0000.000_2 \\\\ NaN \u0026= 1111.111_2 \\end{align} $$\n这时我们的 7 位无符号浮点数能够表示的最小非 $0$ 值为\n$$ 0000.001_2 = 2^{-7} \\times (1.0 + 2^{-3}) = 0.0087890625 $$\n我们希望 $0$ 到最小非 $0$ 值之间的下溢空隙尽可能的小，就可以在计算过程中更少出现算术下溢（比如两个很接近的浮点数相减，出现下溢可能导致除 $0$ 风险），我们可以约定当 $E = 0$ 时，隐式前导位为 $0$，$E \\neq 0$ 时，隐式前导位为 $1$：\n$E = 0$ 且 $M = 0$ 时，即 $0000.000$ 作为 $0$ 保留 $E = 0$ 且 $M \\neq 0$ 时，约定隐式前导位为 $0$，这种浮点数用于填充最小正规数与 $0$ 之间的空隙，被称为次正规数（Subnormal number） $E \\neq 0$ 时，约定隐式前导位为 $1$，这种浮点数被称为正规数（Normal number） 由于我们可以通过 $E$ 是否为 $0$ 来约定隐式前导位是否为 $0$，所以仍不需要单独用 $1$ 比特来存储前导位。\n在 $E = 0$ 时，令隐式前导位也为 $0$，就可以表示出更小的非零值（称这种特殊场景为次正规数）\n$$ 0000.001_2 = 2^{-7} \\times 2^{-3} = 0.0009765625 $$\n次正规数使我们的 7 位浮点数可以表示的最小非 $0$ 值从 $0.0087890625$ 缩小到了 $0.0009765625$，如下图所示，相比正规数（以红色表示），使用次正规数（蓝色）可以扩展表示的范围：\n最后，为了表示负数，可以在前面增加 1 位符号位，符号位为 1 时表示负数，这样就完成了比较完整的 8 位浮点数定义，我们来总结一下：\n使用 $S.E.M$ 的格式来定义这个 8 位的浮点数：\nSign：使用 1 bit 来表示符号，值为 1 时表示负数； Exponent：使用 4 bits 来表示指数； Mantissa：使用 3 bits 来表示尾数。 正规数（$E\\neq 0$ 时）： $$ value = (-1)^{sign} \\times 2^{(E-7)} \\times \\Bigg(1 + \\sum_{i=1}^{3}b_{3-i}2^{-i} \\Bigg) $$\n次正规数（$E=0, M\\neq 0$ 时）： $$ value = (-1)^{sign} \\times 2^{(E-7)} \\times \\Bigg(0 + \\sum_{i=1}^{3}b_{3-i}2^{-i} \\Bigg) $$\n特殊值： $0 = 0000.000_2$ $NaN = 1111.111_2$ ",
+  "wordCount" : "304",
+  "inLanguage": "en",
+  "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2024-09-17T11:17:00+08:00",
+  "dateModified": "2024-09-17T11:17:00+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Slightwind"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Slightwind",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://slightwind.cn/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://slightwind.cn/" accesskey="h" title="Slightwind (Alt + H)">Slightwind</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://slightwind.cn/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://slightwind.cn/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://slightwind.cn/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://slightwind.cn/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://slightwind.cn/">Home</a>&nbsp;»&nbsp;<a href="https://slightwind.cn/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      定点数和浮点数
+    </h1>
+    <div class="post-meta"><span title='2024-09-17 11:17:00 +0800 CST'>September 17, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Slightwind
+
+&nbsp·&nbsp
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span> Views</span>
+    </div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%ae%9a%e7%82%b9%e6%95%b0" aria-label="定点数">定点数</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%ae%9a%e7%82%b9%e8%a1%a8%e7%a4%ba%e7%9a%84%e6%95%b4%e6%95%b0" aria-label="1. &ldquo;定点&quot;表示的整数">1. &ldquo;定点&quot;表示的整数</a></li>
+                <li>
+                    <a href="#2-%e5%ae%9a%e7%82%b9%e8%a1%a8%e7%a4%ba%e7%9a%84%e5%b0%8f%e6%95%b0" aria-label="2. 定点表示的小数">2. 定点表示的小数</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%b5%ae%e7%82%b9%e6%95%b0" aria-label="浮点数">浮点数</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。</p>
+<h2 id="定点数">定点数<a hidden class="anchor" aria-hidden="true" href="#定点数">#</a></h2>
+<h3 id="1-定点表示的整数">1. &ldquo;定点&quot;表示的整数<a hidden class="anchor" aria-hidden="true" href="#1-定点表示的整数">#</a></h3>
+<p><code>4-bit</code>无符号整数可以用下面这种方式来表示：</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/001.svg#center"
+        data-src="/blog/fixed-point-and-float-point/001.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/001_dark.svg#center">
+</figure>
+<p>整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。</p>
+<h3 id="2-定点表示的小数">2. 定点表示的小数<a hidden class="anchor" aria-hidden="true" href="#2-定点表示的小数">#</a></h3>
+<p>使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：</p>
+<p>$$
+\begin{array}{c:c:c:c|c:c:c}
+2^3 &amp; 2^2 &amp; 2^1 &amp; 2^0 &amp; 2^{-1} &amp; 2^{-2} &amp; 2^{-3}
+\end{array}
+$$</p>
+<p>小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/002.svg#center"
+        data-src="/blog/fixed-point-and-float-point/002.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/002_dark.svg#center">
+</figure>
+<p>可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。</p>
+<p>定点数的特点：</p>
+<ul>
+<li>定点数和整数的表示很接近，计算也像整数一样简单高效；</li>
+<li>几乎可以重用为整数运算设计的硬件；</li>
+<li>表示的数值间隔均匀，但是整体范围较小。</li>
+</ul>
+<h2 id="浮点数">浮点数<a hidden class="anchor" aria-hidden="true" href="#浮点数">#</a></h2>
+<p>为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。</p>
+<p><code>4-bit</code>可以表示出集合 $A=\{i|0\leq i \leq 15, i\in \Z\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\{2^i|i\in A\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/003.svg#center"
+        data-src="/blog/fixed-point-and-float-point/003.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/003_dark.svg#center">
+</figure>
+<p>前 $4$ 位二进制可以称为指数（<em>Exponent</em>），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（<em>Mantissa</em>），简写为 $M$，尾数部分和之前的计算方式相同：</p>
+<p>$$
+\begin{array}{c:c:c}
+2^{-1} &amp; 2^{-2} &amp; 2^{-3}
+\end{array}
+$$</p>
+<blockquote>
+<p>例如：尾数<code>101</code>可以计算得到 $\bold{1}\times 0.5+\bold{0}\times 0.25+\bold{1}\times 0.125=0.625$</p>
+</blockquote>
+<p>将指数部分的值与尾数部分的值相乘得到十进制的结果：</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/004.svg#center"
+        data-src="/blog/fixed-point-and-float-point/004.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/004_dark.svg#center">
+</figure>
+<p>发现这样会导致出现重复的表示，比如 $2\times 0.25 = 4\times 0.125 = 0.5$，我们可以在全部的尾数前都加入一个<strong>隐式前导位</strong>（<em>implicit leading bit</em>），（除保留的特殊值 $0$ 以外）前导位永远为 $1$，我们不用花费一个比特位来存储它，所以它是“隐式”的。隐式前导位使尾数的范围从 $[0, 1)$ 变成了 $[1, 2)$，在区间 $[1, 2)$ 内就不存在 $2$ 倍、$4$ 倍这样的关系了。</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/005.svg#center"
+        data-src="/blog/fixed-point-and-float-point/005.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/005_dark.svg#center">
+</figure>
+<p>但这又引入了新的问题，指数部分 $E \geq 0$，$2^E \geq 1$，与 $M\in [1, 2)$ 相乘也只能得到大于等于 $1$ 的结果，区间 $[0, 1)$ 内的值无法表示。</p>
+<p>这时，我们可以引入<strong>指数偏差</strong>（<a href="https://en.wikipedia.org/wiki/Exponent_bias"><em>Exponent bias</em></a>）$bias$ 来得到有符号的指数 $E - bias$，当 $bias=7$ 时，就可以得到
+$$
+2^{E-bias} \in \{2^{-7}, 2^{-6}, 2^{-5}, 2^{-4}, 2^{-3}, 2^{-2}, 2^{-1}, 2^{0}, 2^{1}, 2^{2}, 2^{3}\}
+$$</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/006.svg#center"
+        data-src="/blog/fixed-point-and-float-point/006.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/006_dark.svg#center">
+</figure>
+<p>另外，我们还需要保留一些特殊值，例如 $0$、$NaN$ 以及 $INF$。
+$$
+\begin{align}
+0 &amp;= 0000.000_2 \\
+NaN &amp;= 1111.111_2
+\end{align}
+$$</p>
+<p>这时我们的 7 位无符号浮点数能够表示的最小非 $0$ 值为</p>
+<p>$$
+0000.001_2 = 2^{-7} \times (1.0 + 2^{-3}) = 0.0087890625
+$$</p>
+<p>我们希望 $0$ 到最小非 $0$ 值之间的下溢空隙尽可能的小，就可以在计算过程中更少出现算术下溢（比如两个很接近的浮点数相减，出现下溢可能导致除 $0$ 风险），我们可以约定当 $E = 0$ 时，隐式前导位为 $0$，$E \neq 0$ 时，隐式前导位为 $1$：</p>
+<ul>
+<li>$E = 0$ 且 $M = 0$ 时，即 $0000.000$ 作为 $0$ 保留</li>
+<li>$E = 0$ 且 $M \neq 0$ 时，约定隐式前导位为 $0$，这种浮点数用于填充最小正规数与 $0$ 之间的空隙，被称为<strong>次正规数</strong>（<a href="https://en.wikipedia.org/wiki/Subnormal_number"><em>Subnormal number</em></a>）</li>
+<li>$E \neq 0$ 时，约定隐式前导位为 $1$，这种浮点数被称为<strong>正规数</strong>（<a href="https://en.wikipedia.org/wiki/Normal_number_(computing)"><em>Normal number</em></a>）</li>
+</ul>
+<blockquote>
+<p>由于我们可以通过 $E$ 是否为 $0$ 来约定隐式前导位是否为 $0$，所以仍不需要单独用 $1$ 比特来存储前导位。</p>
+</blockquote>
+<p>在 $E = 0$ 时，令隐式前导位也为 $0$，就可以表示出更小的非零值（称这种特殊场景为次正规数）</p>
+<p>$$
+0000.001_2 = 2^{-7} \times 2^{-3} = 0.0009765625
+$$</p>
+<p>次正规数使我们的 7 位浮点数可以表示的最小非 $0$ 值从 $0.0087890625$ 缩小到了 $0.0009765625$，如下图所示，相比正规数（以红色表示），使用次正规数（蓝色）可以扩展表示的范围：</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/Denormalized_numbers_on_a_line.svg#center"
+        data-src="/blog/fixed-point-and-float-point/Denormalized_numbers_on_a_line.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/Denormalized_numbers_on_a_line_dark.svg#center">
+</figure>
+<p>最后，为了表示负数，可以在前面增加 1 位符号位，符号位为 1 时表示负数，这样就完成了比较完整的 8 位浮点数定义，我们来总结一下：</p>
+<figure class="align-center ">
+    <img loading="lazy" 
+        src="/blog/fixed-point-and-float-point/007.svg#center"
+        data-src="/blog/fixed-point-and-float-point/007.svg#center"
+            data-darksrc="/blog/fixed-point-and-float-point/007_dark.svg#center">
+</figure>
+<p>使用 $S.E.M$ 的格式来定义这个 8 位的浮点数：</p>
+<ul>
+<li>Sign：使用 1 bit 来表示符号，值为 1 时表示负数；</li>
+<li>Exponent：使用 4 bits 来表示指数；</li>
+<li>Mantissa：使用 3 bits 来表示尾数。</li>
+</ul>
+<ol>
+<li>正规数（$E\neq 0$ 时）：</li>
+</ol>
+<p>$$
+value = (-1)^{sign} \times 2^{(E-7)} \times \Bigg(1 + \sum_{i=1}^{3}b_{3-i}2^{-i} \Bigg)
+$$</p>
+<ol start="2">
+<li>次正规数（$E=0, M\neq 0$ 时）：</li>
+</ol>
+<p>$$
+value = (-1)^{sign} \times 2^{(E-7)} \times \Bigg(0 + \sum_{i=1}^{3}b_{3-i}2^{-i} \Bigg)
+$$</p>
+<ol start="3">
+<li>特殊值：
+<ul>
+<li>$0 = 0000.000_2$</li>
+<li>$NaN = 1111.111_2$</li>
+</ul>
+</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://slightwind.cn/tags/floating-point/">Floating-point</a></li>
+      <li><a href="https://slightwind.cn/tags/ieee-754/">IEEE 754</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Quantization Impact on Model Accuracy</span>
+  </a>
+</nav>
+
+  </footer><div class="comments">
+    <script>
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        let s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    </script>
+</div>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://slightwind.cn/">Slightwind</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+    <div class="busuanzi-footer">
+        <span id="busuanzi_container_site_pv">
+            Visits: <span id="busuanzi_value_site_pv"></span> 
+        </span>
+        <span> · </span>
+        <span id="busuanzi_container_site_uv">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </div></footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+
+       
+        var images = document.querySelectorAll('img[data-darksrc]');
+        images.forEach(function(image) {
+            if (localStorage.getItem("pref-theme") === "dark" && image.getAttribute('data-darksrc')) {
+                image.src = image.getAttribute('data-darksrc');
+            } else if (image.getAttribute('data-src')) {
+                image.src = image.getAttribute('data-src');
+            }
+        });
+
+        
+        var s = document.createElement('script');
+        s.src = 'https://utteranc.es/client.js';
+        let theme = localStorage.getItem("pref-theme") === "dark" ? 'github-dark' : 'github-light';
+        s.setAttribute('repo', 'SlightwindSec/slightwindsec.github.io');
+        s.setAttribute('issue-term', 'pathname');
+        s.setAttribute('theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+
+        document.querySelector('div.comments > div').remove();
+        document.querySelector('div.comments').appendChild(s);
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+</body>
+
+</html>

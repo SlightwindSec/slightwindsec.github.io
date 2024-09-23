@@ -9,14 +9,14 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 Dec 2021 21:34:16 +0000</lastBuildDate><atom:link href="https://slightwind.cn/tags/gmssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Dec 2021 21:34:16 +0000</lastBuildDate>
+    <atom:link href="https://slightwind.cn/tags/gmssl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install OpenSSL and GmSSL on Win32</title>
       <link>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</guid>
       <description>由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
@@ -30,6 +30,5 @@ GmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，
 分别在Configure和test/build.info两个文件中，把：
 use if $^O ne &amp;quot;VMS&amp;quot;, &#39;File::Glob&#39; =&amp;gt; qw/glob/; 修改为：</description>
     </item>
-    
   </channel>
 </rss>

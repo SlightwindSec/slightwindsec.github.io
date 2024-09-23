@@ -9,25 +9,43 @@
       <url>https://slightwind.cn/papermod-cover.png</url>
       <link>https://slightwind.cn/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.120.3</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 01 Mar 2024 15:30:00 +0000</lastBuildDate><atom:link href="https://slightwind.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Sep 2024 11:17:00 +0800</lastBuildDate>
+    <atom:link href="https://slightwind.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>定点数和浮点数</title>
+      <link>https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/</link>
+      <pubDate>Tue, 17 Sep 2024 11:17:00 +0800</pubDate>
+      <guid>https://slightwind.cn/posts/modelquantization/fixed-point-and-float-point/</guid>
+      <description>定点和浮点中的“点”指的是小数点，定点数在比特位的定义上确定了小数点的位置，而浮点数使用更复杂的表示方式，导致小数点在若干个比特位上没有直接体现，所以称它是浮点。
+定点数 1. &amp;ldquo;定点&amp;quot;表示的整数 4-bit无符号整数可以用下面这种方式来表示：
+整数不存在小数点，也可以说我们默认小数点固定在整数的末尾，所以整数的表示也可以看作是“定点”。
+2. 定点表示的小数 使用7位二进制，前4位表示整数部分，后3位表示小数部分，可以这样表示：
+$$ \begin{array}{c:c:c:c|c:c:c} 2^3 &amp;amp; 2^2 &amp;amp; 2^1 &amp;amp; 2^0 &amp;amp; 2^{-1} &amp;amp; 2^{-2} &amp;amp; 2^{-3} \end{array} $$
+小数点固定在第4、第5个比特之间，分别计算每个位置的值并求和即可得到这段二进制表示的小数值：
+可以表示的范围是 $[0.0, 15.875]$，表示的数之间的最小间隔是 $0.125$，并且间隔是均匀的。
+定点数的特点：
+定点数和整数的表示很接近，计算也像整数一样简单高效； 几乎可以重用为整数运算设计的硬件； 表示的数值间隔均匀，但是整体范围较小。 浮点数 为了方便理解，我们还是从最简单的无符号整数开始，逐步定义出浮点数。
+4-bit可以表示出集合 $A=\{i|0\leq i \leq 15, i\in \Z\}$，如果把它们看作 $2$ 的指数，就可以表示出数值更大的集合 $B=\{2^i|i\in A\}$，但是数据变得非常稀疏，并且是距离0越远越稀疏。
+前 $4$ 位二进制可以称为指数（Exponent），简写为 $E$；为了表示小数，我们再加入 $3$ 位尾数（Mantissa），简写为 $M$，尾数部分和之前的计算方式相同：
+$$ \begin{array}{c:c:c} 2^{-1} &amp;amp; 2^{-2} &amp;amp; 2^{-3} \end{array} $$
+例如：尾数101可以计算得到 $\bold{1}\times 0.5+\bold{0}\times 0.25+\bold{1}\times 0.125=0.625$
+将指数部分的值与尾数部分的值相乘得到十进制的结果：</description>
+    </item>
     <item>
       <title>Quantization Impact on Model Accuracy</title>
       <link>https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/</link>
       <pubDate>Fri, 01 Mar 2024 15:30:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/modelquantization/quantization-impact-on-model-accuracy/</guid>
       <description>Mistral-7B&amp;rsquo;s performance on 5-shot MMLU 如果对测试细节不感兴趣，只需要看下面给出的汇总表格即可。
 Overview 量化/非量化版本的 Mistral-7B-v0.1 模型在 5-shot MMLU 上的表现：
 Quant Type Compute Dtype Double Quant Group Size Avg (%) Total Time (s) BF16 BF16 N/A N/A $61.00$ $312.79$ INT8 BF16&amp;amp;INT8 N/A N/A $60.87$ $614.43$ FP4 FP16 False 64 $59.37$ $347.00$ FP4 FP16 True 64 $59.17$ $353.22$ FP4 FP32 False 64 $59.50$ $1061.27$ NF4 FP16 False 64 $59.04$ $361.19$ NF4 FP16 False 128 $58.78$ $352.65$ AWQ-q4 FP16 N/A 128 $59.</description>
     </item>
-    
     <item>
       <title>Install OpenSSL and GmSSL on Win32</title>
       <link>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</link>
       <pubDate>Wed, 08 Dec 2021 21:34:16 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/install-openssl-and-gmssl-on-win32/</guid>
       <description>由于参与了一个在 PLC 和上位机之间建立加密信道的项目，需要在PLC的Win7-32bit系统中安装OpenSSL和GmSSL，因为PLC硬盘太小，所以我实际上是在虚拟机里面进行的编译。
 OpenSSL 一开始是打算编译一下的，下载了OpenSSL的源码，OpenSSL的Configure是依赖Perl的。然后下载安装了Strawberry Perl for win32，然后发现会出现各种报错，一番搜索了解到需要安装ActivePerl：
@@ -41,12 +59,10 @@ GmSSL GmSSL官方的编译与安装教程虽然字数不多但是很有帮助，
 分别在Configure和test/build.info两个文件中，把：
 use if $^O ne &amp;quot;VMS&amp;quot;, &#39;File::Glob&#39; =&amp;gt; qw/glob/; 修改为：</description>
     </item>
-    
     <item>
       <title>使用树莓派4B作为一台服务器</title>
       <link>https://slightwind.cn/posts/environment/raspberrypi4b/</link>
       <pubDate>Wed, 17 Nov 2021 16:09:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/raspberrypi4b/</guid>
       <description>树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
 解决公网IP问题 我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
@@ -67,22 +83,18 @@ frp内网穿透 如果也申请不到动态 IP，那就只能用 frp 做内网�
 各版本树莓派的对照表：https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png
 然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。 写入Ubuntu镜像 树莓派支持安装很多种系统，我选择的是 Ubuntu Server 20.04.2 LTS 64-bit，可以在这里下载：https://ubuntu.com/download/raspberry-pi，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。</description>
     </item>
-    
     <item>
       <title>湖湘杯 2021 Crypto</title>
       <link>https://slightwind.cn/posts/ctf/huxiangbei2021/</link>
       <pubDate>Tue, 16 Nov 2021 09:17:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/huxiangbei2021/</guid>
       <description>hxb 2021 crypto signin $n1/n2$ 的连分数展开是对 $q1/q2$ 的一个逼近，所以枚举连分数中的每一项，就可以得到 $q1, q2$ 了，分解之后正常进行 RSA 解密得到 flag。
 from Crypto.Util.number import GCD, inverse, long_to_bytes, isPrime pk = (1150398070565459492080597718626032792435556703413923483458704675295997646493249759818468321328556510074044954676615760446708253531839417036997811506222349194302791943489195718713797322878586379546657275419261647635859989280700191441312691274285176619391539387875252135478424580680264554294179123254566796890998243909286508189826458854346825493157697201495100628216832191035903848391447704849808577310612723700318670466035077202673373956324725108350230357879374234418393233, 1242678737076048096780023147702514112272319497423818488193557934695583793070332178723043194823444815153743889740338870676093799728875725651036060313223096288606947708155579060628807516053981975820338028456770109640111153719903207363617099371353910243497871090334898522942934052035102902892149792570965804205461900841595290667647854346905445201396273291648968142608158533514391348407631818144116768794595226974831093526512117505486679153727123796834305088741279455621586989) c1, c2 = (361624030197288323178211941746074961985876772079713896964822566468795093475887773853629454653096485450671233584616088768705417987527877166166213574572987732852155320225332020636386698169212072312758052524652761304795529199864805108000796457423822443871436659548626629448170698048984709740274043050729249408577243328282313593461300703078854044587993248807613713896590402657788194264718603549894361488507629356532718775278399264279359256975688280723740017979438505001819438, 33322989148902718763644384246610630825314206644879155585369541624158380990667828419255828083639294898100922608833810585530801931417726134558845725168047585271855248605561256531342703212030641555260907310067120102069499927711242804407691706542428236208695153618955781372741765233319988193384708525251620506966304554054884590718068210659709406626033891748214407992041364462525367373648910810036622684929049996166651416565651803952838857960054689875755131784246099270581394) n1, n2 = pk e = 0x10001 def getRoot(x, n): high = 1 while high ** n &amp;lt;= x: high *= 2 low = high//2 while low &amp;lt; high: mid = (low + high) // 2 if low &amp;lt; mid and mid**n &amp;lt; x: low = mid elif high &amp;gt; mid and mid**n &amp;gt; x: high = mid else: return mid return mid + 1 # https://github.</description>
     </item>
-    
     <item>
       <title>ByteCTF 2021 Crypto</title>
       <link>https://slightwind.cn/posts/ctf/bytectf2021/</link>
       <pubDate>Fri, 29 Oct 2021 10:46:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/bytectf2021/</guid>
       <description>easyxor shift函数是个常见的移位异或操作，convert是对一个数字使用不同的 key 和 mask 进行 4 次移位异或，这个函数在已知 key 的情况下是可逆的。
 encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块长度为 8，对于每一块的加密使用的就是上面的convert函数。
@@ -91,12 +103,10 @@ encrypt函数是对明文块进行两种模式（CBC和OFB）的块加密，块�
 现在对于第二块，已知 IV（last），未知 keys，已知明文是可显示字符，所以可以爆破 keys 了，把能解出可显示字符明文的 keys 都保留出来，发现有 4836 个 keys 是满足的，那么我们还要借助第三块再筛一次，最终只得到一组 keys。
 from itertools import product from tqdm import tqdm from Crypto.Util.number import bytes_to_long, long_to_bytes def check(s): return min([((i&amp;lt;129) and (i&amp;gt;31)) for i in s]) c = &amp;quot;89b8aca257ee2748f030e7f6599cbe0cbb5db25db6d3990d3b752eda9689e30fa2b03ee748e0da3c989da2bba657b912&amp;quot; c_list = [int(c[i*16:i*16+16], 16) for i in range(len(c)//16)] known_m = bytes_to_long(b&#39;ByteCTF{&#39;) range64 = list(range(-32, 33)) cur_c = known_m^c_list[0] print(cur_c) k_cnt = 0 for a,b,c,d in tqdm(product(range64, range64, range64, range64)): last = cur_c k = [a, b, c, d] try_cur_c = convert(last, k) m1 = long_to_bytes(try_cur_c ^ c_list[1]) if check(m1): # 只筛选这第一轮的话，4836个k是满足条件的，所以得筛第二轮 last = try_cur_c try_cur_c = convert(last, k) m2 = long_to_bytes(try_cur_c ^ c_list[2]) if check(m2): k_cnt += 1 try: print(m1.</description>
     </item>
-    
     <item>
       <title>Install OpenWrt for Redmi Router AC2100</title>
       <link>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</link>
       <pubDate>Sun, 10 Oct 2021 18:38:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/environment/install-openwrt-for-redmi-ac2100/</guid>
       <description>Get shell 小米路由器后台管理页面是不给我们上传并且刷入新固件的，所以要先拿到 shell，ssh 连上路由器就可以往里面刷入新固件了。
 先正常启动路由器，并进入路由器后台管理页面，这时可以在浏览器的地址栏看到自己路由器的内网 IP，和自己的 stok，例如我的开头是：
@@ -108,12 +118,10 @@ ssh root@「这里替换IP」 # passwd 12345678 不出意外，这边是可以�
 # 把openwrt的固件通过SCP上传到路由器的/tmp目录下 scp openwrt-RM2100-kernel1.bin root@「这里替换IP」:/tmp scp openwrt-RM2100-rootfs0.bin root@「这里替换IP」:/tmp 然后 ssh 连接上路由器，开始刷入固件：
 # 进入/tmp目录下 cd /tmp mtd write openwrt-RM2100-kernel1.bin kernel1 nvram set uart_en=1 nvram set bootdelay=5 nvram set flag_try_sys1_failed=1 nvram commit mtd -r write openwrt-RM2100-rootfs0.bin rootfs0 等待写入完成，就可以重启路由器了，这个时候路由器的 Wi-Fi 名称变成了 OpenWrt，并且没有密码，可以直接连接，然后用 ssh 连接新的 IP：</description>
     </item>
-    
     <item>
       <title>Install SageMath for Apple Silicon M1</title>
       <link>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</link>
       <pubDate>Sat, 09 Oct 2021 10:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/install-sagemath-for-apple-silicon-m1/</guid>
       <description>Install conda 官网上没有直接给出 M1 Mac 版本的 SageMath 二进制安装文件，不过给出了使用 conda 安装 Sage 的方法，参考Install from conda-forge。
 所以如果自己的 Mac 上还没有安装 conda 的话，可以先安装一下，然后使用 conda 安装 SageMath。
@@ -124,23 +132,19 @@ path=(&#39;/Users/「这里替换成Mac用户名」/miniforge3/bin&#39; $path) e
 在终端输入下面这些，给 conda 换到清华源，这样在使用国内网络不走代理的情况下安装一些东西就更快了：
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ conda config --add channels https://mirrors.</description>
     </item>
-    
     <item>
       <title>Official Solution to the &#34;lowExponent&#34; Problem in NepCTF2021</title>
       <link>https://slightwind.cn/posts/ctf/official-solution-to-lowexponent-problem-in-nepctf2021/</link>
       <pubDate>Tue, 20 Jul 2021 00:23:48 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/official-solution-to-lowexponent-problem-in-nepctf2021/</guid>
       <description>这题使用的加密算法是 Demytko，属于一种类似 RSA 的在椭圆曲线上的加密算法，这题的攻击思路也是可以完全类比 RSA Hastad 广播攻击。
 加密后的结果是椭圆曲线上的点， Division Polynomials 使我们可以用仅含一个未知数的多项式来表示这个点的 $x$ 坐标：
 $$ \begin{aligned} \psi_{-1} &amp;amp;=-1 \\ \psi_{0} &amp;amp;=0 \\ \psi_{1} &amp;amp;=1 \\ \psi_{2} &amp;amp;=2 y \\ \psi_{3} &amp;amp;=3 x^{4}+6 a x^{2}+12 b x-a^{2} \\ \psi_{4} &amp;amp;=4 y\left(x^{6}+5 a x^{4}+20 b x^{3}-5 a^{2} x^{2}-4 a b x-8 b^{2}-a^{3}\right) \\ \psi_{2 i+1} &amp;amp;=\psi_{i}\left(\psi_{i+2} \psi_{i-1}^{2}-\psi_{i-2} \psi_{i+1}^{2}\right) / 2 y, i \geq 2 \\ \psi_{2 i} &amp;amp;=\psi_{i+2} \psi_{i}^{3}-\psi_{i+1}^{3} \psi_{i-1}, i \geq 3 \end{aligned} $$</description>
     </item>
-    
     <item>
       <title>0xGame 2020 Crypto Problems</title>
       <link>https://slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</link>
       <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/0xgame-2020-crypto-problems/</guid>
       <description>0xGame2020 是第一届 0xGame 比赛，时间持续一个月，面向零基础的新生。题目和 exp 可以在我的 GitHub 上找到：https://github.com/Am473ur/My-CTF-Challenge/tree/main/0xGame2020 ，这里记录一下出题人角度的 wp。
 Week 1 Calendar 题目给了一张图片和一串逗号隔开的坐标信息，没看出来的话不难想到去百度一下“日历加密”，这题只是做了简单的修改。
@@ -150,12 +154,10 @@ easyXor 做出这题只需要知道异或的逆运算还是异或，反过来跑
 exp:
 cipher=[72, 63, 38, 12, 8, 30, 30, 6, 82, 4, 84, 88, 92, 7, 79, 29, 8, 90, 85, 26, 25, 87, 80, 10, 20, 20, 9, 4, 80, 73, 31, 5, 82, 0, 1, 92, 0, 0, 94, 81, 4, 85, 27, 35] flag=&amp;quot;&amp;quot; cipher+=[ord(&amp;quot;^&amp;quot;)] for i in range(len(cipher)-1): flag = chr(cipher[len(cipher)-i-2]^cipher[len(cipher)-i-1])+flag cipher[len(cipher)-i-2]=ord(flag[0]) print(flag) # 0xGame{ec15a9eb-08b7-4c39-904d-27eed888f73f} 发现有的学弟跑完脚本手动补0，exp正确的话，是可以得到完整flag的。</description>
     </item>
-    
     <item>
       <title>Writeup for 强网杯 2020</title>
       <link>https://slightwind.cn/posts/ctf/writeup-for-qwb-2020/</link>
       <pubDate>Mon, 24 Aug 2020 16:23:55 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/writeup-for-qwb-2020/</guid>
       <description>Writeup for 强网杯 2020 强网先锋 baby_crt 考点是 CRT-RSA，找到一篇paper：Wagner’s Attack on a Secure CRT-RSA Algorithm Reconsidered
 然后看到里面提到可以这样获取 $p$：
@@ -163,12 +165,10 @@ $$ \large gcd(m^{c_1}-Sig^e,N)=p $$
 这个题目只有 $c_1$ 没有给出，但是很小，可以直接爆破。
 from Crypto.Util.number import * from hashlib import sha1 e = 65537 n = 26318358382258215770827770763384603359524444566146134039272065206657135513496897321983920652242182112479484135343436206815722605756557098241887233837248519031879444740922789351356138322947108346833956405647578838873425658405513192437479359531790697924285889505666769580176431360506227506064132034621123828090480606055877425480739950809109048177976884825589023444901953529913585288143291544181183810227553891973915960951526154469344587083295640034876874318610991153058462811369615555470571469517472865469502025030548451296909857667669963720366290084062470583318590585472209798523021029182199921435625983186101089395997 m = 26275493320706026144196966398886196833815170413807705805287763413013100962831703774640332765503838087434904835657988276064660304427802961609185997964665440867416900711128517859267504657627160598700248689738045243142111489179673375819308779535247214660694211698799461044354352200950309392321861021920968200334344131893259850468214901266208090469265809729514249143938043521579678234754670097056281556861805568096657415974805578299196440362791907408888958917063668867208257370099324084840742435785960681801625180611324948953657666742195051492610613830629731633827861546693629268844700581558851830936504144170791124745540 sig = 20152941369122888414130075002845764046912727471716839854671280255845798928738103824595339885345405419943354215456598381228519131902698373225795339649300359363119754605698321052334731477127433796964107633109608706030111197156701607379086766944096066649323367976786383015106681896479446835419143225832320978530554399851074180762308322092339721839566642144908864530466017614731679525392259796511789624080228587080621454084957169193343724515867468178242402356741884890739873250658960438450287159439457730127074563991513030091456771906853781028159857466498315359846665211412644316716082898396009119848634426989676119219246 for c1 in range(1, 65536): p = GCD(pow(m, c1, n) - pow(sig, e, n), n) if p == 1: continue print(p) break q = n//p flag = &amp;quot;flag{&amp;quot; + sha1(long_to_bytes(p if p &amp;lt; q else q)).</description>
     </item>
-    
     <item>
       <title>Writeup for Crypto problems in WMCTF 2020</title>
       <link>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</link>
       <pubDate>Mon, 03 Aug 2020 13:33:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-wmctf-2020/</guid>
       <description>Writeup for Crypto problems in WMCTF 2020 piece_of_cake 两个函数大概都是一个类似 RSA 的操作，加上一个加密算法，之前的一篇博客有介绍，
 An Introduction to Mathematical Cryptography 书里称这个算法是 “a toy model of a real public key cryptosystem”。（bitlength 凑的刚刚好可以保证解密，很巧妙）
@@ -177,34 +177,28 @@ make_cake() 这边的 cake 很小（256bits）符合正常解密的条件，可�
 exp 多跑几次就能得到 flag。
 from gmpy2 import iroot, sqrt, invert from pwn import remote from string import ascii_letters, digits from hashlib import sha256 r = remote(&#39;170.</description>
     </item>
-    
     <item>
       <title>Writeup for Crypto problems in SCTF 2020</title>
       <link>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</link>
       <pubDate>Tue, 07 Jul 2020 23:08:14 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-sctf-2020/</guid>
       <description>Writeup for Crypto problems in SCTF 2020 Crypto RSA 同一个解密指数用了三次加密同一段明文，这本书第129页介绍了 Common Private Exponent Attack：
 CRYPTANALYSIS OF RSA AND ITS VARIANTS
 这题的情况和里面的样例是一样的，可以直接套用这个格子然后LLL即可算出d：
 from binascii import hexlify, unhexlify e0 = 0x9a7dc3e0f2a3531035b18541df28b8407502c2101970862d19b107ea7dc37554e5ac620b3ce4be38e5d6fd6b1920aef9e017aa383e3c1dd8e7847dc7715832fa450d1b572cfe133c702c598ed022d40ad193608bcfeb9b9aebc910dd3257caa42e503764475b89bb99056822e21ba5723d9eee3196a6fca3debd1c7687fd310d n0 = 0xa98c363cf72b3bce39bae63a9d3d5ba0acaa7e81f9b1191ce20bb0b54a8c19216d20af640121c482e882c0772671280af9f42c764128a94104266dd65c0bcd93766e0f0ce119072302b7f3e5cc4b5cfece38e4124041a8f8dcbdb9193f35bede2c284e40f80398bf0ba0609229fa27faa2d51c552ff1ed911a6f6f220b7b6fed c0 = 0x57fcf94d27451fc35386e0f6eff53c6540ccff51862c992f4b59d0d49fa350493041c5be2f54a37f3afe81aa5e9a738461b3b709a4611a7289c83d769cb02f3c5d18e65d68f6fff1df0418c8a7351be1d7cce1a7514797c9bdc67d969224d783a5d004d67a5ef986d564ab1945e5c83a53d8d1dcb5e45323764a200e737b80c e1 = 0xbb31e6433057edfed88b6a37e4419a828d1575b2b9d04a5058cd912d5efb06b2f0c5c06c5d0dd35ebeda8afa8a9cc945c244c13fc501c76e720c2c04cab70c9f906c4a810defdd84c3a38507cdf79b4e4b0c7770cc3d2d862ea9bd5fe2469290d9d2a09c8164437e9d5b7b3a9c49d111e5caa9577f8ed1ef1916ec4cb71bbb8d n1 = 0xbcc2c4f4f51abb236b411f1f9d86d71133eb2d4ffe45a319b6ab6df1174b9ee619e696666702655b6c185735298cc008e9b7df842c480d3d42bb67228b6c7408a7afe68ab85ee1c80f43c8c52764c79ffdecc6e3a5ea76c1123affe9f02c649e5f5ca0a4082107ce4a2040e5756bf6a2b34757aefa5fb6fec6d7a9e86f0c8159 c1 = 0xacf91d2b6a300a60193485ef2e1127b5863c69da71ab9e7d71a3213e960a73e42f8e8031bf0ef20184ae0a259fd50260aacce06546af2f8bbef8a2f360c8f7511ad9c99d8715012ce0a4fa8dbba8c10d74f477156076bdfda80dc449eec3b45c7cd82802ecce7635e186d29744df04fcf812dc7e2d2f3c8cd751e4fcea43db1e e2 = 0x332f82f338c8b84524103d310d59fc541b66705948c57eaf972b26bb209a6ddde3d6930948a559ac1a3a26790cb1a133a90b999b164d4e22014b27660dad4e5639ffc19bcd2e4961c5b00b9116f49c3c02880bb3ad32972287442d6a86a9c86cd3981ee1084df4322edb9c5da39146e10de0586c8b5433a851d649a45c5a73cd n2 = 0xd0ad4d11576bb041ea2ce53f354dba362a93411a37f4a529e8b5eeae83a3437df6bd5e4e1f87a4d324a6ce2850f3568c929f5d5f73fef45bda03fa7bff00304a1eb833ce3535ee3552aa62b644f0d3c1679fe2c57b978c695f03e5b2d18d9b0821c7e0ca332f552b12e2b7109210d051bbe9d9b9e3cc3b16c81e77ebca65aca3 c2 = 0xc59078ae7cb454c970f272f595da71ae2b681156a1ce7112d9b96346f38bcdca87192ea39ac273851210e9f98f0d89f1bc657ce69ca14708cba8b319160a1f67b8cfc3643dc9b6a70769d8d64a9a3504d799f3d9afca7c7114880f4ccb5bef35738e660e4ede1c884f4a60f1f0e559fb754abd8e4b905ad3626a876bea43ec8e M = isqrt(max(n0, n1, n2)) M = 10704523536419069847275584063070587220303695362157261593514212717132031073368631333467085885236049291630529090309346493924305038011673707087598638071644281 B = matrix(ZZ, [ [M, e0, e1, e2], [0, -n0, 0, 0], [0, 0, -n1, 0], [0, 0, 0, -n2], ]) BL = B.</description>
     </item>
-    
     <item>
       <title>Writeup for Crypto problems in De1CTF 2020</title>
       <link>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</link>
       <pubDate>Mon, 04 May 2020 13:33:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/</guid>
       <description>Writeup for Crypto problems in De1CTF 2020 NLFSR task.py
 from flag import a, b, c, d, flag assert flag == &amp;quot;De1CTF{&amp;quot; + &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) + &amp;quot;}&amp;quot; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &amp;lt;&amp;lt; 1) &amp;amp; 0xffffff) ^ (bin(r &amp;amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp;amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s += str(combine()) open(&amp;quot;data&amp;quot;, &amp;quot;w+&amp;quot;).</description>
     </item>
-    
     <item>
       <title>Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF</title>
       <link>https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</link>
       <pubDate>Sat, 25 Apr 2020 13:33:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/</guid>
       <description>&amp;ldquo;not_RSA&amp;rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&amp;hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&amp;hellip;
@@ -212,12 +206,10 @@ from flag import a, b, c, d, flag assert flag == &amp;quot;De1CTF{&amp;quot; + &
 from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n+1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv g^m r^n \ &amp;amp;(mod \ n^2) \end{aligned} $$
 其中有 $$ \begin{aligned} g^m&amp;amp;\equiv (n+1)^m \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+&amp;hellip;+C_m^mn^m \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv C_m^0 n^0 + C_m^1 n^1 \ &amp;amp;(mod \ n^2)\\ &amp;amp;\equiv 1 + mn \ &amp;amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 + mn)r^n \ (mod \ n^2)$</description>
     </item>
-    
     <item>
       <title>Find short vectors in two-dimensional lattices</title>
       <link>https://slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</link>
       <pubDate>Mon, 16 Mar 2020 09:17:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/find-short-vectors-in-two-dimensional-lattices/</guid>
       <description>Notes for $An\ Introduction\ to\ Mathematical\ Cryptography$
 “A toy model of a real public key cryptosystem” 这里以 An Introduction to Mathematical Cryptography 书中的一个简单的加密模型为例，简单介绍一下通过高斯格基规约算法（Gaussian Lattice Reduction）解决二维的格上的寻找最短向量问题。
@@ -225,44 +217,28 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 task.py
 from Crypto.Util.number import bytes_to_long, getPrime, inverse from gmpy2 import iroot q = getPrime(1024) f = getPrime(511) g = getPrime(511) while g &amp;lt; iroot(q//4, 2)[0] or g &amp;gt; iroot(q//2, 2)[0]: g = getPrime(511) f_inv_q = inverse(f, q) h = f_inv_q*g % q m = bytes_to_long(b&#39;flag&#39;) # flag is base**(flag) r = getPrime(510) e = (r*h+m) % q print(f) print(g) print(q) print(e) &#39;&#39;&#39; f = 4685394431238242086047454699939574117865082734421802876855769683954689809016908045500281898911462887906190042764753834184270447603004244910544167081517863 g = 5326402554595682620065287001809742915798424911036766723537742672943459577709829465021452623299712724999868094408519004699993233519540500859134358256211397 q = 172620634756442326936446284386446310176482010539257694929884002472846127607264743380697653537447369089693337723649017402105400257863085638725058903969478143249108126132543502414741890867122949021941524916405444824353100158506448429871964258931750339247018885114052623963451658829116065142400435131369957050799 e = 130055004464808383851466991915980644718382040848563991873041960765504627910537316320531719771695727709826775790697704799143461018934672453482988811575574961674813001940313918329737944758875566038617074550624823884742484696611063406222986507537981571075140436761436815079809518206635499600341038593553079293254 &#39;&#39;&#39; 其中私钥为 ( f , g ) ，公钥为 ( q , h ) ，这个已经给了私钥，所以解密过程非常简单。</description>
     </item>
-    
     <item>
       <title>Chinese Remainder Theorem</title>
       <link>https://slightwind.cn/posts/crypto/chinese-remainder-theorem/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/crypto/chinese-remainder-theorem/</guid>
       <description>模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&amp;hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。</description>
     </item>
-    
     <item>
       <title>HGAME 2020 week1 writeup</title>
       <link>https://slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</link>
       <pubDate>Mon, 20 Jan 2020 03:38:02 +0000</pubDate>
-      
       <guid>https://slightwind.cn/posts/ctf/hgame-2020-week1-writeup/</guid>
       <description>HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}
 Crypto InfantRSA 题目：
 p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：
 p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g !</description>
     </item>
-    
-    <item>
-      <title></title>
-      <link>https://slightwind.cn/posts/modelquantization/a-friendly-introduction-to-llm-int8/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://slightwind.cn/posts/modelquantization/a-friendly-introduction-to-llm-int8/</guid>
-      <description>A Friendly Introduction to LLM.int8() 目前大模型权重通常以FP16或BF16格式存储，但是许多研究发现模型推理时可以使用更少的比特位的数据类型，模型可以比较正常运行的同时，还能够大量节省GPU/NPU内存。
-性能：本文中将会使用性能一词来代表推理的速度，比如平均输出每个token的耗时，耗时越低意味着性能越强； 下游任务精度： </description>
-    </item>
-    
     <item>
       <title>About</title>
       <link>https://slightwind.cn/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/about/</guid>
       <description>Experience 2023.7 ~ : Software Development Engineer @Huawei
 2022.7 ~ 2022.9: Software Development Intern @Huawei
@@ -272,17 +248,12 @@ Education 2019.8 ~ 2023.6: Information Security @NJUPT
 Contact Email: slightwindsec@gmail.com
 Email: cy@njupt.edu.cn</description>
     </item>
-    
-    
     <item>
       <title>Categories</title>
       <link>https://slightwind.cn/categories/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://slightwind.cn/categories/</guid>
       <description>categories</description>
     </item>
-    
-    
   </channel>
 </rss>
