@@ -11,7 +11,7 @@
 from flag import a, b, c, d, flag assert flag == &quot;De1CTF{&quot; &#43; &#39;&#39;.join([hex(i)[2:] for i in [a, b, c, d]]) &#43; &quot;}&quot; assert [len(bin(i)[2:]) for i in [a, b, c, d]] == [19, 19, 13, 6] ma, mb, mc, md = 0x505a1, 0x40f3f, 0x1f02, 0x31 def lfsr(r, m): return ((r &lt;&lt; 1) &amp; 0xffffff) ^ (bin(r &amp; m).count(&#39;1&#39;) % 2) def combine(): global a, b, c, d a = lfsr(a, ma) b = lfsr(b, mb) c = lfsr(c, mc) d = lfsr(d, md) [ao, bo, co, do] = [i &amp; 1 for i in [a, b, c, d]] return (ao*bo) ^ (bo*co) ^ (bo*do) ^ co ^ do def genkey(nb): s = &#39;&#39; for i in range(nb*8): s &#43;= str(combine()) open(&quot;data&quot;, &quot;w&#43;&quot;).">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/ctf/writeup-for-crypto-problems-in-de1ctf-2020/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a4e197a8d8709a845a37b7962cd12ea0c8b80f38ff5085a1e7da65e7cdc8b9eb.css" integrity="sha256-pOGXqNhwmoRaN7eWLNEuoMi4Dzj/UIWh59pl583Iues=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cc4f839871ae7f4c635999d9fa7f712649005f8adea1cd723a1f20ac64c7dc5f.css" integrity="sha256-zE&#43;DmHGuf0xjWZnZ&#43;n9xJkkAX4reoc1yOh8grGTH3F8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://slightwind.cn/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://slightwind.cn/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://slightwind.cn/favicon-32x32.png">
