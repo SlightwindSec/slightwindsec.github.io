@@ -10,8 +10,7 @@
 <meta name="description" content="&ldquo;not_RSA&rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&hellip;
 题目：
-from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n&#43;1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;(mod \ n^2) \\ &amp;\equiv g^m r^n \ &amp;(mod \ n^2) \end{aligned} $$
-其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;&hellip;&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$">
+from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n &#43; 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print(&#39;c =&#39;, c) print(&#39;n =&#39;, n) 主要加密过程是：">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.cc4f839871ae7f4c635999d9fa7f712649005f8adea1cd723a1f20ac64c7dc5f.css" integrity="sha256-zE&#43;DmHGuf0xjWZnZ&#43;n9xJkkAX4reoc1yOh8grGTH3F8=" rel="preload stylesheet" as="style">
@@ -105,8 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta property="og:description" content="&ldquo;not_RSA&rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&hellip;
 题目：
-from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n&#43;1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;(mod \ n^2) \\ &amp;\equiv g^m r^n \ &amp;(mod \ n^2) \end{aligned} $$
-其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;&hellip;&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$" />
+from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n &#43; 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print(&#39;c =&#39;, c) print(&#39;n =&#39;, n) 主要加密过程是：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/" />
 <meta property="og:image" content="https://slightwind.cn/papermod-cover.png" />
@@ -120,8 +118,7 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
 <meta name="twitter:description" content="&ldquo;not_RSA&rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&hellip;
 题目：
-from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n&#43;1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;(mod \ n^2) \\ &amp;\equiv g^m r^n \ &amp;(mod \ n^2) \end{aligned} $$
-其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;&hellip;&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$"/>
+from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n &#43; 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print(&#39;c =&#39;, c) print(&#39;n =&#39;, n) 主要加密过程是："/>
 
 
 <script type="application/ld+json">
@@ -150,12 +147,12 @@ from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long
   "@type": "BlogPosting",
   "headline": "Learn Paillier crytposystem from \"not_RSA\" in DASCTF",
   "name": "Learn Paillier crytposystem from \u0022not_RSA\u0022 in DASCTF",
-  "description": "\u0026ldquo;not_RSA\u0026rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl\u0026hellip; 不过还是记录一下自己推导的解题过程\n直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了\u0026hellip;\n题目：\nfrom Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n+1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print('c=',c) print('n=',n) 主要加密过程是： $$ \\begin{aligned} c\u0026amp;\\equiv(g^m \\ mod \\ n^2)(r^n \\ mod \\ n^2) \\ \u0026amp;(mod \\ n^2) \\\\ \u0026amp;\\equiv g^m r^n \\ \u0026amp;(mod \\ n^2) \\end{aligned} $$\n其中有 $$ \\begin{aligned} g^m\u0026amp;\\equiv (n+1)^m \\ \u0026amp;(mod \\ n^2) \\\\ \u0026amp;\\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+\u0026hellip;+C_m^mn^m \\ \u0026amp;(mod \\ n^2) \\\\ \u0026amp;\\equiv C_m^0 n^0 + C_m^1 n^1 \\ \u0026amp;(mod \\ n^2)\\\\ \u0026amp;\\equiv 1 + mn \\ \u0026amp;(mod \\ n^2) \\end{aligned} $$ 所以得到$c\\equiv g^m r^n\\equiv (1 + mn)r^n \\ (mod \\ n^2)$",
+  "description": "\u0026ldquo;not_RSA\u0026rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl\u0026hellip; 不过还是记录一下自己推导的解题过程\n直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了\u0026hellip;\n题目：\nfrom Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n + 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print('c =', c) print('n =', n) 主要加密过程是：",
   "keywords": [
     "Crypto", "Paillier"
   ],
-  "articleBody": "“not_RSA” in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl… 不过还是记录一下自己推导的解题过程\n直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了…\n题目：\nfrom Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n+1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print('c=',c) print('n=',n) 主要加密过程是： $$ \\begin{aligned} c\u0026\\equiv(g^m \\ mod \\ n^2)(r^n \\ mod \\ n^2) \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv g^m r^n \\ \u0026(mod \\ n^2) \\end{aligned} $$\n其中有 $$ \\begin{aligned} g^m\u0026\\equiv (n+1)^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+…+C_m^mn^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 \\ \u0026(mod \\ n^2)\\\\ \u0026\\equiv 1 + mn \\ \u0026(mod \\ n^2) \\end{aligned} $$ 所以得到$c\\equiv g^m r^n\\equiv (1 + mn)r^n \\ (mod \\ n^2)$\n现在就要想办法消除掉 $r^n$ 的影响，不难发现 $r^n\\ mod\\ n = c\\ mod\\ n$。\n所以我们需要由 $r^n\\ mod\\ n$ 得到 $r$ 的值或者 $r^n\\ mod\\ n^2$的值，才可以对 $r^n$ 在模 $n^2$ 下求逆元。这里我这个菜鸡想了好久…最终想到将 $r^n\\ mod\\ n$ 分别对 $n$ 的两个因数 $p,q$ 取模，然后再用中国剩余定理（CRT）合并，从而得到 $r$。\n然后我们只需要计算 $r^n\\ mod\\ n^2$ 的逆元并与 $c$ 相乘，就得到 $(1+mn)\\ mod\\ n^2$，也就得到了 $m$。\nfrom Crypto.Util.number import long_to_bytes, inverse from functools import reduce c = 29088911054711509252215615231015162998042579425917914434962376243477176757448053722602422672251758332052330100944900171067962180230120924963561223495629695702541446456981441239486190458125750543542379899722558637306740763104274377031599875275807723323394379557227060332005571272240560453811389162371812183549 n = 6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093 p = 80006336965345725157774618059504992841841040207998249416678435780577798937819 q = 80006336965345725157774618059504992841841040207998249416678435780577798937447 g = n+1 phi = (p-1)*(q-1) rn = c % n x1 = rn % p d1 = inverse(q, p-1) r1 = pow(x1, d1, p) x2 = rn % q d2 = inverse(p, q-1) r2 = pow(x2, d2, q) def CRT(m, a): Num = len(m) M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(Num)] x = 0 for i in range(Num): x += a[i]*t[i]*Mi[i] return x % M r = CRT([p, q], [r1, r2]) R = pow(r, n, n*n) R_inv = inverse(R, n*n) mn = (c*R_inv) % (n*n) m = (mn-1)//n print(long_to_bytes(m)) Paillier Crytposystem 选取素数 $p, q$，计算 $n=p\\cdot q$，$\\lambda =lcm(p-1,q-1)$，选取 $g\\in\\Z_{n^2}^*$满足 $g$ 的阶是 $n$ 的倍数。\n其中公钥为：$n, g$，私钥为：$p, q,\\lambda$。\n加密时明文 $m",
-  "wordCount" : "533",
+  "articleBody": "“not_RSA” in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl… 不过还是记录一下自己推导的解题过程\n直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了…\n题目：\nfrom Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n + 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print('c =', c) print('n =', n) 主要加密过程是：\n$$ \\begin{aligned} c\u0026\\equiv(g^m \\ mod \\ n^2)(r^n \\ mod \\ n^2) \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv g^m r^n \\ \u0026(mod \\ n^2) \\end{aligned} $$\n其中有\n$$ \\begin{aligned} g^m\u0026\\equiv (n+1)^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+…+C_m^mn^m \\ \u0026(mod \\ n^2) \\\\ \u0026\\equiv C_m^0 n^0 + C_m^1 n^1 \\ \u0026(mod \\ n^2)\\\\ \u0026\\equiv 1 + mn \\ \u0026(mod \\ n^2) \\end{aligned} $$\n所以得到 $c\\equiv g^m r^n\\equiv (1 + mn)r^n \\ (mod \\ n^2)$\n现在就要想办法消除掉 $r^n$ 的影响，不难发现 $r^n\\ mod\\ n = c\\ mod\\ n$。\n所以我们需要由 $r^n\\ mod\\ n$ 得到 $r$ 的值或者 $r^n\\ mod\\ n^2$的值，才可以对 $r^n$ 在模 $n^2$ 下求逆元。这里我这个菜鸡想了好久…最终想到将 $r^n\\ mod\\ n$ 分别对 $n$ 的两个因数 $p,q$ 取模，然后再用中国剩余定理（CRT）合并，从而得到 $r$。\n然后我们只需要计算 $r^n\\ mod\\ n^2$ 的逆元并与 $c$ 相乘，就得到 $(1+mn)\\ mod\\ n^2$，也就得到了 $m$。\nfrom Crypto.Util.number import long_to_bytes, inverse from functools import reduce c = 29088911054711509252215615231015162998042579425917914434962376243477176757448053722602422672251758332052330100944900171067962180230120924963561223495629695702541446456981441239486190458125750543542379899722558637306740763104274377031599875275807723323394379557227060332005571272240560453811389162371812183549 n = 6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093 p = 80006336965345725157774618059504992841841040207998249416678435780577798937819 q = 80006336965345725157774618059504992841841040207998249416678435780577798937447 g = n + 1 phi = (p - 1) * (q - 1) rn = c % n x1 = rn % p d1 = inverse(q, p - 1) r1 = pow(x1, d1, p) x2 = rn % q d2 = inverse(p, q - 1) r2 = pow(x2, d2, q) def CRT(m, a): Num = len(m) M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(Num)] x = 0 for i in range(Num): x += a[i]*t[i]*Mi[i] return x % M r = CRT([p, q], [r1, r2]) R = pow(r, n, n * n) R_inv = inverse(R, n * n) mn = (c * R_inv) % (n * n) m = (mn - 1) // n print(long_to_bytes(m)) Paillier Crytposystem 选取素数 $p, q$，计算 $n=p\\cdot q$，$\\lambda =lcm(p-1,q-1)$，选取 $g\\in\\Z_{n^2}^*$满足 $g$ 的阶是 $n$ 的倍数。\n其中公钥为：$n, g$，私钥为：$p, q,\\lambda$。\n加密时明文 $m",
+  "wordCount" : "625",
   "inLanguage": "en",
   "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2020-04-25T13:33:02Z",
   "dateModified": "2020-04-25T13:33:02Z",
@@ -281,33 +278,33 @@ from secret import flag,p,q
 from sympy import isprime,nextprime
 import random
 
-m=bytes_to_long(flag)
-n=p*q
-g=n+1
-r=random.randint(1,n)
+m = bytes_to_long(flag)
+n = p * q
+g = n + 1
+r = random.randint(1, n)
 
-c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n)
+c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n)
 
-print('c=',c)
-print('n=',n)
+print('c =', c)
+print('n =', n)
 </code></pre>
-<p>主要加密过程是：
-$$
+<p>主要加密过程是：</p>
+<p>$$
 \begin{aligned}
 c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \   &amp;(mod \ n^2)  \\
 &amp;\equiv g^m r^n \ &amp;(mod \ n^2)
 \end{aligned}
 $$</p>
-<p>其中有
-$$
+<p>其中有</p>
+<p>$$
 \begin{aligned}
 g^m&amp;\equiv (n+1)^m \ &amp;(mod \ n^2) \\
 &amp;\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+&hellip;+C_m^mn^m \ &amp;(mod \ n^2) \\
 &amp;\equiv C_m^0 n^0 + C_m^1 n^1 \ &amp;(mod \ n^2)\\
 &amp;\equiv 1 + mn \ &amp;(mod \ n^2)
 \end{aligned}
-$$
-所以得到$c\equiv g^m r^n\equiv (1 + mn)r^n \ (mod \ n^2)$</p>
+$$</p>
+<p>所以得到 $c\equiv g^m r^n\equiv (1 + mn)r^n \ (mod \ n^2)$</p>
 <p>现在就要想办法消除掉 $r^n$ 的影响，不难发现 $r^n\ mod\ n = c\ mod\ n$。</p>
 <p>所以我们需要由 $r^n\ mod\ n$ 得到 $r$ 的值或者 $r^n\ mod\ n^2$的值，才可以对 $r^n$ 在模 $n^2$ 下求逆元。这里我这个菜鸡想了好久&hellip;最终想到将 $r^n\ mod\ n$ 分别对 $n$ 的两个因数 $p,q$ 取模，然后再用中国剩余定理（CRT）合并，从而得到 $r$。</p>
 <p>然后我们只需要计算 $r^n\ mod\ n^2$ 的逆元并与 $c$ 相乘，就得到 $(1+mn)\ mod\ n^2$，也就得到了 $m$。</p>
@@ -318,16 +315,16 @@ c = 2908891105471150925221561523101516299804257942591791443496237624347717675744
 n = 6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093
 p = 80006336965345725157774618059504992841841040207998249416678435780577798937819
 q = 80006336965345725157774618059504992841841040207998249416678435780577798937447
-g = n+1
-phi = (p-1)*(q-1)
+g = n + 1
+phi = (p - 1) * (q - 1)
 rn = c % n
 
 x1 = rn % p
-d1 = inverse(q, p-1)
+d1 = inverse(q, p - 1)
 r1 = pow(x1, d1, p)
 
 x2 = rn % q
-d2 = inverse(p, q-1)
+d2 = inverse(p, q - 1)
 r2 = pow(x2, d2, q)
 
 
@@ -344,10 +341,10 @@ def CRT(m, a):
 
 r = CRT([p, q], [r1, r2])
 
-R = pow(r, n, n*n)
-R_inv = inverse(R, n*n)
-mn = (c*R_inv) % (n*n)
-m = (mn-1)//n
+R = pow(r, n, n * n)
+R_inv = inverse(R, n * n)
+mn = (c * R_inv) % (n * n)
+m = (mn - 1) // n
 print(long_to_bytes(m))
 </code></pre>
 <h2 id="paillier-crytposystem">Paillier Crytposystem<a hidden class="anchor" aria-hidden="true" href="#paillier-crytposystem">#</a></h2>
@@ -388,7 +385,7 @@ class Paillier():
         return m
 
     def L(self, u):
-        return (u-1)//self.n
+        return (u - 1) // self.n
 
 m = bytes_to_long(b'flag{1234567890}')
 P = Paillier()
@@ -405,17 +402,18 @@ c = 2908891105471150925221561523101516299804257942591791443496237624347717675744
 n = 6401013954612445818165507289870580041358569258817613282142852881965884799988941535910939664068503367303343695466899335792545332690862283029809823423608093
 p = 80006336965345725157774618059504992841841040207998249416678435780577798937819
 q = 80006336965345725157774618059504992841841040207998249416678435780577798937447
-g = n+1
-phi = (p-1)*(q-1)
+g = n + 1
+phi = (p - 1) * (q - 1)
 
 def decrypt(c, p, q, g):
-    n = p*q
-    Lcm = lcm(p-1, q-1)
-    m_c = (pow(c, Lcm, n*n)-1)//n
-    m_g = (pow(g, Lcm, n*n)-1)//n
-    m = m_c*inverse(m_g, n) % n
+    n = p * q
+    Lcm = lcm(p - 1, q - 1)
+    m_c = (pow(c, Lcm, n * n) - 1) // n
+    m_g = (pow(g, Lcm, n * n) - 1) // n
+    m = m_c * inverse(m_g, n) % n
     return m
-m=decrypt(c, p, q, g)
+
+m = decrypt(c, p, q, g)
 print(long_to_bytes(m))
 #b'flag{5785203dbe6e8fd8bdbab860f5718155}'
 </code></pre>

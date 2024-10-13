@@ -4,7 +4,7 @@
   <defs>
     <style class="style-fonts">
       @font-face {
-        font-family: "Virgil";
+        font-family: "Virgil,monaco,Consolas,Lucida Console,monospace";
         src: url("https://unpkg.com/revedraw@1.0.0-alpha.10/dist/excalidraw-assets/Virgil.woff2");
       }
       @font-face {

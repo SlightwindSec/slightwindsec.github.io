@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>Chinese Remainder Theorem | Slightwind</title>
 <meta name="keywords" content="CRT, Algorithm">
-<meta name="description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
+<meta name="description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x * y, m) Mi = [M // i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。">
 <meta name="author" content="Slightwind">
 <link rel="canonical" href="https://slightwind.cn/posts/crypto/chinese-remainder-theorem/">
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta name="referrer" content="no-referrer-when-downgrade"><meta property="og:title" content="Chinese Remainder Theorem" />
-<meta property="og:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
+<meta property="og:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x * y, m) Mi = [M // i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://slightwind.cn/posts/crypto/chinese-remainder-theorem/" />
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://slightwind.cn/papermod-cover.png" />
 <meta name="twitter:title" content="Chinese Remainder Theorem"/>
-<meta name="twitter:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
+<meta name="twitter:description" content="模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): &#39;&#39;&#39;Return a solution to a Chinese Remainder Theorem problem. &#39;&#39;&#39; M = reduce(lambda x, y: x * y, m) Mi = [M // i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的&hellip;
 与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \cdot M &#43; x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。"/>
 
 
@@ -141,12 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
   "@type": "BlogPosting",
   "headline": "Chinese Remainder Theorem",
   "name": "Chinese Remainder Theorem",
-  "description": "模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): '''Return a solution to a Chinese Remainder Theorem problem. ''' M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的\u0026hellip;\n与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \\cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。",
+  "description": "模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): '''Return a solution to a Chinese Remainder Theorem problem. ''' M = reduce(lambda x, y: x * y, m) Mi = [M // i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的\u0026hellip;\n与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \\cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。",
   "keywords": [
     "CRT", "Algorithm"
   ],
-  "articleBody": "模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): '''Return a solution to a Chinese Remainder Theorem problem. ''' M = reduce(lambda x, y: x*y, m) Mi = [M//i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的…\n与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \\cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。\n$x$ 为最小解，$m_1 , m_2 , \\dots , m_n$ 的最小公倍数为 $L$，$X \u003c M$ ，易知 $X = x + k \\cdot L$ ，枚举 $k$ 就可以了。\nfrom Crypto.Util.number import GCD, inverse from functools import reduce def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def crt_minial(a, m): '''Return the minial solution to a Chinese Remainder Theorem problem. ''' assert len(a) == len(m), f\"length of {a} is not equal to {b}\" m1, a1, lcm = m[0], a[0], m[0] for i in range(1, len(m)): c = a[i]-a1 g, k, _ = egcd(m1, m[i]) lcm = lcm*m[i]//GCD(lcm, m[i]) assert c % g == 0, 'No Answer!' t = m[i]//g a1 += m1*(((c//g*k) % t + t) % t) m1 = m[i]//g*m1 return a1 ",
-  "wordCount" : "215",
+  "articleBody": "模数两两互素时 from Crypto.Util.number import inverse from functools import reduce def crt(a, m): '''Return a solution to a Chinese Remainder Theorem problem. ''' M = reduce(lambda x, y: x * y, m) Mi = [M // i for i in m] t = [inverse(Mi[i], m[i]) for i in range(len(m))] x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))]) return x % M 不满足模数两两互素时 这种情况有最小解 $x$ 满足条件，很多博客也讲的很详细，但是没找到 Python 写的…\n与 $m$ 互素时一样，$m$ 不互素时显然也会有无限个解 $X = k \\cdot M + x$ ，但是 $m$ 之间不互素时，在模 $M$ 的意义下也可能会有多个解。\n$x$ 为最小解，$m_1 , m_2 , \\dots , m_n$ 的最小公倍数为 $L$，$X \u003c M$ ，易知 $X = x + k \\cdot L$ ，枚举 $k$ 就可以了。\nfrom Crypto.Util.number import GCD, inverse from functools import reduce def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def crt_minial(a, m): '''Return the minial solution to a Chinese Remainder Theorem problem. ''' assert len(a) == len(m), f\"length of {a} is not equal to {b}\" m1, a1, lcm = m[0], a[0], m[0] for i in range(1, len(m)): c = a[i] - a1 g, k, _ = egcd(m1, m[i]) lcm = lcm * m[i] // GCD(lcm, m[i]) assert c % g == 0, 'No Answer!' t = m[i] // g a1 += m1 * (((c // g * k) % t + t) % t) m1 = m[i] // g * m1 return a1 ",
+  "wordCount" : "241",
   "inLanguage": "en",
   "image": "https://slightwind.cn/papermod-cover.png","datePublished": "2020-02-29T00:00:00Z",
   "dateModified": "2020-02-29T00:00:00Z",
@@ -270,10 +270,10 @@ from functools import reduce
 def crt(a, m):
     '''Return a solution to a Chinese Remainder Theorem problem.
     '''
-    M = reduce(lambda x, y: x*y, m)
-    Mi = [M//i for i in m]
+    M = reduce(lambda x, y: x * y, m)
+    Mi = [M // i for i in m]
     t = [inverse(Mi[i], m[i]) for i in range(len(m))]
-    x = sum([a[i]*t[i]*Mi[i] for i in range(len(m))])
+    x = sum([a[i] * t[i] * Mi[i] for i in range(len(m))])
     return x % M
 </code></pre>
 <h2 id="不满足模数两两互素时">不满足模数两两互素时<a hidden class="anchor" aria-hidden="true" href="#不满足模数两两互素时">#</a></h2>
@@ -298,13 +298,13 @@ def crt_minial(a, m):
     assert len(a) == len(m), f&quot;length of {a} is not equal to {b}&quot;
     m1, a1, lcm = m[0], a[0], m[0]
     for i in range(1, len(m)):
-        c = a[i]-a1
+        c = a[i] - a1
         g, k, _ = egcd(m1, m[i])
-        lcm = lcm*m[i]//GCD(lcm, m[i])
+        lcm = lcm * m[i] // GCD(lcm, m[i])
         assert c % g == 0, 'No Answer!'
-        t = m[i]//g
-        a1 += m1*(((c//g*k) % t + t) % t)
-        m1 = m[i]//g*m1
+        t = m[i] // g
+        a1 += m1 * (((c // g * k) % t + t) % t)
+        m1 = m[i] // g * m1
     return a1
 </code></pre>
 

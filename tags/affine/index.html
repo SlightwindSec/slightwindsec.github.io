@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="entry-content">
     <p>HGAME 2020 week1 writeup Web Cosmos 的博客 看提示去 GitHub 上找这个网站的源代码，搜索 Cosmos Hgame 就可以找到，点开 3 commits，点开 new file 就可以看到： aGdhbWV7ZzF0X2xlQGtfMXNfZGFuZ2VyMHVzXyEhISF9 base64 解码得到 flag。 hgame{g1t_le@k_1s_danger0us_!!!}
 Crypto InfantRSA 题目：
-p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m,e,p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：
+p = 681782737450022065655472455411; q = 675274897132088253519831953441; e = 13; c = pow(m, e, p*q) = 275698465082361070145173688411496311542172902608559859019841 exp：
 p = 681782737450022065655472455411 q = 675274897132088253519831953441 e = 13 c = 275698465082361070145173688411496311542172902608559859019841 def egcd(a, b): if a == 0: return (b, 0, 1) else: g, y, x = egcd(b % a, a) return (g, x - (b // a) * y, y) def modinv(a, m): g, x, y = egcd(a, m) if g !...</p>
   </div>
   <footer class="entry-footer"><span title='2020-01-20 03:38:02 +0000 UTC'>January 20, 2020</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Slightwind</footer>

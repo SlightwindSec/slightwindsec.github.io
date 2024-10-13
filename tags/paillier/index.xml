@@ -30,8 +30,7 @@ $$ \begin{aligned} \psi_{-1} &amp;amp;=-1 \\ \psi_{0} &amp;amp;=0 \\ \psi_{1} &a
       <description>&amp;ldquo;not_RSA&amp;rdquo; in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl&amp;hellip; 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了&amp;hellip;
 题目：
-from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n+1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv g^m r^n \ &amp;amp;(mod \ n^2) \end{aligned} $$
-其中有 $$ \begin{aligned} g^m&amp;amp;\equiv (n+1)^m \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv C_m^0 n^0 + C_m^1 n^1 +C_m^2n^2+&amp;hellip;+C_m^mn^m \ &amp;amp;(mod \ n^2) \\ &amp;amp;\equiv C_m^0 n^0 + C_m^1 n^1 \ &amp;amp;(mod \ n^2)\\ &amp;amp;\equiv 1 + mn \ &amp;amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 + mn)r^n \ (mod \ n^2)$</description>
+from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n + 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print(&#39;c =&#39;, c) print(&#39;n =&#39;, n) 主要加密过程是：</description>
     </item>
   </channel>
 </rss>

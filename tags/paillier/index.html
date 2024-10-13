@@ -193,8 +193,7 @@ $$ \begin{aligned} \psi_{-1} &amp;=-1 \\ \psi_{0} &amp;=0 \\ \psi_{1} &amp;=1 \\
     <p>“not_RSA” in DASCTF 看了大佬的博客才知道是 Paillier cryptosystem，wtcl… 不过还是记录一下自己推导的解题过程
 直接使用现成的 Paillier cryptosystem 解密算法解决这题非常容易，分解 n 然后直接套 decrypt 函数就解开了…
 题目：
-from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m=bytes_to_long(flag) n=p*q g=n&#43;1 r=random.randint(1,n) c=(pow(g,m,n*n)*pow(r,n,n*n))%(n*n) print(&#39;c=&#39;,c) print(&#39;n=&#39;,n) 主要加密过程是： $$ \begin{aligned} c&amp;\equiv(g^m \ mod \ n^2)(r^n \ mod \ n^2) \ &amp;(mod \ n^2) \\ &amp;\equiv g^m r^n \ &amp;(mod \ n^2) \end{aligned} $$
-其中有 $$ \begin{aligned} g^m&amp;\equiv (n&#43;1)^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 &#43;C_m^2n^2&#43;…&#43;C_m^mn^m \ &amp;(mod \ n^2) \\ &amp;\equiv C_m^0 n^0 &#43; C_m^1 n^1 \ &amp;(mod \ n^2)\\ &amp;\equiv 1 &#43; mn \ &amp;(mod \ n^2) \end{aligned} $$ 所以得到$c\equiv g^m r^n\equiv (1 &#43; mn)r^n \ (mod \ n^2)$...</p>
+from Crypto.Util.number import getPrime as getprime ,long_to_bytes,bytes_to_long,inverse from secret import flag,p,q from sympy import isprime,nextprime import random m = bytes_to_long(flag) n = p * q g = n &#43; 1 r = random.randint(1, n) c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n) print(&#39;c =&#39;, c) print(&#39;n =&#39;, n) 主要加密过程是：...</p>
   </div>
   <footer class="entry-footer"><span title='2020-04-25 13:33:02 +0000 UTC'>April 25, 2020</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Slightwind</footer>
   <a class="entry-link" aria-label="post link to Learn Paillier crytposystem from &#34;not_RSA&#34; in DASCTF" href="https://slightwind.cn/posts/ctf/learn-paillier-crytposystem-from-not_rsa-in-dasctf/"></a>
