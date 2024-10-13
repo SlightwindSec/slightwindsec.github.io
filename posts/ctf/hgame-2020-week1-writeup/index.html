@@ -322,10 +322,10 @@ c = 275698465082361070145173688411496311542172902608559859019841
 
 def egcd(a, b):
     if a == 0:
-      return (b, 0, 1)
+        return (b, 0, 1)
     else:
-      g, y, x = egcd(b % a, a)
-      return (g, x - (b // a) * y, y)
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
 
 def modinv(a, m):
     g, x, y = egcd(a, m)
@@ -373,13 +373,13 @@ $$</p>
 using namespace std;
 
 int main(){
-	for(int i = 0; i &lt; 62; i++)
-		for(int j = 0; j &lt; 62; j++)
-			if(((i * 12 + j) % 62 == 46) &amp;&amp; ((i * 11 + j) % 62 == 33) &amp;&amp; ((i * 7 + j) % 62 == 43)){
-				cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; j &lt;&lt; endl;
-				break;
-			}
-	return 0;
+    for(int i = 0; i &lt; 62; i++)
+        for(int j = 0; j &lt; 62; j++)
+            if(((i * 12 + j) % 62 == 46) &amp;&amp; ((i * 11 + j) % 62 == 33) &amp;&amp; ((i * 7 + j) % 62 == 43)){
+                cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; j &lt;&lt; endl;
+                break;
+            }
+    return 0;
 }
 </code></pre>
 <ol>
@@ -391,10 +391,10 @@ cipher = 'A8I5z{xr1A_J7ha_vG_TpH410}'
 
 def egcd(a, b):
     if a == 0:
-      return (b, 0, 1)
+        return (b, 0, 1)
     else:
-      g, y, x = egcd(b % a, a)
-      return (g, x - (b // a) * y, y)
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
 
 def modinv(a, m):
     g, x, y = egcd(a, m)
