@@ -1,0 +1,4 @@
+/* 代码块样式覆盖 - 注释掉原始颜色以使用 highlight.js 的语法高亮颜色 */
+.highlight pre {
+    color: inherit;
+}

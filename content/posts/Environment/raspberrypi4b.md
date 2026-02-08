@@ -1,0 +1,357 @@
+---
+title: 使用树莓派4B作为一台服务器
+date: 2021-11-17 16:09:02
+category: "Environment Setup"
+tags: ["Raspberry Pi", "Bare Metal Server"]
+---
+
+树莓派是个一直听说，但是一直没玩过的东西，所以在今年年初搞了一块折腾了一段时间。在上面起了一些服务，确实很好玩。在上面搭建了私有网盘、Minecraft、SageMath 还有几个密码学题目。这篇博客记录了我折腾树莓派的经历～
+
+### 解决公网IP问题
+
+我想在公网连接到家里的树莓派，访问到上面的服务，所以需要有公网IP或者使用 frp 内网穿透。当然如果不需要让树莓派暴露在公网下，就不需要搞公网 IP 了。
+
+#### 静态公网IP
+
+如果有角度可以搞到企业专线，那还是很香的，不仅拥有运营商分配的静态公网 IP，还有上下行相等的大带宽，当然费用也很高，也需要注册的企业资质。所以我是搞不到静态的公网 IP。
+
+#### 动态公网IP
+
+没有静态的，可以退而求其次搞动态的，跟运营商交涉一下是可以得到动态的公网 IP 的，虽然是上下行不对等的家庭带宽，但是作为服务器来说绰绰有余，已经远超很多便宜的云服务器了。
+
+第一次我直接跟人工客服打电话申请要一个**静态公网IP**被拒绝了；然后第二天我又一次联系了人工客服，询问能不能申请**动态的公网IP**（可以说装摄像头要用到，不能说在家里搭建服务器），结果很快就回电通知我已经给了**动态的公网IP**，还算顺利～
+
+##### Dynamic DNS
+
+后面使用发现，我们这边的动态的公网IP大约2～3天变动一次，这就可以通过 `Dynamic DNS（DDNS）` 将动态的IP解析到固定的域名，就能通过固定的域名访问到服务器了。
+
+DDNS需要服务端和本地各运行一个服务：本地的树莓派或路由器上运行一个服务，每隔一段时间（几分钟）就获取一下自己的公网IP，判断一下有没有发生改变，如果发生改变就将新的 IP 发送给服务端，服务端得到新的 IP，就重新将域名解析到新的IP，所以是动态DNS。
+
+> DDNS的服务端只提供域名的动态解析服务，所以服务端的带宽对访问树莓派的速度没有影响（但是可能会影响到延时？实际使用没有明显感觉到）
+
+**DDNS服务：**
+
+1. 直接使用一些网站（`oray.com`/`3322.org`/`Dyndns.com`/`No-ip.com`）免费提供的DDNS服务，但是他们给的域名都是比较杂乱的三级域名，需要再把自己租的阿里云/腾讯云域名CNAME解析到这个三级域名。花生壳（`oray.com`）可以免费使用；而`No-ip.com`免费版需要每30天登录上去手动续约。
+2. 使用自己的vps运行脚本为树莓派提供DDNS服务，由于需要通过脚本进行域名解析，所以需要在vps上安装对应的SDK，然后开发对应的脚本，可以直接将自己的阿里云/腾讯云域名解析到家里的公网IP。
+
+我现在是选择使用花生壳（`oray.com`）的DDNS服务，只需要注册即可得到一个三级域名，通过`控制台`->`域名`->`壳域名`来查看。我的路由器是小米 4A，可以在后台设置DDNS，选择“花生壳”并输入账号密码域名和检查 IP 的时间间隔即可。路由器不支持的话就需要在树莓派上运行一个脚本来发送新的IP。
+
+> 也有很多树莓派玩家通过每次变动IP时，让树莓派将新IP发送给自己的邮箱，使自己总是可以知道最新的IP地址。
+
+#### frp内网穿透
+
+如果也申请不到动态 IP，那就只能用 frp 做内网穿透了，需要借助一台有公网 IP 的 vps，流量也都需要经过这台 vps，所以享受不到家庭宽带的低价大带宽了。
+
+#### 测试上下行带宽
+
+可以在 [speedtest.cn](https://www.speedtest.cn/) 测试下行带宽和上行带宽（最好直接连网线测）。
+
+从公网访问树莓派下载文件需要的是家里的上行带宽，而家庭宽带的上行都是很低的，只能去升级下行带宽，上行才能对应的提升一点。。。。所以如果感觉带宽不太够还是要去升级一下宽带的。
+
+> 我家的联通宽带就不太行，一开始是`100M`下行，`20M`上行，实测大约下行`90~100M`，上行`20~40M`。于是换了`500M`下行，`50M`上行的宽带，实测大约下行`450～550M`，上行`60～70M`。
+
+### 组装树莓派和安装Ubuntu
+
+我的是树莓派 4B。启动树莓派还需要有 5V 3A 的电源和一张 TF 卡。
+
+>各版本树莓派的对照表：[https://shumeipai.nxez.com/wp-content/uploads/2017/03/raspberrypi-version-compare-4b.png](/blog/raspberrypi4b/raspberrypi-version-compare-4b.png)
+
+![](/blog/raspberrypi4b/raspberrypi_list.png)
+
+然后就是愉快的组装环节，树莓派 PCB 边缘是有毛糙的，最好用砂纸磨光滑再装到壳子里。
+![](/blog/raspberrypi4b/2021-2-25-buildup.png)
+
+#### 写入Ubuntu镜像
+
+树莓派支持安装很多种系统，我选择的是 `Ubuntu Server 20.04.2 LTS 64-bit`，可以在这里下载：[https://ubuntu.com/download/raspberry-pi](https://ubuntu.com/download/raspberry-pi)，先把镜像下载到本地，把 TF 卡插到读卡器里，再把读卡器插在这台电脑上。
+
+电脑上需要安装 `balenaEtcher` 来为 TF 卡写入 Ubuntu 镜像，`balenaEtcher` 支持 MacOS/Windows/Linux，可以在官网下载：[https://www.balena.io/etcher/](https://www.balena.io/etcher/)
+
+写入镜像过程很简单，跟着点就可以，下图这样就是写入成功了。
+![balenaEtcher](/blog/raspberrypi4b/FlashComplete.png)
+
+写入完成后不需要手动推出磁盘（TF 卡读卡器），可以直接拔掉，然后将 TF 卡插入树莓派即可。
+
+树莓派的 Wi-Fi 网卡性能较弱，而搭 NAS 比较需要速度，所以我直接给树莓派插上了网线。这时就可以直接通电了，树莓派会自动开机。
+
+#### 内网SSH连接树莓派
+
+现在就可以用电脑连接 Wi-Fi 并进入无线路由器的后台，应该可以看到连接路由器的所有设备的**内网 IP 地址**和**MAC 地址**，等待几分钟可以看到一个设备的名称是`ubuntu`，接入方式是网线连接，那么这个就是树莓派了。可以通过 `ssh ubuntu@内网IP`来连接树莓派，默认密码是`ubuntu`。
+
+#### 公网SSH连接树莓派
+
+接着可以设置一下路由器，为了防止树莓派的内网IP发生改变，需要在路由器后台，`高级设置`->`DHCP静态IP分配` 把树莓派的MAC地址和当前的内网IP地址绑定起来。然后为了让公网对路由器的访问都转向树莓派，`高级设置`->`端口转发`->`开启DMZ`，把DMZ这边的IP地址设置为树莓派的内网IP地址。这样设置完成之后，就可以通过 `ssh ubuntu@公网IP` 来远程控制树莓派了，公网IP地址可以通过访问 [http://testipv6.com/](http://testipv6.com/)来查看。
+
+> 较为遗憾的是运营商一般会屏蔽掉80端口和443端口。。。所以如果在树莓派上起服务，只能通过端口访问，这个问题可以通过在一台有公网IP并且开着80端口的vps上配置Nginx反向代理来解决，不过这样的话流量还是要走vps，所以为了快速的下载上传文件，只能通过加着端口这种方法来访问了，不过好在最终速度理想。
+
+#### 初始配置
+
+在同一文件夹下备份默认的源：
+
+```bash
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+```
+
+编辑 `/etc/apt/sources.list` 并替换成下面的内容：（`sudo vim /etc/apt/sources.list`）
+
+```sh
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ focal-security main restricted universe multiverse
+```
+
+然后更新：
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+
+### 安装KodExplorer
+
+私有云有很多种选择：seafile、nextcloud、KodExplorer 等，我使用的是 KodExplorer（可道云），比较美观并且可以创建低权限用户支持预览的格式也很多。
+
+#### KodExplorer
+
+官网链接：[https://kodcloud.com/](https://kodcloud.com/)，官网的文档很详细。
+
+为树莓派安装好 lamp 环境，然后将 KodExplorer 的文件夹放到 web 目录下即可，开放好对应的端口之后，我们就可以通过`http://[域名]/[目录名]`来访问到 KodExplorer 了。
+
+不过要注意的是，服务要开在其他开放了的端口（80，443 会被运营商屏蔽）。
+
+> 优化上传和下载的速度，可以按照这个方法操作一下：[https://teddysun.com/489.html](https://teddysun.com/489.html)，速度提升非常明显。
+
+#### 挂载硬盘
+
+安装好 KodExplorer 之后，就可以上传下载文件了，不过是存到 TF 卡里的，作为 NAS 当然需要给树莓派外挂硬盘，树莓派上有两个 USB 3.0 接口和两个 USB 2.0 接口，可以在这里挂上移动硬盘或者是硬盘加硬盘盒。
+
+我使用的方法是给树莓派的 USB 3.0 接口插了一个硬盘盒，可以自己选择需要大小的硬盘放在硬盘盒里，缺点是硬盘需要 12v 的供电，而树莓派的 USB 3.0 仅有 5v，所以需要给硬盘盒外接一个 12v 电源，不是很优雅，但硬盘的容量选择很多。
+
+首先为了让树莓派支持`ExFat`和`NTFS`格式的硬盘，需要安装下面两个依赖：
+
+```bash
+sudo apt-get install exfat-fuse
+sudo apt-get install ntfs-3g
+```
+
+然后就可以挂载硬盘了，插上硬盘之后可以 `sudo fdisk -l` 来查看到自己的硬盘，然后 `df -h` 查看已经挂载的磁盘，这时这里是没有自己的硬盘的。
+
+```bash
+sudo mkdir /www/wwwroot/[站点名称]/nas
+sudo mount /dev/sda1  /www/wwwroot/[站点名称]/nas
+```
+
+[站点名称]换成自己的站点名称。
+
+就可以通过 `df -h` 查看到已经挂载到这个目录的硬盘了，加载内核模块`modprobe fuse`，然后设置开机自动挂载，先 `sudo vim /etc/fstab`，然后在底部添加这一行：
+
+```bash
+/dev/sda1  /www/wwwroot/[站点名称]/nas ntfs-3g defaults,nofail,noexec,umask=0000 0 0
+```
+
+![KodExplorer](/blog/raspberrypi4b/nas_KodExplorer.png)
+
+### 安装SageMath
+
+只需要一行命令，就可以在树莓派上安装好 SageMath 了，也可以很方便的为 SageMath 里的 Python 环境安装第三方包。
+
+```bash
+sudo apt-get install sagemath --fix-missing
+sage -python3 -m pip install pycryptodome
+```
+
+用 `sage exp.sage` 来直接运行 sage 脚本。
+
+### 散热风扇改造
+
+店家送的风扇只能直接连接树莓派的供电引脚，然后满转运行，我觉得这样很不优雅，至少应该像机箱的风扇一样，可以随着当前CPU温度改变转速，温度不太高的时候完全可以停下，可以尽可能的减小噪声，所以我开始动手改装了树莓派的风扇。
+
+在寻找合适的树莓派风扇的过程中，偶然发现一种很强劲的小风扇：悬浮轴承、18128RPM、5V、直径 3CM，这也太适合树莓派了，就选择它了。
+
+然后是写脚本来控制转速，要利用到树莓派可玩性最高的东西——GPIO，可以用 Python 写脚本，并且 GPIO 支持 PWM 输出，通过调节占空比来调节转速。
+
+```python
+import RPi.GPIO as GPIO
+import os
+import time
+
+# Configuration
+PWM_BOARD_IN1 = 8       # BOARD pin used to drive PWM fan
+PWM_BOARD_IN2 = 10      # BOARD pin (keep it LOW except want the fan to reverse)
+WAIT_TIME = 1           # [s]  Time to wait between each refresh
+PWM_FREQ = 25000        # [Hz] 25kHz for PWM control
+
+MIN_TEMP = 35
+MAX_TEMP = 65
+FAN_LOW = 5
+FAN_HIGH = 100
+TEMP_COEFFICIENT = float(FAN_HIGH - FAN_LOW)/float(MAX_TEMP - MIN_TEMP) 
+
+def setFanSpeed(speed):
+    fan.start(speed)
+
+def getCpuTemperature():
+    res = os.popen('cat /sys/class/thermal/thermal_zone0/temp').readline()
+    return float(res)/1000
+
+def handleFanSpeed(temperature):
+    fanSpeed = round(FAN_LOW + (round(max(0, temperature-MIN_TEMP)) * TEMP_COEFFICIENT), 3)
+    setFanSpeed(fanSpeed)
+    with open("fan_speed", "w") as f:
+        f.write(str(fanSpeed))
+
+try:
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    out_list = [PWM_BOARD_IN1, PWM_BOARD_IN2]
+    GPIO.setup(out_list, GPIO.OUT)
+    GPIO.output(out_list, GPIO.LOW)
+    fan = GPIO.PWM(out_list[0], PWM_FREQ)
+    while True:
+        handleFanSpeed(getCpuTemperature())
+        time.sleep(WAIT_TIME)
+except KeyboardInterrupt:
+    setFanSpeed(50)
+
+```
+
+为了方便实时监控到树派的转速，脚本会一直吧速度写进`fan_speed`文件里，供另外一个程序获取。
+
+### 开发树莓派资源监控页面
+
+资源监控这边希望可以看到树莓派的公网 IP、CPU 温度、CPU 的资源占用情况，ROM/RAM 的资源占用情况，风扇的转速。
+
+风扇的转速写在了文件里，并且实时更新，所以这边去获取一下即可。
+
+```bash
+.
+├── assets
+│   ├── css
+├── images
+│   ├── js
+│   └── vendors
+├── fan_control
+│   ├── fan_control.py
+│   └── fan_speed
+├── pi_dashboard.py
+└── templates
+    ├── assets
+    │   ├── css
+    │   ├── images
+    │   ├── js
+    │   └── vendors
+    └── index.html
+```
+
+后端使用flask，前端用的是[mazer](https://github.com/zuramai/mazer)组件库。
+
+```python
+from flask import Flask, render_template
+import os
+import re
+import requests
+
+app = Flask(__name__,template_folder='templates',static_folder="assets")
+
+def get_cpu_temperature():
+    try:
+        res = os.popen('cat /sys/class/thermal/thermal_zone0/temp').readline()
+        temp = float(res)/1000
+        return temp
+    except:
+        return "Error"
+
+
+def get_cpu_info():
+    try:
+        res = os.popen("top -bn1 1 | grep Cpu").read()
+        us = [float(i[:-3].strip(" ")) for i in re.findall(r"[0-9. ]*us", res)]
+        sy = [float(i[:-3].strip(" ")) for i in re.findall(r"[0-9. ]*sy", res)]
+        cpu_used = [round(x[0]+x[1], 1) for x in zip(us, sy)]
+        assert len(cpu_used)==4
+        return cpu_used
+    except:
+        return ["Error" for _ in range(4)]
+
+
+def get_rom_info(Filesystem):
+    '''return list: [Size, Used, Avail, Use%]'''
+    try:
+        res = os.popen("df -h").read()
+        card_data = re.findall(Filesystem+"[0-9. KMG%]*", res)[0].split()[1:]
+        card_data = [i[:-1] if (i[-1]=="G" or i[-1]=="%") else i for i in card_data]
+        assert len(card_data)==4
+        return card_data
+    except:
+        return ["Error" for _ in range(4)]
+
+
+def get_public_ip():
+    try:
+        res = requests.get("http://members.3322.org/dyndns/getip")
+        return res.text.strip()
+    except:
+        return "Error"
+
+
+def get_intranet_ip():
+    try:
+        res = os.popen("hostname -i").read().split(" ")[0]
+        return res
+    except:
+        return "Error"
+
+
+def get_ram_info():
+    try:
+        res = os.popen('free').read()
+        ram_info = re.findall("Mem:[0-9 ]*", res)[0].split()[1:3]
+        return [str(int(i)//1024) for i in ram_info]
+    except:
+        return ["Error" for _ in range(2)]
+
+
+def get_fan_speed():
+    try:
+        with open("fan_control/fan_speed", "r") as f:
+            fan_speed = f.read()
+        return fan_speed
+    except:
+        return "Error"
+
+@app.route('/')
+def dashboard_page():
+    context = {
+        "cpu_used":get_cpu_info(),
+        "cpu_temp":get_cpu_temperature(),
+        "fan_speed":get_fan_speed(),
+        "ip_adress":{"intranet":get_intranet_ip(),"public":get_public_ip()},
+        "ram":get_ram_info(),
+        "rom":get_rom_info("/dev/mmcblk0p2"),
+        "external_storage":get_rom_info("/dev/sda1")
+    }
+    return render_template('index.html', **context)
+
+
+if __name__ == '__main__':
+    app.run("0.0.0.0", 82)
+# nohup gunicorn -w 4 -b 0.0.0.0:82 pi_dashboard:app &
+
+```
+![按自己的需求写了一个简单的面板](/blog/raspberrypi4b/pi4b_statistics.png)
+
+
+
+感觉对我来说，树莓派是个比较有意思的玩具，折腾了一段时间学到了一些杂七杂八的东西，算是填补了一直以来对树莓派的好奇心。
+
+用树莓派跑了一些脚本，虽然可以 24h 稳定运行，但是性能差点意思，还有一些服务由于各种原因导致在树莓派上兼容不是很好。
+
+为了更强的性能、更稳定的运行一些服务，我后面又装了一台裸金属服务器～然后把树莓派挂咸鱼出掉了，由于树莓派在涨价，运行了半年的树莓派竟然没赔，理财产品了属于是。
+
