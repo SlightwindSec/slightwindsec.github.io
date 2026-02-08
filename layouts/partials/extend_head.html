@@ -29,7 +29,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   var images = document.querySelectorAll('img[data-darksrc]');
   images.forEach(function(image) {
-    console.log(localStorage.getItem("pref-theme"));
       if (localStorage.getItem("pref-theme") === "dark") {
           image.src = image.getAttribute('data-darksrc');
       } else {
