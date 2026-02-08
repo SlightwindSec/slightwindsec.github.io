@@ -87,13 +87,13 @@ r.interactive()
 
 但是，出题人好像没滤交易时的负数？然后....
 
-可以交易负金额可还行，就拿到了flag
+可以交易负金额可还行，就拿到了 flag
 
 ## Web
 
 ### dice2cry
 
-题目描述：web+cry，输入`team_token`进入一个掷骰子的页面，在`cookie`可以看到`encrypto_flag`，`public_n`，`public_e`，应该是 RSA，然后每次掷骰子都会向`abi.php` get一次数据，`abi.php`也可以单独调用，相当于于一个随机返回 0～2 整数的 api，以 json 的形式返回值。然后有 js 来操作一下返回 1～6 的点数。
+题目描述：web+cry，输入`team_token`进入一个掷骰子的页面，在`cookie`可以看到`encrypto_flag`，`public_n`，`public_e`，应该是 RSA，然后每次掷骰子都会向`abi.php` get一次数据，`abi.php`也可以单独调用，相当于于一个随机返回 0～2 整数的 API，以 json 的形式返回值。然后有 js 来操作一下返回 1～6 的点数。
 
 然后可以在 *http://106.14.66.189/abi.php.bak* 拿到 `abi.php` 的源码：
 
@@ -126,13 +126,13 @@ header("Content-type:text/html;charset=utf-8");
 
 `upper`和`lower`的初始值分别为`n`和`0`，这是明文的范围。还要知道这一题的`n`模`3`得`2`。
 
-第 $i$ 次，明文P的范围是：
+第 $i$ 次，明文 P 的范围是：
 
 $$
 \frac { x N } { 3 ^ { i } } \leq P < \frac { x N + N } { 3 ^ { i } }.\ \ (\ 1\ )
 $$
 
-第 $i+1$ 次，明文P的范围是：
+第 $i+1$ 次，明文 P 的范围是：
 
 $$
 \frac { k N } { 3 ^ { i+1 } } \leq P < \frac { k N + N } { 3 ^ { i+1 } }.\ \ (\ 2\ )
@@ -163,7 +163,7 @@ $$
 
 由于P一定存在，所以（3）和（4）存在交集，所以 y = x，那么只需要更新上界“upper”：
 
-    upper = (2*lower+upper)//3
+    upper = (2 * lower + upper) // 3
 
 如果返回 1，将 $k = 3y + 1$ 带入（2），
 
@@ -173,7 +173,7 @@ $$
 
 由于P一定存在，所以（3）和（5）存在交集，所以 $y = x$，那么需要同时更新上界和下界：
 
-    upper = (lower + 2*upper)//3; lower = (2*lower + upper)//3
+    upper = (lower + 2 * upper) // 3; lower = (2 * lower + upper) // 3
 
 如果返回 2，将 $k = 3y + 2$ 带入（2），
 
@@ -183,7 +183,7 @@ $$
 
 由于P一定存在，所以（3）和（6）存在交集，所以 $y = x$，那么只需要更新下界“lower”：
 
-    lower = (lower + 2*upper) // 3
+    lower = (lower + 2 * upper) // 3
 
 这样每一次范围的更新都会缩小范围，最终逼近明文`m`。
 
