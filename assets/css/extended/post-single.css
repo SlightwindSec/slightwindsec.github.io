@@ -2,3 +2,9 @@
 .highlight pre {
     color: inherit;
 }
+
+/* 文章字体大小和行高调整 */
+body {
+    font-size: 16px;
+    line-height: 2;
+}

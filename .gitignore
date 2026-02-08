@@ -13,3 +13,4 @@ draft
 *.swp
 *.swo
 *~
+.hugo_build.lock
